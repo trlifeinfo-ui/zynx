@@ -1,0 +1,5545 @@
+const SITE = Object.freeze({
+  name: "ZYNX",
+  year: "2026",
+  description: "Modern Discord toplulukları için profesyonel bot ekosistemi.",
+  stats: {
+    bots: 4,
+    uptime: "99.9%",
+    latency: "<20ms",
+    systems: "24/7"
+  }
+});
+
+const SVG = Object.freeze({
+  logo: `<svg viewBox="0 0 64 64" fill="none"><path d="M32 5l21 12v24L32 53 11 41V17L32 5Z" stroke="currentColor" stroke-width="4"/><path d="M21 22h22L21 42h22" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  shield: `<svg viewBox="0 0 64 64" fill="none"><path d="M32 6l20 8v15c0 13-8 23-20 29C20 52 12 42 12 29V14l20-8Z" stroke="currentColor" stroke-width="4"/><path d="m22 32 6 6 14-15" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  ticket: `<svg viewBox="0 0 64 64" fill="none"><path d="M10 17h44v30H10V17Z" stroke="currentColor" stroke-width="4"/><path d="M20 26h24M20 33h16M20 40h21" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>`,
+
+  voice: `<svg viewBox="0 0 64 64" fill="none"><path d="M14 34c0-10 8-18 18-18s18 8 18 18" stroke="currentColor" stroke-width="4"/><rect x="9" y="32" width="10" height="19" rx="5" stroke="currentColor" stroke-width="4"/><rect x="45" y="32" width="10" height="19" rx="5" stroke="currentColor" stroke-width="4"/><path d="M27 52h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>`,
+
+  ai: `<svg viewBox="0 0 64 64" fill="none"><rect x="10" y="12" width="44" height="40" rx="12" stroke="currentColor" stroke-width="4"/><path d="M22 31h.1M32 31h.1M42 31h.1" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M24 41c4 3 12 3 16 0" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M32 6v6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>`,
+
+  arrow: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  check: `<svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  menu: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  search: `<svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  activity: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3-7 4 14 3-7h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  server: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="6" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="14" width="16" height="6" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 7h.1M8 17h.1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`
+});
+
+const BOTS = Object.freeze({
+  security: {
+    id: "security",
+    name: "ZYNX Security",
+    category: "SECURITY",
+    accent: "purple",
+    version: "4.2.1.1",
+    icon: SVG.shield,
+
+    short:
+      "Raid, spam, link ve yetki ihlallerine karşı katmanlı sunucu güvenliği.",
+
+    description:
+      "ZYNX Security, topluluğunu korumak için güvenlik olaylarını izleyen, otomasyon ve moderasyonu tek bir ürün deneyiminde birleştiren gelişmiş Discord botudur.",
+
+    features: [
+      "Anti-Raid",
+      "Anti-Spam",
+      "Anti-Link",
+      "AutoMod",
+      "Role Protection",
+      "Channel Protection",
+      "Mention Protection",
+      "Security Logs"
+    ],
+
+    commands: [
+      "/security setup",
+      "/security status",
+      "/security logs",
+      "/security lockdown",
+      "/security whitelist",
+      "/antiraid enable",
+      "/automod config"
+    ],
+
+    invite:
+      "https://discord.com/oauth2/authorize?client_id=1540275059149512778&permissions=8&integration_type=0&scope=bot+applications.commands"
+  },
+
+  ticket: {
+    id: "ticket",
+    name: "ZYNX Ticket",
+    category: "SUPPORT",
+    accent: "pink",
+    version: "3.8.0",
+    icon: SVG.ticket,
+
+    short:
+      "Panel, kategori, claim, transcript ve staff otomasyonlarıyla profesyonel destek.",
+
+    description:
+      "ZYNX Ticket, destek süreçlerini düzenleyen, ticket yaşam döngüsünü yönetilebilir ve kayıtlı hale getiren modern bir destek sistemidir.",
+
+    features: [
+      "Ticket Panel",
+      "Categories",
+      "Claim System",
+      "Transcript",
+      "Lock / Reopen",
+      "Staff Management",
+      "Ticket Logs",
+      "Automation"
+    ],
+
+    commands: [
+      "/ticket panel",
+      "/ticket setup",
+      "/ticket claim",
+      "/ticket close",
+      "/ticket lock",
+      "/ticket reopen",
+      "/ticket transcript"
+    ],
+
+    invite:
+      "https://discord.com/oauth2/authorize?client_id=1542534820033462382&permissions=8&integration_type=0&scope=bot+applications.commands"
+  },
+
+  voice: {
+    id: "voice",
+    name: "ZYNX Voice",
+    category: "VOICE",
+    accent: "cyan",
+    version: "2.9.4",
+    icon: SVG.voice,
+
+    short:
+      "Müzik, kuyruk, playback ve ses kanalı yönetimini tek bir deneyimde birleştirir.",
+
+    description:
+      "ZYNX Voice, hızlı kontrolleri ve temiz player deneyimini merkezine alan modern bir Discord ses ve müzik botudur.",
+
+    features: [
+      "Play / Search",
+      "Queue",
+      "Pause / Resume",
+      "Skip",
+      "Now Playing",
+      "Volume",
+      "Loop / Shuffle",
+      "Auto Disconnect"
+    ],
+
+    commands: [
+      "/play",
+      "/queue",
+      "/pause",
+      "/resume",
+      "/skip",
+      "/stop",
+      "/nowplaying",
+      "/volume",
+      "/loop",
+      "/shuffle"
+    ],
+
+    invite:
+      "https://discord.com/oauth2/authorize?client_id=1542535042641825835&permissions=8&integration_type=0&scope=bot+applications.commands"
+  },
+
+  ai: {
+    id: "ai",
+    name: "ZYNX AI",
+    category: "ARTIFICIAL INTELLIGENCE",
+    accent: "orange",
+    version: "1.7.6",
+    icon: SVG.ai,
+
+    short:
+      "AI sohbeti, server analizi, yönetici yardımcısı ve akıllı destek deneyimi.",
+
+    description:
+      "ZYNX AI, kullanıcılarla doğal dil üzerinden iletişim kurmak ve Discord sunucularındaki destek ve yönetim süreçlerine akıllı bir katman eklemek için tasarlanmıştır.",
+
+    features: [
+      "AI Chat",
+      "DM Assistant",
+      "Server Analysis",
+      "Admin Assistant",
+      "Ticket AI",
+      "Smart Replies",
+      "Context Awareness",
+      "AI Tools"
+    ],
+
+    commands: [
+      "/ai",
+      "/ai ask",
+      "/ai analyze",
+      "/ai help",
+      "/ai config",
+      "/ai memory",
+      "/ai reset",
+      "/ai status"
+    ],
+
+    invite:
+      "https://discord.com/oauth2/authorize?client_id=1542535094286295110&permissions=8&integration_type=0&scope=bot+applications.commands"
+  }
+});
+
+const STYLES = String.raw`
+:root{
+  --bg:#06070d;
+  --panel:#0b0e17;
+  --panel2:#0f1320;
+  --text:#f6f7fb;
+  --muted:#969eb2;
+  --muted2:#626a7e;
+  --line:rgba(255,255,255,.09);
+  --purple:#7c5cff;
+  --cyan:#20d9ff;
+  --pink:#ff5fca;
+  --green:#2be891;
+  --orange:#ff9b61;
+  --max:1240px;
+  --ease:cubic-bezier(.2,.8,.2,1)
+}
+
+*{
+  box-sizing:border-box
+}
+
+html{
+  scroll-behavior:smooth
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(124,92,255,.13),transparent 28%),
+    radial-gradient(circle at 90% 12%,rgba(32,217,255,.08),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6;
+  overflow-x:hidden
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+  opacity:.3;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(to bottom,#000,transparent 85%)
+}
+
+a{
+  color:inherit;
+  text-decoration:none
+}
+
+button,input{
+  font:inherit
+}
+
+button{
+  border:0
+}
+
+svg{
+  width:100%;
+  height:100%
+}
+
+.container{
+  width:min(var(--max),calc(100% - 40px));
+  margin:auto
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  pointer-events:none;
+  opacity:.018;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+}
+
+.cursor-glow{
+  position:fixed;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-1;
+  background:radial-gradient(circle,rgba(124,92,255,.10),transparent 68%);
+  transform:translate(-50%,-50%)
+}
+
+
+/* NAV */
+
+.site-nav{
+  position:sticky;
+  top:14px;
+  z-index:50;
+  width:min(1260px,calc(100% - 24px));
+  margin:14px auto 0;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(6,8,14,.72);
+  backdrop-filter:blur(24px);
+  box-shadow:0 20px 60px rgba(0,0,0,.25)
+}
+
+.nav-inner{
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:10px 12px 10px 16px
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px
+}
+
+.brand-icon{
+  width:42px;
+  height:42px;
+  padding:9px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#7c5cff,#20d9ff);
+  color:white;
+  box-shadow:0 0 28px rgba(124,92,255,.25)
+}
+
+.brand-icon.small{
+  width:34px;
+  height:34px;
+  padding:7px
+}
+
+.brand-name{
+  font-size:20px;
+  font-weight:950;
+  letter-spacing:-.05em
+}
+
+.desktop-nav{
+  display:flex;
+  gap:3px
+}
+
+.desktop-nav a{
+  padding:10px 13px;
+  border-radius:12px;
+  color:#aeb5c5;
+  font-size:13px;
+  font-weight:800;
+  transition:.2s
+}
+
+.desktop-nav a:hover{
+  color:white;
+  background:rgba(255,255,255,.05)
+}
+
+.nav-actions{
+  display:flex;
+  gap:8px
+}
+
+.nav-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:11px 15px;
+  border-radius:13px;
+  background:white;
+  color:#080910;
+  font-size:13px;
+  font-weight:900;
+  transition:.25s
+}
+
+.nav-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 35px rgba(255,255,255,.13)
+}
+
+.nav-button svg{
+  width:16px;
+  height:16px
+}
+
+.menu-button{
+  display:none;
+  width:42px;
+  height:42px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  color:white;
+  cursor:pointer
+}
+
+.mobile-nav{
+  display:none;
+  padding:0 12px 12px
+}
+
+.mobile-nav.open{
+  display:grid;
+  gap:6px
+}
+
+.mobile-nav a{
+  padding:13px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  color:#c7cbd7;
+  font-weight:750
+}
+
+
+/* BUTTON */
+
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:13px 17px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:14px;
+  font-size:14px;
+  font-weight:900;
+  transition:
+    transform .25s var(--ease),
+    box-shadow .25s var(--ease),
+    background .25s
+}
+
+.button.large{
+  padding:16px 21px;
+  font-size:15px
+}
+
+.button.primary{
+  color:#080910;
+  background:white
+}
+
+.button.primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 38px rgba(255,255,255,.13)
+}
+
+.button.secondary{
+  color:white;
+  background:rgba(255,255,255,.045)
+}
+
+.button.secondary:hover{
+  transform:translateY(-3px);
+  background:rgba(255,255,255,.08)
+}
+
+.button svg{
+  width:17px;
+  height:17px
+}
+
+
+/* HERO */
+
+.hero{
+  padding:110px 0 90px
+}
+
+.hero-layout{
+  min-height:680px;
+  display:grid;
+  grid-template-columns:1.03fr .97fr;
+  align-items:center;
+  gap:40px
+}
+
+.status-pill,
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:#c5cad7;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.13em
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 16px rgba(43,232,145,.8);
+  animation:pulse 1.6s infinite
+}
+
+.hero h1{
+  max-width:850px;
+  margin:22px 0;
+  font-size:clamp(58px,8vw,112px);
+  line-height:.91;
+  letter-spacing:-.075em
+}
+
+.gradient-text{
+  background:linear-gradient(90deg,#fff,#9b8dff 35%,#20d9ff 70%,#ff65cf);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent
+}
+
+.hero-description{
+  max-width:740px;
+  margin:0 0 30px;
+  color:#aeb4c5;
+  font-size:18px;
+  line-height:1.75
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px
+}
+
+.hero-metrics{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  margin-top:42px
+}
+
+.hero-metric strong{
+  display:block;
+  font-size:25px;
+  letter-spacing:-.04em
+}
+
+.hero-metric span{
+  display:block;
+  color:var(--muted2);
+  font-size:11px
+}
+
+
+/* HERO VISUAL */
+
+.hero-visual{
+  position:relative;
+  height:620px;
+  display:grid;
+  place-items:center;
+  perspective:1200px
+}
+
+.orbit{
+  position:absolute;
+  border:1px solid rgba(124,92,255,.16);
+  border-radius:50%;
+  transform:rotateX(67deg) rotateZ(12deg);
+  animation:orbit 18s linear infinite
+}
+
+.orbit.one{
+  width:420px;
+  height:420px
+}
+
+.orbit.two{
+  width:560px;
+  height:560px;
+  border-color:rgba(32,217,255,.10);
+  animation-duration:26s;
+  animation-direction:reverse
+}
+
+.orbit.three{
+  width:700px;
+  height:700px;
+  border-color:rgba(255,95,202,.07);
+  animation-duration:35s
+}
+
+.core{
+  position:relative;
+  width:265px;
+  height:300px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:34px;
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+  backdrop-filter:blur(18px);
+  box-shadow:0 40px 100px rgba(0,0,0,.4);
+  animation:float 5s ease-in-out infinite
+}
+
+.core:before{
+  content:"";
+  position:absolute;
+  inset:-70px;
+  z-index:-1;
+  background:radial-gradient(circle,rgba(124,92,255,.23),transparent 65%);
+  filter:blur(14px)
+}
+
+.core-icon{
+  width:88px;
+  height:88px;
+  padding:19px;
+  border-radius:25px;
+  background:linear-gradient(135deg,rgba(124,92,255,.82),rgba(32,217,255,.45));
+  box-shadow:0 0 55px rgba(124,92,255,.3)
+}
+
+.core-title{
+  margin-top:18px;
+  font-size:31px;
+  font-weight:950;
+  letter-spacing:-.06em
+}
+
+.core-sub{
+  color:#858da1;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.22em
+}
+
+.core-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:24px;
+  color:#c6ccd9;
+  font-size:11px;
+  font-weight:800
+}
+
+.floating{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(8,10,18,.82);
+  backdrop-filter:blur(18px);
+  box-shadow:0 22px 60px rgba(0,0,0,.3);
+  animation:floatSmall 4.6s ease-in-out infinite;
+  transition:transform .25s
+}
+
+.floating:hover{
+  transform:translateY(-7px) scale(1.02)
+}
+
+.floating-icon{
+  width:40px;
+  height:40px;
+  padding:9px;
+  border-radius:11px;
+  background:rgba(255,255,255,.06)
+}
+
+.floating strong{
+  display:block;
+  font-size:11px
+}
+
+.floating small{
+  display:block;
+  color:#72798b;
+  font-size:9px
+}
+
+.f1{
+  left:0;
+  top:14%
+}
+
+.f2{
+  right:0;
+  top:9%;
+  animation-delay:.7s
+}
+
+.f3{
+  left:3%;
+  bottom:15%;
+  animation-delay:1.2s
+}
+
+.f4{
+  right:2%;
+  bottom:11%;
+  animation-delay:1.8s
+}
+
+
+/* SECTION */
+
+.section{
+  padding:110px 0
+}
+
+.section-heading{
+  display:grid;
+  grid-template-columns:1fr .72fr;
+  align-items:end;
+  gap:35px;
+  margin-bottom:34px
+}
+
+.section-heading h2{
+  margin:14px 0 0;
+  font-size:clamp(40px,5vw,68px);
+  line-height:.95;
+  letter-spacing:-.06em
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.75
+}
+
+
+/* BOT CARD */
+
+.bot-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px
+}
+
+.bot-card{
+  position:relative;
+  min-height:430px;
+  overflow:hidden;
+  padding:26px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.02));
+  transition:
+    transform .35s var(--ease),
+    border-color .35s,
+    box-shadow .35s
+}
+
+.bot-card:hover{
+  border-color:rgba(255,255,255,.17);
+  box-shadow:0 35px 85px rgba(0,0,0,.32)
+}
+
+.bot-glow{
+  position:absolute;
+  right:-100px;
+  top:-120px;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,255,.19),transparent 68%);
+  filter:blur(8px)
+}
+
+.bot-head{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between
+}
+
+.bot-logo{
+  width:78px;
+  height:78px;
+  padding:16px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:21px;
+  background:rgba(255,255,255,.045)
+}
+
+.bot-state{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border:1px solid rgba(43,232,145,.12);
+  border-radius:999px;
+  color:#9fdec0;
+  background:rgba(43,232,145,.045);
+  font-size:9px;
+  font-weight:900
+}
+
+.bot-state i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green)
+}
+
+.bot-copy{
+  position:relative;
+  margin-top:22px
+}
+
+.bot-category{
+  color:#697185;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.14em
+}
+
+.bot-copy h3{
+  margin:7px 0 8px;
+  font-size:29px;
+  letter-spacing:-.045em
+}
+
+.bot-copy p{
+  max-width:600px;
+  margin:0;
+  color:#a1a8ba;
+  font-size:14px;
+  line-height:1.7
+}
+
+.bot-feature-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:22px
+}
+
+.bot-feature{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 9px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+  color:#bac0ce;
+  font-size:10px;
+  font-weight:800
+}
+
+.bot-feature svg{
+  width:13px;
+  height:13px;
+  color:var(--green)
+}
+
+.bot-footer{
+  position:absolute;
+  left:26px;
+  right:26px;
+  bottom:24px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.07);
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.bot-footer span{
+  color:#626a7c;
+  font:10px ui-monospace,monospace
+}
+
+.bot-footer a{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:900
+}
+
+.bot-footer a svg{
+  width:15px;
+  height:15px
+}
+
+
+/* SHOWCASE */
+
+.showcase{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:75px;
+  align-items:center;
+  padding:48px;
+  border:1px solid var(--line);
+  border-radius:34px;
+  background:linear-gradient(135deg,rgba(124,92,255,.08),rgba(255,255,255,.02));
+  overflow:hidden
+}
+
+.showcase h2{
+  margin:17px 0;
+  font-size:clamp(40px,4vw,63px);
+  line-height:.96;
+  letter-spacing:-.06em
+}
+
+.showcase>div>p{
+  max-width:560px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.8
+}
+
+.showcase-list{
+  display:grid;
+  gap:16px;
+  margin:28px 0
+}
+
+.showcase-point{
+  display:grid;
+  grid-template-columns:38px 1fr;
+  gap:12px
+}
+
+.showcase-point>span{
+  color:#5d6578;
+  font:10px ui-monospace,monospace
+}
+
+.showcase-point strong{
+  font-size:13px
+}
+
+.showcase-point p{
+  margin:3px 0 0;
+  color:#778093;
+  font-size:12px
+}
+
+.preview{
+  perspective:1300px
+}
+
+.window{
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:22px;
+  background:#090c14;
+  box-shadow:0 40px 100px rgba(0,0,0,.4);
+  transform:rotateY(-7deg) rotateX(3deg);
+  transition:.5s
+}
+
+.window:hover{
+  transform:none
+}
+
+.window-bar{
+  height:38px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 13px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+
+.window-bar i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(255,255,255,.15)
+}
+
+.window-body{
+  display:grid;
+  grid-template-columns:62px 1fr;
+  min-height:370px
+}
+
+.preview-side{
+  padding:13px;
+  border-right:1px solid rgba(255,255,255,.06)
+}
+
+.preview-side>span{
+  display:block;
+  width:35px;
+  height:35px;
+  padding:8px;
+  border-radius:10px;
+  background:rgba(124,92,255,.16)
+}
+
+.preview-side i{
+  display:block;
+  width:35px;
+  height:35px;
+  margin-top:10px;
+  border-radius:10px;
+  background:rgba(255,255,255,.04)
+}
+
+.preview-content{
+  padding:22px
+}
+
+.preview-head{
+  display:flex;
+  justify-content:space-between
+}
+
+.preview-head small{
+  display:block;
+  color:#646c80;
+  font-size:8px
+}
+
+.preview-head strong{
+  display:block;
+  margin-top:2px;
+  font-size:18px
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7c5cff,#20d9ff);
+  font-size:10px;
+  font-weight:900
+}
+
+.preview-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:20px
+}
+
+.preview-stat{
+  padding:12px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  background:rgba(255,255,255,.025)
+}
+
+.preview-stat span{
+  display:block;
+  color:#656d80;
+  font-size:8px
+}
+
+.preview-stat strong{
+  display:block;
+  margin-top:4px;
+  font-size:17px
+}
+
+.preview-chart{
+  height:190px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:13px;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:45px 45px;
+  overflow:hidden
+}
+
+.preview-chart svg{
+  width:100%;
+  height:100%;
+  padding:15px
+}
+
+
+/* PRINCIPLES */
+
+.principles{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px
+}
+
+.principle{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.025)
+}
+
+.principle span{
+  color:#5e6679;
+  font:10px ui-monospace,monospace
+}
+
+.principle h3{
+  margin:23px 0 7px;
+  font-size:16px
+}
+
+.principle p{
+  margin:0;
+  color:#7c8497;
+  font-size:12px;
+  line-height:1.65
+}
+
+
+/* INNER HERO */
+
+.inner-hero{
+  padding:120px 0 60px
+}
+
+.inner-hero h1{
+  margin:20px 0 14px;
+  font-size:clamp(56px,8vw,100px);
+  line-height:.9;
+  letter-spacing:-.075em
+}
+
+.inner-hero p{
+  max-width:700px;
+  color:var(--muted);
+  font-size:18px
+}
+
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:28px
+}
+
+.filter{
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  color:#838b9e;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:850
+}
+
+.filter.active,
+.filter:hover{
+  color:#fff;
+  background:rgba(124,92,255,.13);
+  border-color:rgba(124,92,255,.32)
+}
+
+
+/* PRODUCT */
+
+.product-hero{
+  padding:90px 0
+}
+
+.back{
+  display:inline-flex;
+  margin-bottom:30px;
+  color:#7b8395;
+  font-size:12px;
+  font-weight:800
+}
+
+.product{
+  display:grid;
+  grid-template-columns:1fr .75fr;
+  align-items:center;
+  gap:70px
+}
+
+.product-icon{
+  width:100px;
+  height:100px;
+  padding:21px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:27px;
+  background:rgba(255,255,255,.045)
+}
+
+.product-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px
+}
+
+.product-meta span{
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:999px;
+  color:#747c8f;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em
+}
+
+.product-meta .ok{
+  color:#9fdfc1;
+  border-color:rgba(43,232,145,.14)
+}
+
+.ok i{
+  display:inline-block;
+  width:6px;
+  height:6px;
+  margin-right:5px;
+  border-radius:50%;
+  background:var(--green)
+}
+
+.product h1{
+  margin:20px 0;
+  font-size:clamp(55px,7vw,94px);
+  line-height:.9;
+  letter-spacing:-.075em
+}
+
+.product-lead{
+  max-width:700px;
+  color:#aab0c0;
+  font-size:17px;
+  line-height:1.8
+}
+
+.product-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px
+}
+
+.proof{
+  display:flex;
+  flex-wrap:wrap;
+  gap:32px;
+  margin-top:32px
+}
+
+.proof strong{
+  display:block;
+  font-size:20px
+}
+
+.proof span{
+  display:block;
+  color:#6b7284;
+  font-size:9px
+}
+
+.product-visual{
+  position:relative;
+  min-height:520px;
+  display:grid;
+  place-items:center
+}
+
+.product-glow{
+  position:absolute;
+  width:440px;
+  height:440px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,255,.24),transparent 66%);
+  filter:blur(10px)
+}
+
+.product-orb{
+  position:relative;
+  width:245px;
+  height:245px;
+  display:grid;
+  place-items:center;
+  padding:67px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 25%,rgba(255,255,255,.18),transparent 20%),
+    linear-gradient(135deg,rgba(124,92,255,.42),rgba(32,217,255,.12));
+  box-shadow:0 0 100px rgba(124,92,255,.2);
+  animation:float 5s ease-in-out infinite
+}
+
+.system-card{
+  position:absolute;
+  min-width:155px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(9,11,20,.84);
+  backdrop-filter:blur(15px);
+  box-shadow:0 20px 60px rgba(0,0,0,.3)
+}
+
+.system-card.top{
+  top:13%;
+  left:0
+}
+
+.system-card.bottom{
+  right:0;
+  bottom:15%
+}
+
+.system-card span{
+  display:block;
+  color:#636b7e;
+  font-size:8px;
+  font-weight:900
+}
+
+.system-card strong{
+  display:block;
+  margin-top:4px;
+  font-size:12px
+}
+
+.system-card i{
+  position:absolute;
+  right:12px;
+  top:16px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green)
+}
+
+
+/* CAPABILITIES */
+
+.cap-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px
+}
+
+.cap{
+  min-height:205px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+  transition:.25s
+}
+
+.cap:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.05)
+}
+
+.cap-num{
+  color:#5e6679;
+  font:10px ui-monospace,monospace
+}
+
+.cap h3{
+  margin:28px 0 7px;
+  font-size:17px
+}
+
+.cap p{
+  margin:0;
+  color:#7f8799;
+  font-size:12px;
+  line-height:1.7
+}
+
+
+/* COMMANDS */
+
+.search{
+  position:relative;
+  max-width:680px;
+  margin-top:28px
+}
+
+.search svg{
+  position:absolute;
+  left:17px;
+  top:50%;
+  width:18px;
+  height:18px;
+  color:#697184;
+  transform:translateY(-50%)
+}
+
+.search input{
+  width:100%;
+  height:56px;
+  padding:0 18px 0 49px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  outline:none;
+  color:#fff;
+  background:rgba(255,255,255,.035)
+}
+
+.search input:focus{
+  border-color:rgba(124,92,255,.4);
+  box-shadow:0 0 0 4px rgba(124,92,255,.06)
+}
+
+.command-list{
+  display:grid;
+  gap:7px
+}
+
+.command-item{
+  display:grid;
+  grid-template-columns:45px 1fr 180px;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.025)
+}
+
+.command-icon{
+  width:42px;
+  height:42px;
+  padding:9px;
+  border-radius:11px;
+  background:rgba(255,255,255,.045)
+}
+
+.command-info strong{
+  display:block;
+  font:12px ui-monospace,monospace
+}
+
+.command-info span{
+  display:block;
+  color:#6c7487;
+  font-size:10px
+}
+
+.command-category{
+  text-align:right;
+  color:#687083;
+  font-size:9px;
+  font-weight:900
+}
+
+.command-table{
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden
+}
+
+.command-row{
+  display:grid;
+  grid-template-columns:50px 1fr 170px;
+  align-items:center;
+  gap:15px;
+  padding:15px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+
+.command-row:last-child{
+  border-bottom:0
+}
+
+.command-number{
+  color:#5d6578;
+  font:10px ui-monospace,monospace
+}
+
+.command-row code{
+  color:#edf0f7;
+  font:13px ui-monospace,monospace
+}
+
+.command-row span:last-child{
+  text-align:right;
+  color:#687083;
+  font-size:9px;
+  font-weight:800
+}
+
+
+/* STATUS */
+
+.global-status{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 22px;
+  border:1px solid rgba(43,232,145,.14);
+  border-radius:19px;
+  background:rgba(43,232,145,.035)
+}
+
+.global-status>div{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+
+.big-dot{
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 18px var(--green)
+}
+
+.global-status strong{
+  display:block;
+  font-size:14px
+}
+
+.global-status span{
+  display:block;
+  color:#6f778a;
+  font-size:10px
+}
+
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:12px
+}
+
+.status-card{
+  padding:21px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.025)
+}
+
+.status-top{
+  display:flex;
+  align-items:center;
+  gap:11px
+}
+
+.status-icon{
+  width:47px;
+  height:47px;
+  padding:10px;
+  border-radius:13px;
+  background:rgba(255,255,255,.045)
+}
+
+.status-top span{
+  color:#697184;
+  font-size:8px;
+  font-weight:900
+}
+
+.status-top h3{
+  margin:2px 0 0;
+  font-size:17px
+}
+
+.status-line{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:20px
+}
+
+.status-line span{
+  color:#9fdec0;
+  font-size:10px;
+  font-weight:850
+}
+
+.status-line i{
+  display:inline-block;
+  width:6px;
+  height:6px;
+  margin-right:5px;
+  border-radius:50%;
+  background:var(--green)
+}
+
+.status-line b{
+  color:#666e81;
+  font:9px ui-monospace,monospace
+}
+
+.meter{
+  height:4px;
+  margin-top:13px;
+  border-radius:99px;
+  background:rgba(255,255,255,.05);
+  overflow:hidden
+}
+
+.meter span{
+  display:block;
+  width:99%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#7c5cff,#20d9ff)
+}
+
+
+/* DASHBOARD */
+
+.dashboard-shell{
+  display:grid;
+  grid-template-columns:235px 1fr;
+  min-height:720px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  overflow:hidden;
+  background:#090b13;
+  box-shadow:0 40px 110px rgba(0,0,0,.3)
+}
+
+.dash-side{
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  border-right:1px solid rgba(255,255,255,.06);
+  background:linear-gradient(180deg,rgba(124,92,255,.07),transparent)
+}
+
+.dash-brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:25px;
+  font-size:11px;
+  font-weight:950
+}
+
+.dash-brand span{
+  width:30px;
+  height:30px;
+  padding:6px;
+  border-radius:9px;
+  background:linear-gradient(135deg,#7c5cff,#20d9ff)
+}
+
+.dash-nav{
+  display:grid;
+  gap:4px
+}
+
+.dash-nav a{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:11px;
+  border-radius:10px;
+  color:#737b8e;
+  font-size:11px;
+  font-weight:800
+}
+
+.dash-nav a:hover,
+.dash-nav a.active{
+  color:#fff;
+  background:rgba(255,255,255,.06)
+}
+
+.dash-nav svg{
+  width:16px;
+  height:16px
+}
+
+.dash-bottom{
+  margin-top:auto;
+  padding-top:17px;
+  border-top:1px solid rgba(255,255,255,.06)
+}
+
+.dash-bottom span{
+  display:block;
+  color:#596174;
+  font-size:8px;
+  font-weight:900
+}
+
+.dash-bottom strong{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+  color:#a4dfbf;
+  font-size:10px
+}
+
+.dash-bottom i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green)
+}
+
+.dash-main{
+  padding:26px
+}
+
+.dash-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.dash-head small{
+  color:#5f677a;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.14em
+}
+
+.dash-head h2{
+  margin:3px 0 0;
+  font-size:25px;
+  letter-spacing:-.04em
+}
+
+.user{
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+
+.user>span{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7c5cff,#20d9ff);
+  font-size:10px;
+  font-weight:900
+}
+
+.user strong{
+  display:block;
+  font-size:10px
+}
+
+.user small{
+  display:block;
+  color:#5f6779;
+  font-size:8px
+}
+
+.dash-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-top:21px
+}
+
+.dash-metric{
+  padding:15px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:15px;
+  background:rgba(255,255,255,.025)
+}
+
+.dash-metric span{
+  display:block;
+  color:#676f82;
+  font-size:8px;
+  font-weight:800
+}
+
+.dash-metric strong{
+  display:block;
+  margin-top:6px;
+  font-size:22px
+}
+
+.dash-metric small{
+  display:block;
+  margin-top:2px;
+  color:#6fd5a3;
+  font-size:8px
+}
+
+.dash-grid{
+  display:grid;
+  grid-template-columns:1.5fr .75fr;
+  gap:10px;
+  margin-top:10px
+}
+
+.panel{
+  padding:17px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  background:rgba(255,255,255,.02)
+}
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.panel-head span{
+  color:#60687a;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.14em
+}
+
+.panel-head h3{
+  margin:3px 0 0;
+  font-size:15px
+}
+
+.chart{
+  height:345px;
+  margin-top:11px;
+  border-radius:12px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(255,255,255,.024) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.024) 1px,transparent 1px);
+  background-size:45px 45px
+}
+
+.chart svg{
+  width:100%;
+  height:100%;
+  padding:18px
+}
+
+.service{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.05)
+}
+
+.service:last-child{
+  border-bottom:0
+}
+
+.service-icon{
+  width:33px;
+  height:33px;
+  padding:7px;
+  border-radius:9px;
+  background:rgba(255,255,255,.045)
+}
+
+.service strong{
+  display:block;
+  font-size:10px
+}
+
+.service span{
+  display:block;
+  color:#61697c;
+  font-size:8px
+}
+
+.service>i{
+  margin-left:auto;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green)
+}
+
+
+/* AUTH */
+
+.auth{
+  min-height:700px;
+  display:grid;
+  place-items:center;
+  padding:90px 0
+}
+
+.auth-card{
+  width:min(560px,100%);
+  padding:40px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:27px;
+  background:rgba(255,255,255,.035);
+  box-shadow:0 35px 100px rgba(0,0,0,.34)
+}
+
+.auth-logo{
+  width:76px;
+  height:76px;
+  padding:17px;
+  margin:0 auto 22px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#7c5cff,#20d9ff)
+}
+
+.auth-card h1{
+  margin:18px 0 13px;
+  font-size:52px;
+  line-height:.95;
+  letter-spacing:-.06em
+}
+
+.auth-card>p{
+  color:#838b9d;
+  font-size:13px;
+  line-height:1.75
+}
+
+.auth-note{
+  display:flex;
+  align-items:flex-start;
+  gap:7px;
+  margin-top:17px;
+  padding:12px;
+  text-align:left;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  color:#686f81;
+  font-size:9px
+}
+
+.auth-note svg{
+  width:15px;
+  height:15px;
+  color:var(--green);
+  flex:none
+}
+
+
+/* LEGAL */
+
+.legal{
+  padding:110px 0
+}
+
+.legal h1{
+  margin:20px 0;
+  font-size:clamp(50px,7vw,88px);
+  line-height:.95;
+  letter-spacing:-.06em
+}
+
+.legal-intro{
+  max-width:720px;
+  color:#9299aa;
+  font-size:16px
+}
+
+.legal-card{
+  margin-top:32px;
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.025)
+}
+
+.legal-card h2{
+  margin:26px 0 7px;
+  font-size:17px
+}
+
+.legal-card h2:first-child{
+  margin-top:0
+}
+
+.legal-card p{
+  margin:0;
+  color:#7c8496;
+  font-size:13px;
+  line-height:1.8
+}
+
+
+/* CTA */
+
+.cta{
+  padding:50px 0 110px
+}
+
+.cta-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  padding:42px;
+  border:1px solid rgba(124,92,255,.2);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 15% 50%,rgba(124,92,255,.16),transparent 34%),
+    rgba(255,255,255,.025)
+}
+
+.cta-card h2{
+  margin:14px 0 7px;
+  font-size:clamp(38px,5vw,58px);
+  line-height:.95;
+  letter-spacing:-.055em
+}
+
+.cta-card p{
+  margin:0;
+  color:#838b9e;
+  font-size:13px
+}
+
+
+/* ERROR */
+
+.error{
+  min-height:700px;
+  display:grid;
+  place-items:center;
+  text-align:center
+}
+
+.error-code{
+  font-size:clamp(110px,20vw,220px);
+  line-height:.75;
+  font-weight:950;
+  letter-spacing:-.1em;
+  color:rgba(255,255,255,.055)
+}
+
+.error h1{
+  margin:32px 0 12px;
+  font-size:47px;
+  letter-spacing:-.055em
+}
+
+.error p{
+  max-width:530px;
+  margin:0 auto 25px;
+  color:#7b8396;
+  font-size:14px
+}
+
+
+/* FOOTER */
+
+.footer{
+  padding:40px 0 55px
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:60px;
+  padding-top:32px;
+  border-top:1px solid rgba(255,255,255,.06)
+}
+
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:15px;
+  font-weight:950
+}
+
+.footer-top p{
+  max-width:350px;
+  color:#626a7c;
+  font-size:11px
+}
+
+.footer-links{
+  display:flex;
+  gap:80px
+}
+
+.footer-links div{
+  display:grid;
+  gap:6px;
+  align-content:start
+}
+
+.footer-links strong{
+  margin-bottom:4px;
+  font-size:10px
+}
+
+.footer-links a{
+  color:#646c7f;
+  font-size:10px
+}
+
+.footer-links a:hover{
+  color:#fff
+}
+
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:30px;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.05);
+  color:#50586a;
+  font-size:9px
+}
+
+
+/* REVEAL */
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none
+}
+
+
+/* ANIMATIONS */
+
+@keyframes pulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:1
+  }
+
+  50%{
+    transform:scale(1.35);
+    opacity:.65
+  }
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0)
+  }
+
+  50%{
+    transform:translateY(-14px)
+  }
+}
+
+@keyframes floatSmall{
+  0%,100%{
+    transform:translateY(0)
+  }
+
+  50%{
+    transform:translateY(-8px)
+  }
+}
+
+@keyframes orbit{
+  from{
+    transform:rotateX(67deg) rotateZ(0)
+  }
+
+  to{
+    transform:rotateX(67deg) rotateZ(360deg)
+  }
+}
+
+
+/* TABLET */
+
+@media(max-width:1050px){
+
+  .desktop-nav,
+  .nav-button{
+    display:none
+  }
+
+  .menu-button{
+    display:block
+  }
+
+  .hero-layout{
+    grid-template-columns:1fr
+  }
+
+  .hero-content{
+    text-align:center
+  }
+
+  .hero-description{
+    margin-left:auto;
+    margin-right:auto
+  }
+
+  .hero-actions,
+  .hero-metrics{
+    justify-content:center
+  }
+
+  .hero-visual{
+    height:570px
+  }
+
+  .section-heading{
+    grid-template-columns:1fr
+  }
+
+  .showcase{
+    grid-template-columns:1fr
+  }
+
+  .principles{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .product{
+    grid-template-columns:1fr
+  }
+
+  .product-copy{
+    text-align:center
+  }
+
+  .product-icon{
+    margin:auto
+  }
+
+  .product-lead{
+    margin-left:auto;
+    margin-right:auto
+  }
+
+  .product-meta,
+  .product-actions,
+  .proof{
+    justify-content:center
+  }
+
+  .cap-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .dashboard-shell{
+    grid-template-columns:1fr
+  }
+
+  .dash-side{
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.06)
+  }
+
+  .dash-nav{
+    grid-template-columns:repeat(3,1fr)
+  }
+
+  .dash-bottom{
+    display:none
+  }
+
+  .dash-grid{
+    grid-template-columns:1fr
+  }
+}
+
+
+/* MOBILE */
+
+@media(max-width:720px){
+
+  .container{
+    width:calc(100% - 28px)
+  }
+
+  .site-nav{
+    width:calc(100% - 16px)
+  }
+
+  .hero{
+    padding-top:75px
+  }
+
+  .hero h1{
+    font-size:56px
+  }
+
+  .hero-description{
+    font-size:16px
+  }
+
+  .hero-visual{
+    height:500px
+  }
+
+  .orbit.one{
+    width:300px;
+    height:300px
+  }
+
+  .orbit.two{
+    width:410px;
+    height:410px
+  }
+
+  .orbit.three{
+    width:520px;
+    height:520px
+  }
+
+  .core{
+    width:220px;
+    height:250px
+  }
+
+  .floating{
+    transform:scale(.84)
+  }
+
+  .f1{
+    left:-12px
+  }
+
+  .f2{
+    right:-12px
+  }
+
+  .f3{
+    left:-12px
+  }
+
+  .f4{
+    right:-12px
+  }
+
+  .bot-grid{
+    grid-template-columns:1fr
+  }
+
+  .bot-card{
+    min-height:425px
+  }
+
+  .cap-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .command-row{
+    grid-template-columns:36px 1fr
+  }
+
+  .command-row span:last-child{
+    display:none
+  }
+
+  .command-item{
+    grid-template-columns:43px 1fr
+  }
+
+  .command-category{
+    display:none
+  }
+
+  .status-grid{
+    grid-template-columns:1fr
+  }
+
+  .dash-metrics{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .dash-nav{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .global-status{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .cta-card{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:30px
+  }
+
+  .footer-top{
+    grid-template-columns:1fr
+  }
+
+  .footer-links{
+    gap:50px
+  }
+
+  .footer-bottom{
+    flex-direction:column
+  }
+}
+
+
+/* SMALL MOBILE */
+
+@media(max-width:480px){
+
+  .hero h1{
+    font-size:49px
+  }
+
+  .hero-metrics{
+    gap:20px
+  }
+
+  .inner-hero{
+    padding-top:85px
+  }
+
+  .inner-hero h1{
+    font-size:55px
+  }
+
+  .bot-feature-list,
+  .cap-grid{
+    grid-template-columns:1fr
+  }
+
+  .product h1{
+    font-size:55px
+  }
+
+  .product-visual{
+    min-height:420px
+  }
+
+  .product-orb{
+    width:215px;
+    height:215px;
+    padding:58px
+  }
+
+  .system-card.top{
+    left:0
+  }
+
+  .system-card.bottom{
+    right:0
+  }
+
+  .auth-card{
+    padding:28px 20px
+  }
+
+  .auth-card h1{
+    font-size:43px
+  }
+
+  .footer-links{
+    gap:40px
+  }
+
+  .dashboard-content,
+  .dash-main{
+    padding:17px
+  }
+
+  .dash-head .user{
+    display:none
+  }
+
+  .chart{
+    height:240px
+  }
+}
+`;
+
+const SCRIPT = String.raw`
+(() => {
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+
+  const $$ = (selector, root = document) =>
+    Array.from(root.querySelectorAll(selector));
+
+
+  /* MOBILE MENU */
+
+  const menuButton =
+    $("#menuButton");
+
+  const mobileNav =
+    $("#mobileNav");
+
+  if (
+    menuButton &&
+    mobileNav
+  ) {
+    menuButton.addEventListener(
+      "click",
+      () => {
+        mobileNav.classList.toggle("open");
+      }
+    );
+  }
+
+
+  /* CURSOR GLOW */
+
+  const glow =
+    $("#cursorGlow");
+
+  if (
+    glow &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+    window.addEventListener(
+      "pointermove",
+      event => {
+        glow.style.left =
+          event.clientX + "px";
+
+        glow.style.top =
+          event.clientY + "px";
+      },
+      {
+        passive:true
+      }
+    );
+  }
+
+
+  /* SCROLL REVEAL */
+
+  const revealItems =
+    $$(".reveal");
+
+  if (
+    "IntersectionObserver" in window
+  ) {
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "show"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold:.08
+        }
+      );
+
+
+    revealItems.forEach(
+      (element,index) => {
+
+        element.style.transitionDelay =
+          Math.min(
+            index * 35,
+            420
+          ) + "ms";
+
+        observer.observe(
+          element
+        );
+
+      }
+    );
+
+  } else {
+
+    revealItems.forEach(
+      element => {
+        element.classList.add(
+          "show"
+        );
+      }
+    );
+
+  }
+
+
+  /* CARD TILT */
+
+  if (
+    window.matchMedia(
+      "(pointer:fine)"
+    ).matches
+  ) {
+
+    $$(".bot-card").forEach(
+      card => {
+
+        card.addEventListener(
+          "pointermove",
+          event => {
+
+            const rect =
+              card.getBoundingClientRect();
+
+            const x =
+              event.clientX -
+              rect.left;
+
+            const y =
+              event.clientY -
+              rect.top;
+
+            const rotateY =
+              ((x / rect.width) - .5)
+              * 4;
+
+            const rotateX =
+              ((y / rect.height) - .5)
+              * -4;
+
+            card.style.transform =
+              "perspective(900px) " +
+              "rotateX(" +
+              rotateX +
+              "deg) " +
+              "rotateY(" +
+              rotateY +
+              "deg) " +
+              "translateY(-7px)";
+          }
+        );
+
+
+        card.addEventListener(
+          "pointerleave",
+          () => {
+            card.style.transform =
+              "";
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  /* BOT FILTER */
+
+  const filters =
+    $$("[data-filter]");
+
+  if (
+    filters.length
+  ) {
+
+    const cards =
+      $$("[data-category]");
+
+
+    filters.forEach(
+      filter => {
+
+        filter.addEventListener(
+          "click",
+          () => {
+
+            filters.forEach(
+              item => {
+                item.classList.remove(
+                  "active"
+                );
+              }
+            );
+
+
+            filter.classList.add(
+              "active"
+            );
+
+
+            const value =
+              filter.getAttribute(
+                "data-filter"
+              );
+
+
+            cards.forEach(
+              card => {
+
+                const category =
+                  card.getAttribute(
+                    "data-category"
+                  ) || "";
+
+
+                if (
+                  value === "all" ||
+                  category.includes(
+                    value
+                  )
+                ) {
+
+                  card.style.display =
+                    "";
+
+                } else {
+
+                  card.style.display =
+                    "none";
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  /* COMMAND SEARCH */
+
+  const search =
+    $("#commandSearch");
+
+  if (
+    search
+  ) {
+
+    const commands =
+      $$("[data-command-search]");
+
+
+    search.addEventListener(
+      "input",
+      () => {
+
+        const query =
+          search.value
+            .toLowerCase()
+            .trim();
+
+
+        commands.forEach(
+          command => {
+
+            const text =
+              command.getAttribute(
+                "data-command-search"
+              ) || "";
+
+
+            command.style.display =
+              text.includes(
+                query
+              )
+                ? ""
+                : "none";
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+})();
+`;
+
+export default {
+  async fetch(request) {
+
+    try {
+
+      return await handleRequest(
+        request
+      );
+
+    } catch (error) {
+
+      return html(
+        renderError(error),
+        500
+      );
+
+    }
+  }
+};
+
+
+/* ============================================================
+   REQUEST HANDLER
+   ============================================================ */
+
+async function handleRequest(
+  request
+) {
+
+  if (
+    request.method !== "GET" &&
+    request.method !== "HEAD"
+  ) {
+
+    return new Response(
+      "Method Not Allowed",
+      {
+        status:405,
+        headers:{
+          Allow:"GET, HEAD"
+        }
+      }
+    );
+
+  }
+
+
+  const url =
+    new URL(
+      request.url
+    );
+
+
+  const path =
+    normalizePath(
+      url.pathname
+    );
+
+
+  if (
+    path === "/api/status"
+  ) {
+
+    return apiStatus();
+
+  }
+
+
+  if (
+    path === "/api/bots"
+  ) {
+
+    return apiBots();
+
+  }
+
+
+  if (
+    path === "/"
+  ) {
+
+    return html(
+      renderHome()
+    );
+
+  }
+
+
+  if (
+    path === "/bots"
+  ) {
+
+    return html(
+      renderBots()
+    );
+
+  }
+
+
+  if (
+    path === "/commands"
+  ) {
+
+    return html(
+      renderCommands()
+    );
+
+  }
+
+
+  if (
+    path === "/status"
+  ) {
+
+    return html(
+      renderStatus()
+    );
+
+  }
+
+
+  if (
+    path === "/dashboard"
+  ) {
+
+    return html(
+      renderDashboard()
+    );
+
+  }
+
+
+  if (
+    path === "/login"
+  ) {
+
+    return html(
+      renderLogin()
+    );
+
+  }
+
+
+  if (
+    path === "/privacy"
+  ) {
+
+    return html(
+      renderLegal(
+        "Gizlilik Politikası",
+        "ZYNX web platformunda veri işleme ve hizmet kullanımına ilişkin genel bilgilendirme."
+      )
+    );
+
+  }
+
+
+  if (
+    path === "/terms"
+  ) {
+
+    return html(
+      renderLegal(
+        "Kullanım Koşulları",
+        "ZYNX ürünlerinin ve web platformunun kullanımına ilişkin genel şartlar."
+      )
+    );
+
+  }
+
+
+  const botMatch =
+    path.match(
+      /^\/bots\/(security|ticket|voice|ai)$/
+    );
+
+
+  if (
+    botMatch
+  ) {
+
+    return html(
+      renderBot(
+        BOTS[
+          botMatch[1]
+        ]
+      )
+    );
+
+  }
+
+
+  return html(
+    render404(),
+    404
+  );
+}
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function normalizePath(
+  path
+) {
+
+  const clean =
+    String(
+      path || "/"
+    )
+      .replace(
+        /\/+/g,
+        "/"
+      )
+      .replace(
+        /\/$/,
+        ""
+      );
+
+
+  return clean || "/";
+}
+
+
+function html(
+  content,
+  status = 200
+) {
+
+  const response =
+`<!doctype html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<meta
+  name="theme-color"
+  content="#06070d"
+>
+
+<meta
+  name="description"
+  content="${escapeHtml(
+    SITE.description
+  )}"
+>
+
+<title>
+  ZYNX — Discord Bot Ecosystem
+</title>
+
+<style>
+${STYLES}
+</style>
+
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div
+  id="cursorGlow"
+  class="cursor-glow"
+></div>
+
+${renderNav()}
+
+${content}
+
+${renderFooter()}
+
+<script>
+${SCRIPT}
+</script>
+
+</body>
+
+</html>`;
+
+
+  return new Response(
+    requestBody(
+      response
+    ),
+    {
+      status,
+      headers:{
+        "content-type":
+          "text/html; charset=UTF-8",
+
+        "cache-control":
+          status === 200
+            ? "public, max-age=60"
+            : "no-store",
+
+        "x-content-type-options":
+          "nosniff",
+
+        "referrer-policy":
+          "strict-origin-when-cross-origin"
+      }
+    }
+  );
+}
+
+
+function requestBody(
+  value
+) {
+  return value;
+}
+
+
+/* ============================================================
+   API
+   ============================================================ */
+
+function apiStatus() {
+
+  return new Response(
+    JSON.stringify({
+      ok:true,
+      name:SITE.name,
+      status:"operational",
+      updated:new Date().toISOString(),
+
+      systems:
+        Object.values(
+          BOTS
+        ).map(
+          bot => ({
+            id:bot.id,
+            name:bot.name,
+            version:bot.version,
+            status:"Operational"
+          })
+        )
+    }),
+    {
+      headers:{
+        "content-type":
+          "application/json; charset=UTF-8",
+
+        "cache-control":
+          "public, max-age=30"
+      }
+    }
+  );
+}
+
+
+function apiBots() {
+
+  return new Response(
+    JSON.stringify({
+      ok:true,
+
+      bots:
+        Object.values(
+          BOTS
+        ).map(
+          bot => ({
+            id:bot.id,
+            name:bot.name,
+            category:bot.category,
+            version:bot.version,
+            description:bot.short
+          })
+        )
+    }),
+    {
+      headers:{
+        "content-type":
+          "application/json; charset=UTF-8",
+
+        "cache-control":
+          "public, max-age=30"
+      }
+    }
+  );
+}
+
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+function renderNav() {
+
+  return `
+<header class="site-nav">
+
+  <div class="nav-inner">
+
+    <a
+      class="brand"
+      href="/"
+    >
+
+      <span class="brand-icon">
+        ${SVG.logo}
+      </span>
+
+      <span class="brand-name">
+        ZYNX
+      </span>
+
+    </a>
+
+
+    <nav class="desktop-nav">
+
+      <a href="/">
+        Ana Sayfa
+      </a>
+
+      <a href="/bots">
+        Bots
+      </a>
+
+      <a href="/commands">
+        Komutlar
+      </a>
+
+      <a href="/status">
+        Durum
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+      <a
+        href="/bots"
+        class="nav-button"
+      >
+        Botları İncele
+        ${SVG.arrow}
+      </a>
+
+
+      <button
+        id="menuButton"
+        class="menu-button"
+        aria-label="Menü"
+      >
+        ${SVG.menu}
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="mobileNav"
+    class="mobile-nav"
+  >
+
+    <a href="/">
+      Ana Sayfa
+    </a>
+
+    <a href="/bots">
+      Bots
+    </a>
+
+    <a href="/commands">
+      Komutlar
+    </a>
+
+    <a href="/status">
+      Durum
+    </a>
+
+    <a href="/dashboard">
+      Dashboard
+    </a>
+
+  </div>
+
+</header>
+`;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+function renderFooter() {
+
+  return `
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-top">
+
+      <div>
+
+        <div class="footer-brand">
+
+          <span class="brand-icon small">
+            ${SVG.logo}
+          </span>
+
+          ZYNX
+
+        </div>
+
+        <p>
+          ${SITE.description}
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <div>
+
+          <strong>
+            Platform
+          </strong>
+
+          <a href="/bots">
+            Bots
+          </a>
+
+          <a href="/commands">
+            Komutlar
+          </a>
+
+          <a href="/status">
+            Durum
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            Sistem
+          </strong>
+
+          <a href="/dashboard">
+            Dashboard
+          </a>
+
+          <a href="/privacy">
+            Gizlilik
+          </a>
+
+          <a href="/terms">
+            Koşullar
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © ${SITE.year} ZYNX.
+        All rights reserved.
+      </span>
+
+      <span>
+        Modern Discord infrastructure.
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+`;
+}
+
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
+
+function renderHome() {
+
+  return `
+<main>
+
+
+<section class="hero">
+
+  <div class="container hero-layout">
+
+    <div class="hero-content reveal">
+
+      <div class="status-pill">
+
+        <span class="live-dot"></span>
+
+        ALL SYSTEMS OPERATIONAL
+
+      </div>
+
+
+      <h1>
+
+        Discord
+
+        <span class="gradient-text">
+          yeniden tasarlandı.
+        </span>
+
+      </h1>
+
+
+      <p class="hero-description">
+
+        Güvenlikten desteğe,
+        sesten yapay zekâya kadar
+        topluluğunun ihtiyacı olan sistemleri
+        tek bir profesyonel ekosistemde birleştir.
+
+      </p>
+
+
+      <div class="hero-actions">
+
+        <a
+          href="/bots"
+          class="button primary large"
+        >
+
+          Botları Keşfet
+
+          ${SVG.arrow}
+
+        </a>
+
+        <a
+          href="/dashboard"
+          class="button secondary large"
+        >
+          Dashboard
+        </a>
+
+      </div>
+
+
+      <div class="hero-metrics">
+
+        ${metric(
+          SITE.stats.bots,
+          "Uzman Bot"
+        )}
+
+        ${metric(
+          SITE.stats.uptime,
+          "Hedef Uptime"
+        )}
+
+        ${metric(
+          SITE.stats.latency,
+          "Response"
+        )}
+
+        ${metric(
+          SITE.stats.systems,
+          "Sistem"
+        )}
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-visual reveal">
+
+      <div class="orbit one"></div>
+
+      <div class="orbit two"></div>
+
+      <div class="orbit three"></div>
+
+
+      <div class="core">
+
+        <div class="core-icon">
+          ${SVG.logo}
+        </div>
+
+        <div class="core-title">
+          ZYNX
+        </div>
+
+        <div class="core-sub">
+          BOT ECOSYSTEM
+        </div>
+
+        <div class="core-status">
+
+          <span class="live-dot"></span>
+
+          Systems Online
+
+        </div>
+
+      </div>
+
+
+      ${floating(
+        BOTS.security,
+        "f1"
+      )}
+
+      ${floating(
+        BOTS.ticket,
+        "f2"
+      )}
+
+      ${floating(
+        BOTS.voice,
+        "f3"
+      )}
+
+      ${floating(
+        BOTS.ai,
+        "f4"
+      )}
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="container">
+
+    ${sectionHead(
+      "THE ECOSYSTEM",
+      "Dört ürün.",
+      "Tek ZYNX.",
+      "Her bot farklı bir probleme odaklanır. Birlikte kullanıldığında kapsamlı bir Discord operasyon katmanı oluşturur."
+    )}
+
+
+    <div class="bot-grid">
+
+      ${Object.values(
+        BOTS
+      ).map(
+        botCard
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="showcase reveal">
+
+      <div>
+
+        <div class="eyebrow">
+          CONTROL CENTER
+        </div>
+
+        <h2>
+
+          Sunucunu
+
+          <span class="gradient-text">
+            tek merkezden yönet.
+          </span>
+
+        </h2>
+
+        <p>
+
+          ZYNX yalnızca bot koleksiyonu değil;
+          yönetim, durum ve ürün deneyimini
+          tek çatı altında birleştiren bir platform
+          olarak tasarlanır.
+
+        </p>
+
+
+        <div class="showcase-list">
+
+          ${point(
+            "01",
+            "Merkezi yönetim",
+            "Bot sistemlerini tek kontrol alanında toplamaya uygun yapı."
+          )}
+
+          ${point(
+            "02",
+            "Gerçek zamanlı görünüm",
+            "Sistem durumlarını ve temel metrikleri ayrı status katmanında takip et."
+          )}
+
+          ${point(
+            "03",
+            "Modüler mimari",
+            "Yeni bot ve özellikleri mevcut ürün dilini bozmadan ekle."
+          )}
+
+        </div>
+
+
+        <a
+          href="/dashboard"
+          class="button primary"
+        >
+
+          Dashboard'u Gör
+
+          ${SVG.arrow}
+
+        </a>
+
+      </div>
+
+
+      <div class="preview">
+
+        <div class="window">
+
+          <div class="window-bar">
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+          </div>
+
+
+          <div class="window-body">
+
+            <aside class="preview-side">
+
+              <span>
+                ${SVG.logo}
+              </span>
+
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+
+            </aside>
+
+
+            <div class="preview-content">
+
+              <div class="preview-head">
+
+                <div>
+
+                  <small>
+                    CONTROL CENTER
+                  </small>
+
+                  <strong>
+                    Overview
+                  </strong>
+
+                </div>
+
+
+                <div class="avatar">
+                  Z
+                </div>
+
+              </div>
+
+
+              <div class="preview-stats">
+
+                ${previewStat(
+                  "Servers",
+                  "1,248"
+                )}
+
+                ${previewStat(
+                  "Events",
+                  "84.2K"
+                )}
+
+                ${previewStat(
+                  "Latency",
+                  "12ms"
+                )}
+
+              </div>
+
+
+              <div class="preview-chart">
+
+                <svg
+                  viewBox="0 0 800 250"
+                  preserveAspectRatio="none"
+                >
+
+                  <defs>
+
+                    <linearGradient
+                      id="previewLine"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+
+                      <stop
+                        stop-color="#7c5cff"
+                      />
+
+                      <stop
+                        offset="1"
+                        stop-color="#20d9ff"
+                      />
+
+                    </linearGradient>
+
+                  </defs>
+
+
+                  <path
+                    d="M0 210 C80 195 120 170 180 185 S280 90 350 135 S450 70 520 108 S640 42 710 62 S770 45 800 28"
+                    fill="none"
+                    stroke="url(#previewLine)"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                  />
+
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="container">
+
+    ${sectionHead(
+      "WHY ZYNX",
+      "Daha temiz.",
+      "Daha profesyonel.",
+      "Arayüz yalnızca güzel görünmek için değil; ürünlerin yönetilebilir, anlaşılır ve ölçeklenebilir olması için tasarlandı."
+    )}
+
+
+    <div class="principles">
+
+      ${principle(
+        "01",
+        "MODULAR",
+        "Her bot bağımsız çalışabilecek şekilde yapılandırılırken ortak platform dili korunur."
+      )}
+
+      ${principle(
+        "02",
+        "ANIMATED",
+        "Hareketler kullanıcı deneyimini destekleyen kontrollü animasyonlar olarak kullanılır."
+      )}
+
+      ${principle(
+        "03",
+        "RESPONSIVE",
+        "Masaüstünden telefona kadar aynı marka ve ürün dili korunur."
+      )}
+
+      ${principle(
+        "04",
+        "SCALABLE",
+        "Yeni servislerin mevcut yapıyı bozmadan eklenmesine uygun mimari."
+      )}
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   BOTS PAGE
+   ============================================================ */
+
+function renderBots() {
+
+  return `
+<main>
+
+<section class="inner-hero">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      PRODUCTS
+    </div>
+
+    <h1>
+
+      ZYNX
+
+      <span class="gradient-text">
+        Bots.
+      </span>
+
+    </h1>
+
+    <p>
+      Her biri farklı bir problemi çözmek
+      için tasarlanmış dört uzman bot.
+    </p>
+
+
+    <div class="filters">
+
+      <button
+        class="filter active"
+        data-filter="all"
+      >
+        All
+      </button>
+
+      <button
+        class="filter"
+        data-filter="security"
+      >
+        Security
+      </button>
+
+      <button
+        class="filter"
+        data-filter="support"
+      >
+        Support
+      </button>
+
+      <button
+        class="filter"
+        data-filter="voice"
+      >
+        Voice
+      </button>
+
+      <button
+        class="filter"
+        data-filter="artificial intelligence"
+      >
+        AI
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:40px"
+>
+
+  <div class="container">
+
+    <div class="bot-grid">
+
+      ${Object.values(
+        BOTS
+      ).map(
+        botCard
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   BOT PAGE
+   ============================================================ */
+
+function renderBot(
+  bot
+) {
+
+  return `
+<main>
+
+<section class="product-hero">
+
+  <div class="container">
+
+    <a
+      href="/bots"
+      class="back"
+    >
+      ← Tüm botlar
+    </a>
+
+
+    <div class="product">
+
+
+      <div class="product-copy reveal">
+
+        <div class="product-icon">
+          ${bot.icon}
+        </div>
+
+
+        <div class="product-meta">
+
+          <span>
+            ${bot.category}
+          </span>
+
+          <span>
+            v${bot.version}
+          </span>
+
+          <span class="ok">
+            <i></i>
+            Operational
+          </span>
+
+        </div>
+
+
+        <h1>
+          ${bot.name}
+        </h1>
+
+
+        <p class="product-lead">
+          ${escapeHtml(
+            bot.description
+          )}
+        </p>
+
+
+        <div class="product-actions">
+
+          <a
+            href="${bot.invite}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button primary large"
+          >
+
+            Discord'a Ekle
+
+            ${SVG.arrow}
+
+          </a>
+
+          <a
+            href="/commands"
+            class="button secondary large"
+          >
+            Komutları Gör
+          </a>
+
+        </div>
+
+
+        <div class="proof">
+
+          <div>
+
+            <strong>
+              ${bot.features.length}+
+            </strong>
+
+            <span>
+              Sistem Modülü
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              24/7
+            </strong>
+
+            <span>
+              Otomasyon
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              v${bot.version}
+            </strong>
+
+            <span>
+              Current Build
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="product-visual reveal">
+
+        <div class="product-glow"></div>
+
+        <div class="product-orb">
+
+          ${bot.icon}
+
+        </div>
+
+
+        <div class="system-card top">
+
+          <span>
+            SYSTEM
+          </span>
+
+          <strong>
+            OPERATIONAL
+          </strong>
+
+          <i></i>
+
+        </div>
+
+
+        <div class="system-card bottom">
+
+          <span>
+            VERSION
+          </span>
+
+          <strong>
+            ${bot.version}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:55px"
+>
+
+  <div class="container">
+
+    ${sectionHead(
+      "CAPABILITIES",
+      "Sistemin",
+      "içindeki güç.",
+      `${bot.name} tek bir komuttan ibaret değildir. Modüller birlikte çalışan bir ürün deneyimi oluşturur.`
+    )}
+
+
+    <div class="cap-grid">
+
+      ${bot.features.map(
+        (feature,index) => `
+
+<article class="cap reveal">
+
+  <div class="cap-num">
+    ${String(
+      index + 1
+    ).padStart(
+      2,
+      "0"
+    )}
+  </div>
+
+  <h3>
+    ${escapeHtml(
+      feature
+    )}
+  </h3>
+
+  <p>
+    Bu modül ${escapeHtml(
+      bot.name
+    )} ürününün temel çalışma katmanlarından biridir.
+  </p>
+
+</article>
+`
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:55px"
+>
+
+  <div class="container">
+
+    ${sectionHead(
+      "COMMANDS",
+      "Kontrol",
+      "sende.",
+      "Botun temel komutlarını hızlı biçimde keşfet."
+    )}
+
+
+    <div class="command-table">
+
+      ${bot.commands.map(
+        (command,index) => `
+
+<div class="command-row reveal">
+
+  <div class="command-number">
+
+    ${String(
+      index + 1
+    ).padStart(
+      2,
+      "0"
+    )}
+
+  </div>
+
+  <code>
+    ${escapeHtml(
+      command
+    )}
+  </code>
+
+  <span>
+    Slash Command
+  </span>
+
+</div>
+
+`
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-card">
+
+      <div>
+
+        <div class="eyebrow">
+          READY?
+        </div>
+
+        <h2>
+
+          ${bot.name}
+
+          <span class="gradient-text">
+            sunucunda.
+          </span>
+
+        </h2>
+
+        <p>
+          Botu Discord sunucuna ekleyerek
+          ZYNX deneyimini başlat.
+        </p>
+
+      </div>
+
+
+      <a
+        href="${bot.invite}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="button primary large"
+      >
+
+        Discord'a Ekle
+
+        ${SVG.arrow}
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   COMMAND PAGE
+   ============================================================ */
+
+function renderCommands() {
+
+  const items =
+    Object.values(
+      BOTS
+    ).flatMap(
+      bot =>
+        bot.commands.map(
+          command => ({
+            bot,
+            command
+          })
+        )
+    );
+
+
+  return `
+<main>
+
+<section class="inner-hero">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      COMMAND CENTER
+    </div>
+
+    <h1>
+
+      Komut
+
+      <span class="gradient-text">
+        merkezi.
+      </span>
+
+    </h1>
+
+    <p>
+      ZYNX ürünlerinin temel komutlarını
+      tek bir arayüzden keşfet.
+    </p>
+
+
+    <div class="search">
+
+      ${SVG.search}
+
+      <input
+        id="commandSearch"
+        type="search"
+        placeholder="Komut ara... örn. /ticket"
+        autocomplete="off"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:50px"
+>
+
+  <div class="container">
+
+    <div class="command-list">
+
+      ${items.map(
+        item => `
+
+<div
+  class="command-item reveal"
+  data-command-search="${escapeHtml(
+    (
+      item.command +
+      " " +
+      item.bot.name +
+      " " +
+      item.bot.category
+    )
+      .toLowerCase()
+  )}"
+>
+
+  <div class="command-icon">
+    ${item.bot.icon}
+  </div>
+
+
+  <div class="command-info">
+
+    <strong>
+      ${escapeHtml(
+        item.command
+      )}
+    </strong>
+
+    <span>
+      ${escapeHtml(
+        item.bot.name
+      )}
+    </span>
+
+  </div>
+
+
+  <div class="command-category">
+
+    ${escapeHtml(
+      item.bot.category
+    )}
+
+  </div>
+
+</div>
+
+`
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   STATUS PAGE
+   ============================================================ */
+
+function renderStatus() {
+
+  return `
+<main>
+
+<section class="inner-hero">
+
+  <div class="container">
+
+    <div class="status-pill">
+
+      <span class="live-dot"></span>
+
+      LIVE STATUS
+
+    </div>
+
+
+    <h1>
+
+      Sistem
+
+      <span class="gradient-text">
+        durumu.
+      </span>
+
+    </h1>
+
+
+    <p>
+      ZYNX platformunun temel ürünleri
+      için status merkezi.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:50px"
+>
+
+  <div class="container">
+
+    <div class="global-status reveal">
+
+      <div>
+
+        <span class="big-dot"></span>
+
+        <div>
+
+          <strong>
+            All systems operational
+          </strong>
+
+          <span>
+            Web platform ve ürün katmanı aktif.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <span>
+        ${new Date()
+          .toISOString()
+          .slice(
+            0,
+            10
+          )}
+      </span>
+
+    </div>
+
+
+    <div class="status-grid">
+
+      ${Object.values(
+        BOTS
+      ).map(
+        bot => `
+
+<article class="status-card reveal">
+
+  <div class="status-top">
+
+    <div class="status-icon">
+      ${bot.icon}
+    </div>
+
+    <div>
+
+      <span>
+        ${bot.category}
+      </span>
+
+      <h3>
+        ${bot.name}
+      </h3>
+
+    </div>
+
+  </div>
+
+
+  <div class="status-line">
+
+    <span>
+
+      <i></i>
+
+      Operational
+
+    </span>
+
+
+    <b>
+      v${bot.version}
+    </b>
+
+  </div>
+
+
+  <div class="meter">
+
+    <span></span>
+
+  </div>
+
+</article>
+
+`
+      ).join("")}
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   DASHBOARD PAGE
+   ============================================================ */
+
+function renderDashboard() {
+
+  return `
+<main>
+
+<section class="inner-hero">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      ZYNX CONTROL
+    </div>
+
+    <h1>
+
+      Kontrol
+
+      <span class="gradient-text">
+        merkezi.
+      </span>
+
+    </h1>
+
+    <p>
+      Modern sunucu yönetimi için
+      tasarlanmış dashboard deneyimi.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  style="padding-top:50px"
+>
+
+  <div class="container">
+
+    <div class="dashboard-shell reveal">
+
+
+      <aside class="dash-side">
+
+        <div class="dash-brand">
+
+          <span>
+            ${SVG.logo}
+          </span>
+
+          ZYNX CONTROL
+
+        </div>
+
+
+        <div class="dash-nav">
+
+          <a class="active">
+            ${SVG.activity}
+            Overview
+          </a>
+
+          <a>
+            ${SVG.shield}
+            Security
+          </a>
+
+          <a>
+            ${SVG.ticket}
+            Tickets
+          </a>
+
+          <a>
+            ${SVG.voice}
+            Voice
+          </a>
+
+          <a>
+            ${SVG.ai}
+            AI
+          </a>
+
+          <a>
+            ${SVG.server}
+            Servers
+          </a>
+
+        </div>
+
+
+        <div class="dash-bottom">
+
+          <span>
+            PLATFORM STATUS
+          </span>
+
+          <strong>
+
+            <i></i>
+
+            Operational
+
+          </strong>
+
+        </div>
+
+      </aside>
+
+
+      <section class="dash-main">
+
+        <div class="dash-head">
+
+          <div>
+
+            <small>
+              CONTROL CENTER
+            </small>
+
+            <h2>
+              Overview
+            </h2>
+
+          </div>
+
+
+          <div class="user">
+
+            <span>
+              Z
+            </span>
+
+            <div>
+
+              <strong>
+                Administrator
+              </strong>
+
+              <small>
+                Dashboard Preview
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="dash-metrics">
+
+          ${dashMetric(
+            "Connected Systems",
+            "04",
+            "+4.8%"
+          )}
+
+          ${dashMetric(
+            "Monitored Servers",
+            "1,248",
+            "+12.2%"
+          )}
+
+          ${dashMetric(
+            "Events / 24h",
+            "84.2K",
+            "+7.4%"
+          )}
+
+          ${dashMetric(
+            "Avg Response",
+            "12ms",
+            "-18.6%"
+          )}
+
+        </div>
+
+
+        <div class="dash-grid">
+
+
+          <div class="panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <span>
+                  ACTIVITY
+                </span>
+
+                <h3>
+                  Platform activity
+                </h3>
+
+              </div>
+
+            </div>
+
+
+            <div class="chart">
+
+              <svg
+                viewBox="0 0 900 300"
+                preserveAspectRatio="none"
+              >
+
+                <defs>
+
+                  <linearGradient
+                    id="dashGradient"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="0"
+                  >
+
+                    <stop
+                      stop-color="#7c5cff"
+                    />
+
+                    <stop
+                      offset="1"
+                      stop-color="#20d9ff"
+                    />
+
+                  </linearGradient>
+
+                </defs>
+
+
+                <path
+                  d="M0 255 C90 235 120 195 190 210 S300 115 380 155 S470 80 550 124 S650 55 720 79 S820 48 900 28"
+                  fill="none"
+                  stroke="url(#dashGradient)"
+                  stroke-width="5"
+                  stroke-linecap="round"
+                />
+
+              </svg>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <span>
+                  SYSTEMS
+                </span>
+
+                <h3>
+                  Services
+                </h3>
+
+              </div>
+
+            </div>
+
+
+            ${Object.values(
+              BOTS
+            ).map(
+              bot => `
+
+<div class="service">
+
+  <div class="service-icon">
+    ${bot.icon}
+  </div>
+
+  <div>
+
+    <strong>
+      ${bot.name}
+    </strong>
+
+    <span>
+      v${bot.version}
+    </span>
+
+  </div>
+
+  <i></i>
+
+</div>
+
+`
+            ).join("")}
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+
+function renderLogin() {
+
+  return `
+<main>
+
+<section class="auth">
+
+  <div class="auth-card reveal">
+
+    <div class="auth-logo">
+      ${SVG.logo}
+    </div>
+
+
+    <div class="eyebrow">
+      ZYNX CONTROL
+    </div>
+
+
+    <h1>
+
+      Dashboard'a
+
+      <span class="gradient-text">
+        giriş yap.
+      </span>
+
+    </h1>
+
+
+    <p>
+
+      Gerçek Discord OAuth2 girişinin
+      kullanılabilmesi için bu Worker'a
+      OAuth callback ve güvenli client secret
+      yapılandırması eklenmelidir.
+
+    </p>
+
+
+    <a
+      href="/dashboard"
+      class="button primary large"
+      style="width:100%"
+    >
+
+      Dashboard Önizlemesi
+
+      ${SVG.arrow}
+
+    </a>
+
+
+    <a
+      href="/bots"
+      class="button secondary"
+      style="width:100%;margin-top:9px"
+    >
+      Botlara Dön
+    </a>
+
+
+    <div class="auth-note">
+
+      ${SVG.check}
+
+      <span>
+
+        Client secret tarayıcıya gönderilmez.
+        Gerçek OAuth2 sistemi backend tarafında
+        yapılandırılmalıdır.
+
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   LEGAL
+   ============================================================ */
+
+function renderLegal(
+  title,
+  intro
+) {
+
+  return `
+<main>
+
+<section class="legal">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      ZYNX DOCUMENT
+    </div>
+
+
+    <h1>
+      ${escapeHtml(
+        title
+      )}
+    </h1>
+
+
+    <p class="legal-intro">
+      ${escapeHtml(
+        intro
+      )}
+    </p>
+
+
+    <article class="legal-card">
+
+      <h2>
+        01 — Genel
+      </h2>
+
+      <p>
+
+        ZYNX web platformu,
+        Discord toplulukları için bot ürünlerinin
+        tanıtımı ve ürün yönetim deneyimi amacıyla tasarlanmıştır.
+
+      </p>
+
+
+      <h2>
+        02 — Hizmet Kullanımı
+      </h2>
+
+      <p>
+
+        Platform kullanımı sırasında Discord platform
+        kuralları ve ilgili uygulama izinleri geçerlidir.
+
+      </p>
+
+
+      <h2>
+        03 — Veriler
+      </h2>
+
+      <p>
+
+        Gerçek kullanıcı veya sunucu verilerinin işlenmesi
+        için uygun backend, kimlik doğrulama ve veri
+        politikalarının ayrıca yapılandırılması gerekir.
+
+      </p>
+
+
+      <h2>
+        04 — Güncellemeler
+      </h2>
+
+      <p>
+
+        Ürün özellikleri, sürümler ve sistem mimarisi
+        zaman içerisinde güncellenebilir.
+
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   ERRORS
+   ============================================================ */
+
+function render404() {
+
+  return `
+<main>
+
+<section class="error">
+
+  <div class="container">
+
+    <span class="error-code">
+      404
+    </span>
+
+
+    <h1>
+
+      Bu sayfa
+
+      <span class="gradient-text">
+        bulunamadı.
+      </span>
+
+    </h1>
+
+
+    <p>
+      Aradığın sayfa taşınmış
+      veya mevcut değil.
+    </p>
+
+
+    <a
+      href="/"
+      class="button primary large"
+    >
+
+      Ana Sayfaya Dön
+
+      ${SVG.arrow}
+
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+function renderError(
+  error
+) {
+
+  return `
+<main>
+
+<section class="error">
+
+  <div class="container">
+
+    <span class="error-code">
+      500
+    </span>
+
+
+    <h1>
+      Sistem hatası.
+    </h1>
+
+
+    <p>
+      ${escapeHtml(
+        error &&
+        error.message
+          ? error.message
+          : "Beklenmeyen hata."
+      )}
+    </p>
+
+
+    <a
+      href="/"
+      class="button primary large"
+    >
+      Ana Sayfa
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+`;
+}
+
+
+/* ============================================================
+   UI COMPONENTS
+   ============================================================ */
+
+function metric(
+  value,
+  label
+) {
+
+  return `
+<div class="hero-metric">
+
+  <strong>
+    ${escapeHtml(
+      value
+    )}
+  </strong>
+
+  <span>
+    ${escapeHtml(
+      label
+    )}
+  </span>
+
+</div>
+`;
+}
+
+
+function floating(
+  bot,
+  className
+) {
+
+  return `
+<a
+  class="floating ${className}"
+  href="/bots/${bot.id}"
+>
+
+  <span class="floating-icon">
+    ${bot.icon}
+  </span>
+
+  <span>
+
+    <strong>
+      ${escapeHtml(
+        bot.name
+      )}
+    </strong>
+
+    <small>
+      ${escapeHtml(
+        bot.category
+      )}
+    </small>
+
+  </span>
+
+</a>
+`;
+}
+
+
+function sectionHead(
+  label,
+  title,
+  accent,
+  text
+) {
+
+  return `
+<div class="section-heading reveal">
+
+  <div>
+
+    <div class="eyebrow">
+      ${label}
+    </div>
+
+    <h2>
+
+      ${title}
+
+      <span class="gradient-text">
+        ${accent}
+      </span>
+
+    </h2>
+
+  </div>
+
+
+  <p>
+    ${escapeHtml(
+      text
+    )}
+  </p>
+
+</div>
+`;
+}
+
+
+function point(
+  number,
+  title,
+  text
+) {
+
+  return `
+<div class="showcase-point">
+
+  <span>
+    ${number}
+  </span>
+
+  <div>
+
+    <strong>
+      ${title}
+    </strong>
+
+    <p>
+      ${escapeHtml(
+        text
+      )}
+    </p>
+
+  </div>
+
+</div>
+`;
+}
+
+
+function principle(
+  number,
+  title,
+  text
+) {
+
+  return `
+<article class="principle reveal">
+
+  <span>
+    ${number}
+  </span>
+
+  <h3>
+    ${title}
+  </h3>
+
+  <p>
+    ${escapeHtml(
+      text
+    )}
+  </p>
+
+</article>
+`;
+}
+
+
+function previewStat(
+  label,
+  value
+) {
+
+  return `
+<div class="preview-stat">
+
+  <span>
+    ${label}
+  </span>
+
+  <strong>
+    ${value}
+  </strong>
+
+</div>
+`;
+}
+
+
+function dashMetric(
+  label,
+  value,
+  change
+) {
+
+  return `
+<div class="dash-metric">
+
+  <span>
+    ${label}
+  </span>
+
+  <strong>
+    ${value}
+  </strong>
+
+  <small>
+    ${change}
+  </small>
+
+</div>
+`;
+}
+
+
+function botCard(
+  bot
+) {
+
+  return `
+<article
+  class="bot-card reveal"
+  data-category="${escapeHtml(
+    bot.category.toLowerCase()
+  )}"
+>
+
+  <div class="bot-glow"></div>
+
+
+  <div class="bot-head">
+
+    <div class="bot-logo">
+      ${bot.icon}
+    </div>
+
+
+    <div class="bot-state">
+
+      <i></i>
+
+      Operational
+
+    </div>
+
+  </div>
+
+
+  <div class="bot-copy">
+
+    <span class="bot-category">
+      ${escapeHtml(
+        bot.category
+      )}
+    </span>
+
+
+    <h3>
+      ${escapeHtml(
+        bot.name
+      )}
+    </h3>
+
+
+    <p>
+      ${escapeHtml(
+        bot.short
+      )}
+    </p>
+
+  </div>
+
+
+  <div class="bot-feature-list">
+
+    ${bot.features
+      .slice(
+        0,
+        4
+      )
+      .map(
+        feature => `
+
+<div class="bot-feature">
+
+  ${SVG.check}
+
+  ${escapeHtml(
+    feature
+  )}
+
+</div>
+
+`
+      )
+      .join("")}
+
+  </div>
+
+
+  <div class="bot-footer">
+
+    <span>
+      v${bot.version}
+    </span>
+
+
+    <a
+      href="/bots/${bot.id}"
+    >
+
+      İncele
+
+      ${SVG.arrow}
+
+    </a>
+
+  </div>
+
+</article>
+`;
+}
+
+
+/* ============================================================
+   SECURITY ESCAPE
+   ============================================================ */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+}
