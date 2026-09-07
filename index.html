@@ -2,36 +2,64 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#06070b">
-<meta name="description" content="ZYNX — Discord sunucuları için Security, Ticket, Voice ve AI bot ekosistemi.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#05060a">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="ZYNX — Discord için Security, Ticket, Voice ve AI bot ekosistemi.">
 <meta name="robots" content="index,follow">
 <title>ZYNX — Discord Bot Ecosystem</title>
 
 <style>
+/* ==========================================================
+   ZYNX
+   Premium Single-File Frontend
+   ========================================================== */
+
 :root{
   --bg:#05060a;
-  --bg-2:#080a10;
-  --surface:#0b0d13;
+  --bg-soft:#080a10;
+  --surface:#0b0e15;
   --surface-2:#0f121a;
   --surface-3:#151923;
-  --text:#f7f8fb;
-  --muted:#838997;
-  --muted-2:#aeb3bf;
+  --surface-hover:#181d28;
+
+  --text:#f5f7fb;
+  --text-soft:#c9ced8;
+  --text-muted:#7e8593;
+  --text-dim:#555c69;
+
   --line:rgba(255,255,255,.075);
-  --line-2:rgba(255,255,255,.13);
+  --line-soft:rgba(255,255,255,.045);
+  --line-strong:rgba(255,255,255,.14);
+
   --purple:#8b5cf6;
-  --purple-2:#a78bfa;
+  --purple-light:#a78bfa;
+  --purple-dark:#6d28d9;
+
   --cyan:#22d3ee;
   --green:#34d399;
   --red:#fb7185;
   --yellow:#fbbf24;
-  --container:1240px;
-  --radius:24px;
-  --radius-sm:14px;
+
+  --max-width:1260px;
+
+  --radius-xs:8px;
+  --radius-sm:12px;
+  --radius-md:17px;
+  --radius-lg:24px;
+  --radius-xl:30px;
+  --radius-2xl:38px;
+
+  --shadow-sm:0 10px 30px rgba(0,0,0,.18);
+  --shadow-md:0 25px 70px rgba(0,0,0,.28);
+  --shadow-lg:0 45px 130px rgba(0,0,0,.42);
+
   --ease:cubic-bezier(.16,1,.3,1);
-  --shadow:0 35px 100px rgba(0,0,0,.38);
 }
+
+/* ==========================================================
+   RESET
+   ========================================================== */
 
 *,
 *::before,
@@ -48,11 +76,27 @@ html{
 body{
   min-height:100vh;
   overflow-x:hidden;
+
   color:var(--text);
+
   background:
-    radial-gradient(circle at 12% -5%,rgba(139,92,246,.15),transparent 26%),
-    radial-gradient(circle at 93% 12%,rgba(34,211,238,.07),transparent 22%),
-    linear-gradient(180deg,var(--bg),var(--bg-2) 55%,#05060a);
+    radial-gradient(
+      circle at 13% -5%,
+      rgba(139,92,246,.14),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 92% 4%,
+      rgba(34,211,238,.055),
+      transparent 22%
+    ),
+    linear-gradient(
+      180deg,
+      var(--bg),
+      var(--bg-soft) 55%,
+      var(--bg)
+    );
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -61,25 +105,24 @@ body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+
   -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 
-body.locked{
+body.modal-open{
   overflow:hidden;
 }
 
 ::selection{
-  background:rgba(139,92,246,.32);
+  background:rgba(139,92,246,.3);
   color:#fff;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
 button,
-input{
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -87,65 +130,171 @@ button{
   border:0;
 }
 
-img{
-  display:block;
-  max-width:100%;
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
+img{
+  max-width:100%;
+  display:block;
+}
+
+ul,
+ol{
+  list-style:none;
+}
+
+/* ==========================================================
+   GLOBAL
+   ========================================================== */
+
 .container{
-  width:min(calc(100% - 42px),var(--container));
+  width:min(
+    calc(100% - 44px),
+    var(--max-width)
+  );
+
   margin-inline:auto;
 }
 
 .section{
   position:relative;
-  padding:130px 0;
+  padding:125px 0;
 }
+
+.text-gradient{
+  background:
+    linear-gradient(
+      110deg,
+      #ffffff 8%,
+      #c4b5fd 45%,
+      #67e8f9 82%
+    );
+
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.no-scroll{
+  overflow:hidden !important;
+}
+
+/* ==========================================================
+   BACKGROUND
+   ========================================================== */
 
 .background-grid{
   position:fixed;
   inset:0;
+  z-index:-20;
   pointer-events:none;
-  z-index:-10;
+
   opacity:.28;
+
   background-image:
-    linear-gradient(rgba(255,255,255,.024) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.024) 1px,transparent 1px);
-  background-size:76px 76px;
-  mask-image:linear-gradient(to bottom,#000,rgba(0,0,0,.55),transparent 88%);
+    linear-gradient(
+      rgba(255,255,255,.022) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.022) 1px,
+      transparent 1px
+    );
+
+  background-size:74px 74px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      #000,
+      rgba(0,0,0,.6),
+      transparent 92%
+    );
+}
+
+.background-vignette{
+  position:fixed;
+  inset:0;
+  z-index:-19;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 38%,
+      rgba(0,0,0,.33)
+    );
 }
 
 .background-orb{
   position:fixed;
+
   width:600px;
   height:600px;
+
   border-radius:50%;
+
   pointer-events:none;
-  z-index:-8;
-  background:radial-gradient(circle,rgba(139,92,246,.09),transparent 70%);
+  z-index:-18;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.08),
+      rgba(139,92,246,.025) 38%,
+      transparent 72%
+    );
+
   transform:translate(-50%,-50%);
-  filter:blur(5px);
-  transition:left .15s linear,top .15s linear;
+  filter:blur(7px);
+
+  transition:
+    left .12s linear,
+    top .12s linear;
 }
 
 .noise{
   position:fixed;
   inset:0;
+  z-index:9000;
   pointer-events:none;
-  z-index:10000;
-  opacity:.02;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  opacity:.018;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* NAVIGATION */
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
 
 .navbar{
   position:fixed;
-  inset:0 0 auto;
-  height:78px;
+  top:0;
+  left:0;
+  right:0;
+
+  height:80px;
+
   z-index:1000;
+
   border-bottom:1px solid transparent;
-  background:rgba(5,6,10,.38);
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(5,6,10,.6),
+      rgba(5,6,10,.22)
+    );
+
   transition:
     background .35s ease,
     border-color .35s ease,
@@ -156,80 +305,123 @@ img{
 .navbar.scrolled{
   background:rgba(5,6,10,.76);
   backdrop-filter:blur(22px);
-  border-color:var(--line);
-  box-shadow:0 12px 50px rgba(0,0,0,.24);
+  border-bottom-color:var(--line);
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.24);
 }
 
 .nav-inner{
   height:100%;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:22px;
+
+  gap:25px;
 }
 
 .brand{
-  display:inline-flex;
+  display:flex;
   align-items:center;
   gap:12px;
+
   flex-shrink:0;
 }
 
 .brand-mark{
-  width:42px;
-  height:42px;
+  position:relative;
+
+  width:43px;
+  height:43px;
+
   display:grid;
   place-items:center;
-  position:relative;
+
   overflow:hidden;
+
   border-radius:13px;
-  background:linear-gradient(135deg,#a78bfa,#6d28d9 52%,#22d3ee);
-  box-shadow:0 10px 35px rgba(139,92,246,.26);
+
+  background:
+    linear-gradient(
+      135deg,
+      #a78bfa,
+      #6d28d9 52%,
+      #22d3ee
+    );
+
+  box-shadow:
+    0 12px 35px rgba(139,92,246,.28);
 }
 
 .brand-mark::after{
   content:"";
+
   position:absolute;
-  width:80px;
-  height:20px;
-  left:-90px;
-  top:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+
+  width:100px;
+  height:21px;
+
+  left:-120px;
+  top:3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.34),
+      transparent
+    );
+
   transform:rotate(-24deg);
-  animation:brand-shine 4.5s ease-in-out infinite;
+
+  animation:
+    brand-shine 4.2s ease-in-out infinite;
 }
 
 @keyframes brand-shine{
-  0%,58%{left:-90px}
-  78%,100%{left:72px}
+  0%,58%{
+    left:-120px;
+  }
+
+  78%,100%{
+    left:110px;
+  }
 }
 
 .brand-mark span{
   position:relative;
   z-index:2;
+
+  color:white;
+
   font-size:12px;
   font-weight:1000;
-  letter-spacing:-.08em;
+
+  letter-spacing:-.09em;
 }
 
 .brand-name{
   font-size:16px;
-  font-weight:900;
+  font-weight:950;
   letter-spacing:.01em;
 }
 
 .nav-links{
   display:flex;
   align-items:center;
-  gap:4px;
+  gap:3px;
 }
 
 .nav-link{
   padding:10px 12px;
+
+  color:var(--text-muted);
+
   border-radius:11px;
-  color:var(--muted);
-  font-size:13px;
-  font-weight:700;
+
+  font-size:12px;
+  font-weight:750;
+
   transition:
     color .2s ease,
     background .2s ease;
@@ -248,66 +440,98 @@ img{
 
 .menu-button{
   display:none;
-  width:43px;
-  height:43px;
+
+  width:44px;
+  height:44px;
+
   align-items:center;
   justify-content:center;
+
   color:white;
+
   border:1px solid var(--line);
   border-radius:13px;
-  background:rgba(255,255,255,.035);
+
+  background:
+    rgba(255,255,255,.035);
+
   cursor:pointer;
 }
 
 .mobile-menu{
   display:none;
+
   position:absolute;
-  top:86px;
-  left:15px;
-  right:15px;
-  padding:12px;
-  border:1px solid var(--line);
+
+  top:91px;
+  left:14px;
+  right:14px;
+
+  padding:11px;
+
+  border:
+    1px solid var(--line);
+
   border-radius:20px;
-  background:rgba(9,11,17,.95);
+
+  background:
+    rgba(9,11,17,.96);
+
   backdrop-filter:blur(22px);
-  box-shadow:var(--shadow);
+
+  box-shadow:var(--shadow-lg);
 }
 
 .mobile-menu.open{
   display:grid;
-  gap:5px;
+  gap:4px;
 }
 
-.mobile-menu a{
+.mobile-link{
   padding:13px;
+
+  color:var(--text-soft);
+
   border-radius:11px;
-  color:var(--muted-2);
-  font-size:13px;
+
+  font-size:12px;
   font-weight:750;
 }
 
-.mobile-menu a:hover{
-  background:rgba(255,255,255,.04);
+.mobile-link:hover{
   color:white;
+  background:rgba(255,255,255,.045);
 }
 
-/* BUTTONS */
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
 
 .btn{
   position:relative;
-  min-height:44px;
+
+  min-height:45px;
+
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-  padding:0 16px;
+
+  padding:0 17px;
+
   border-radius:13px;
-  border:1px solid transparent;
+
   color:white;
-  font-size:12px;
-  font-weight:800;
+
+  border:1px solid transparent;
+
   cursor:pointer;
+
+  font-size:12px;
+  font-weight:850;
+
   overflow:hidden;
+
   transition:
     transform .25s var(--ease),
     box-shadow .25s ease,
@@ -324,17 +548,35 @@ img{
 }
 
 .btn-primary{
-  background:linear-gradient(135deg,#8b5cf6,#6d28d9);
-  box-shadow:0 13px 35px rgba(109,40,217,.27);
+  background:
+    linear-gradient(
+      135deg,
+      #8b5cf6,
+      #6d28d9
+    );
+
+  box-shadow:
+    0 14px 40px rgba(109,40,217,.28);
 }
 
 .btn-primary::before{
   content:"";
+
   position:absolute;
   inset:0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 18%,
+      rgba(255,255,255,.18),
+      transparent 82%
+    );
+
   transform:translateX(-110%);
-  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.18),transparent 80%);
-  transition:transform .65s var(--ease);
+
+  transition:
+    transform .7s var(--ease);
 }
 
 .btn-primary:hover::before{
@@ -342,54 +584,64 @@ img{
 }
 
 .btn-secondary{
-  color:var(--muted-2);
+  color:var(--text-soft);
+
+  background:
+    rgba(255,255,255,.035);
+
   border-color:var(--line);
-  background:rgba(255,255,255,.035);
 }
 
 .btn-secondary:hover{
   color:white;
-  border-color:var(--line-2);
+  border-color:var(--line-strong);
   background:rgba(255,255,255,.06);
 }
 
-.btn-ghost{
-  color:var(--muted);
-  background:transparent;
+.btn-danger{
+  color:#ffd9df;
+
+  background:
+    rgba(251,113,133,.07);
+
+  border-color:
+    rgba(251,113,133,.13);
 }
 
-.btn-ghost:hover{
-  color:white;
-  background:rgba(255,255,255,.04);
+.btn-small{
+  min-height:37px;
+  padding:0 13px;
+  border-radius:10px;
+  font-size:10px;
 }
 
-/* HERO */
+/* ==========================================================
+   HERO
+   ========================================================== */
 
 .hero{
   position:relative;
+
   min-height:100vh;
+
   display:flex;
   align-items:center;
-  padding:155px 0 90px;
-}
 
-.hero::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-300px;
-  width:800px;
-  height:800px;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.10),transparent 69%);
-  pointer-events:none;
+  padding:
+    155px
+    0
+    85px;
 }
 
 .hero-layout{
   display:grid;
-  grid-template-columns:minmax(0,1.03fr) minmax(450px,.97fr);
-  gap:64px;
+
+  grid-template-columns:
+    minmax(0,1.03fr)
+    minmax(440px,.97fr);
+
+  gap:62px;
+
   align-items:center;
 }
 
@@ -402,133 +654,188 @@ img{
   display:inline-flex;
   align-items:center;
   gap:9px;
+
   min-height:34px;
+
   padding:0 12px;
-  border:1px solid rgba(52,211,153,.14);
+
+  border:
+    1px solid
+    rgba(52,211,153,.14);
+
   border-radius:999px;
-  background:rgba(52,211,153,.045);
-  color:#c8ffe8;
-  font-size:10px;
-  font-weight:850;
+
+  color:#d1ffe9;
+
+  background:
+    rgba(52,211,153,.045);
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:.03em;
 }
 
-.live-dot{
+.hero-badge-dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
+
   background:var(--green);
-  box-shadow:0 0 0 6px rgba(52,211,153,.055),0 0 20px rgba(52,211,153,.42);
-  animation:live-pulse 1.8s ease-in-out infinite;
+
+  box-shadow:
+    0 0 0 6px rgba(52,211,153,.05),
+    0 0 21px rgba(52,211,153,.43);
+
+  animation:
+    hero-pulse 1.8s ease-in-out infinite;
 }
 
-@keyframes live-pulse{
+@keyframes hero-pulse{
   50%{
     transform:scale(.78);
-    box-shadow:0 0 0 10px rgba(52,211,153,0),0 0 25px rgba(52,211,153,.45);
+
+    box-shadow:
+      0 0 0 10px rgba(52,211,153,0),
+      0 0 27px rgba(52,211,153,.48);
   }
 }
 
 .hero-title{
-  max-width:820px;
-  margin-top:24px;
-  font-size:clamp(54px,6.7vw,95px);
-  line-height:.94;
+  max-width:850px;
+
+  margin-top:25px;
+
+  font-size:
+    clamp(
+      54px,
+      6.7vw,
+      96px
+    );
+
+  line-height:.93;
+
   letter-spacing:-.075em;
+
   font-weight:950;
 }
 
-.gradient-text{
-  background:linear-gradient(110deg,#fff 8%,#c4b5fd 45%,#67e8f9 80%);
-  background-clip:text;
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
 .hero-description{
-  max-width:675px;
-  margin-top:27px;
-  color:var(--muted);
+  max-width:680px;
+
+  margin-top:26px;
+
+  color:var(--text-muted);
+
   font-size:16px;
+
   line-height:1.85;
 }
 
 .hero-actions{
   display:flex;
+  align-items:center;
   flex-wrap:wrap;
+
   gap:10px;
+
   margin-top:31px;
 }
 
-.hero-trust{
+.hero-meta{
   display:flex;
   align-items:center;
   flex-wrap:wrap;
+
   gap:17px;
+
   margin-top:26px;
-  color:#6f7581;
+
+  color:#676e7c;
+
   font-size:10px;
   font-weight:750;
 }
 
-.hero-trust span{
-  display:inline-flex;
+.hero-meta-item{
+  display:flex;
   align-items:center;
   gap:7px;
 }
 
-.hero-trust i{
+.hero-meta-item i{
   width:4px;
   height:4px;
+
   border-radius:50%;
-  background:var(--purple-2);
+
+  background:var(--purple-light);
 }
 
-/* ORBIT */
+/* ==========================================================
+   HERO VISUAL
+   ========================================================== */
 
 .hero-visual{
   min-height:570px;
+
   display:grid;
   place-items:center;
+
   position:relative;
 }
 
 .orbit-system{
   position:relative;
-  width:530px;
-  height:530px;
+
+  width:535px;
+  height:535px;
+
   display:grid;
   place-items:center;
 }
 
 .orbit{
   position:absolute;
+
   left:50%;
   top:50%;
-  border:1px dashed rgba(255,255,255,.08);
+
+  border:
+    1px dashed
+    rgba(255,255,255,.075);
+
   border-radius:50%;
-  transform:translate(-50%,-50%);
-  animation:orbit 24s linear infinite;
+
+  transform:
+    translate(-50%,-50%);
+
+  animation:
+    orbit-spin 25s linear infinite;
 }
 
-.orbit.one{
+.orbit-a{
   width:520px;
   height:520px;
 }
 
-.orbit.two{
-  width:400px;
-  height:400px;
+.orbit-b{
+  width:402px;
+  height:402px;
+
   animation-direction:reverse;
   animation-duration:19s;
 }
 
-.orbit.three{
-  width:280px;
-  height:280px;
+.orbit-c{
+  width:284px;
+  height:284px;
+
   animation-duration:14s;
 }
 
-@keyframes orbit{
+@keyframes orbit-spin{
   to{
     transform:
       translate(-50%,-50%)
@@ -538,383 +845,637 @@ img{
 
 .orbit-glow{
   position:absolute;
+
   width:430px;
   height:430px;
+
   border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.14),rgba(139,92,246,.025) 46%,transparent 72%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.13),
+      rgba(139,92,246,.025) 48%,
+      transparent 73%
+    );
+
   filter:blur(10px);
 }
 
-.core{
+.hero-core{
   position:relative;
   z-index:5;
-  width:188px;
-  height:188px;
+
+  width:190px;
+  height:190px;
+
   display:grid;
   place-items:center;
-  border-radius:48px;
-  border:1px solid rgba(255,255,255,.13);
-  background:linear-gradient(145deg,rgba(139,92,246,.29),rgba(14,17,25,.96));
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  border-radius:49px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(139,92,246,.28),
+      rgba(12,15,22,.96)
+    );
+
   box-shadow:
-    0 35px 110px rgba(72,43,139,.34),
-    inset 0 0 65px rgba(255,255,255,.025);
-  animation:core-float 5s ease-in-out infinite;
+    0 40px 110px rgba(71,40,138,.37),
+    inset 0 0 65px rgba(255,255,255,.027);
+
+  animation:
+    core-float 5s ease-in-out infinite;
 }
 
 @keyframes core-float{
-  50%{transform:translateY(-8px)}
+  50%{
+    transform:translateY(-8px);
+  }
 }
 
-.core::before{
+.hero-core::before{
   content:"";
+
   position:absolute;
   inset:11px;
-  border:1px solid rgba(255,255,255,.05);
+
+  border:
+    1px solid
+    rgba(255,255,255,.05);
+
   border-radius:39px;
 }
 
-.core-logo{
+.core-content{
   position:relative;
   z-index:2;
+
   text-align:center;
 }
 
-.core-zx{
-  font-size:56px;
+.core-logo{
+  font-size:58px;
+
   line-height:.9;
+
   font-weight:1000;
+
   letter-spacing:-.11em;
-  background:linear-gradient(145deg,#fff,#c4b5fd 52%,#67e8f9);
+
+  background:
+    linear-gradient(
+      145deg,
+      white,
+      #c4b5fd 51%,
+      #67e8f9
+    );
+
   background-clip:text;
   -webkit-background-clip:text;
+
   color:transparent;
 }
 
 .core-label{
-  margin-top:11px;
-  color:#777e8c;
+  margin-top:12px;
+
+  color:#717887;
+
   font-size:8px;
   font-weight:900;
-  letter-spacing:.25em;
+
+  letter-spacing:.27em;
 }
 
 .float-card{
   position:absolute;
   z-index:8;
-  min-width:166px;
+
+  min-width:169px;
+
   padding:13px 14px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:17px;
-  background:rgba(9,11,17,.77);
+
+  background:
+    rgba(8,10,16,.79);
+
   backdrop-filter:blur(17px);
-  box-shadow:var(--shadow);
-  animation:float-card 5.6s ease-in-out infinite;
+
+  box-shadow:
+    var(--shadow-md);
+
+  animation:
+    floating-card 5.4s ease-in-out infinite;
 }
 
 .float-card strong{
   display:block;
+
   font-size:12px;
-  font-weight:850;
+  font-weight:900;
 }
 
-.float-card small{
+.float-card span{
   display:block;
+
   margin-top:3px;
-  color:#666d7a;
+
+  color:#646b79;
+
   font-size:9px;
 }
 
-.float-card.a{
-  top:55px;
+.float-one{
+  top:57px;
   left:0;
 }
 
-.float-card.b{
-  top:145px;
-  right:-6px;
+.float-two{
+  top:146px;
+  right:-7px;
   animation-delay:.9s;
 }
 
-.float-card.c{
-  bottom:93px;
-  left:-3px;
+.float-three{
+  bottom:92px;
+  left:-4px;
   animation-delay:1.7s;
 }
 
-.float-card.d{
-  bottom:40px;
-  right:9px;
-  animation-delay:2.4s;
+.float-four{
+  bottom:38px;
+  right:8px;
+  animation-delay:2.35s;
 }
 
-@keyframes float-card{
-  50%{transform:translateY(-10px)}
+@keyframes floating-card{
+  50%{
+    transform:translateY(-10px);
+  }
 }
 
 .orbit-node{
   position:absolute;
-  z-index:4;
+
   width:10px;
   height:10px;
+
   border-radius:50%;
-  background:linear-gradient(135deg,#c4b5fd,#22d3ee);
-  box-shadow:0 0 25px rgba(139,92,246,.55);
+
+  z-index:4;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c4b5fd,
+      #22d3ee
+    );
+
+  box-shadow:
+    0 0 25px rgba(139,92,246,.55);
 }
 
-.orbit-node.n1{top:4%;left:48%}
-.orbit-node.n2{right:-1%;top:49%}
-.orbit-node.n3{bottom:5%;left:48%}
-.orbit-node.n4{left:-1%;top:49%}
+.node-one{
+  top:4%;
+  left:48%;
+}
 
-/* SECTION HEAD */
+.node-two{
+  top:49%;
+  right:0;
+}
 
-.section-head{
+.node-three{
+  bottom:5%;
+  left:48%;
+}
+
+.node-four{
+  top:49%;
+  left:0;
+}
+
+/* ==========================================================
+   SECTION TITLES
+   ========================================================== */
+
+.section-heading{
   max-width:780px;
+
   margin-bottom:40px;
 }
 
 .eyebrow{
-  color:var(--purple-2);
+  color:var(--purple-light);
+
   font-size:9px;
   font-weight:900;
+
   letter-spacing:.19em;
+
   text-transform:uppercase;
 }
 
 .section-title{
   margin-top:10px;
-  font-size:clamp(34px,4.3vw,57px);
+
+  font-size:
+    clamp(
+      34px,
+      4.4vw,
+      58px
+    );
+
   line-height:1.02;
+
   letter-spacing:-.055em;
+
   font-weight:930;
 }
 
 .section-description{
-  max-width:650px;
-  margin-top:13px;
-  color:var(--muted);
+  max-width:660px;
+
+  margin-top:14px;
+
+  color:var(--text-muted);
+
   font-size:14px;
+
   line-height:1.85;
 }
 
-/* BOT GRID */
+/* ==========================================================
+   BOT CARDS
+   ========================================================== */
 
 .bot-grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
   gap:15px;
 }
 
 .bot-card{
   position:relative;
-  min-height:355px;
+
+  min-height:375px;
+
   padding:23px;
+
   overflow:hidden;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:25px;
+
   background:
-    linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.016));
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.015)
+    );
+
   transform-style:preserve-3d;
+
   transition:
-    transform .5s var(--ease),
-    border-color .3s ease,
-    box-shadow .3s ease;
+    border-color .35s ease,
+    box-shadow .35s ease,
+    transform .45s var(--ease);
 }
 
 .bot-card::before{
   content:"";
+
   position:absolute;
-  width:260px;
-  height:260px;
+
+  width:270px;
+  height:270px;
+
   top:-150px;
   right:-150px;
+
   border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.17),transparent 69%);
-  transition:transform .5s var(--ease);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.16),
+      transparent 70%
+    );
+
+  transition:
+    transform .55s var(--ease);
 }
 
 .bot-card:hover{
-  border-color:rgba(167,139,250,.25);
-  box-shadow:0 35px 90px rgba(0,0,0,.25);
+  border-color:
+    rgba(167,139,250,.25);
+
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.27);
 }
 
 .bot-card:hover::before{
-  transform:scale(1.45);
+  transform:scale(1.48);
 }
 
-.bot-top{
+.bot-head{
   position:relative;
+
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
 }
 
 .bot-icon{
-  width:53px;
-  height:53px;
+  width:54px;
+  height:54px;
+
   display:grid;
   place-items:center;
+
   border-radius:16px;
-  border:1px solid rgba(139,92,246,.14);
-  background:rgba(139,92,246,.075);
-  font-size:22px;
+
+  border:
+    1px solid
+    rgba(139,92,246,.14);
+
+  background:
+    rgba(139,92,246,.075);
+
+  font-size:23px;
 }
 
 .bot-status{
   display:inline-flex;
   align-items:center;
   gap:6px;
-  color:#a7f3d0;
+
+  color:#9ff1c9;
+
   font-size:8px;
   font-weight:900;
+
   letter-spacing:.1em;
-  text-transform:uppercase;
 }
 
 .bot-status i{
   width:5px;
   height:5px;
+
   border-radius:50%;
+
   background:var(--green);
 }
 
-.bot-card h3{
+.bot-name{
   position:relative;
-  margin-top:25px;
+
+  margin-top:24px;
+
   font-size:20px;
+
   letter-spacing:-.035em;
+
+  font-weight:900;
 }
 
-.bot-card p{
+.bot-summary{
   position:relative;
+
   margin-top:9px;
-  color:var(--muted);
+
+  color:var(--text-muted);
+
   font-size:11px;
+
   line-height:1.8;
 }
 
 .bot-features{
   position:relative;
+
   display:grid;
   gap:8px;
-  margin-top:21px;
+
+  margin-top:20px;
 }
 
 .bot-feature{
   display:flex;
   align-items:center;
   gap:8px;
-  color:#bfc4ce;
+
+  color:#bfc4cf;
+
   font-size:10px;
 }
 
-.bot-feature b{
-  width:17px;
-  height:17px;
+.bot-feature-icon{
+  width:18px;
+  height:18px;
+
   display:grid;
   place-items:center;
-  flex-shrink:0;
+
   border-radius:6px;
-  background:rgba(139,92,246,.10);
+
   color:#c4b5fd;
-  font-size:9px;
+
+  background:
+    rgba(139,92,246,.09);
+
+  font-size:8px;
+  font-weight:900;
 }
 
 .bot-footer{
   position:absolute;
+
   left:23px;
   right:23px;
   bottom:21px;
+
   padding-top:15px;
-  border-top:1px solid var(--line);
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+
+  border-top:
+    1px solid
+    var(--line);
 }
 
 .bot-footer small{
-  color:#555b67;
-  font-size:9px;
+  color:#555c68;
+
+  font-size:8px;
+  font-weight:750;
 }
 
 .bot-install{
   color:#ddd6fe;
+
   font-size:10px;
   font-weight:850;
+
+  transition:
+    color .2s ease;
 }
 
-/* FEATURE SPLIT */
+.bot-install:hover{
+  color:white;
+}
+
+/* ==========================================================
+   FEATURE AREA
+   ========================================================== */
 
 .feature-grid{
   display:grid;
-  grid-template-columns:1.04fr .96fr;
-  gap:16px;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:15px;
 }
 
 .feature-panel{
   position:relative;
-  min-height:470px;
+
+  min-height:455px;
+
   padding:30px;
+
   overflow:hidden;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:30px;
+
   background:
-    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.044),
+      rgba(255,255,255,.015)
+    );
 }
 
 .feature-panel::before{
   content:"";
+
   position:absolute;
+
   width:390px;
   height:390px;
-  right:-210px;
-  top:-210px;
+
+  top:-220px;
+  right:-190px;
+
   border-radius:50%;
-  background:radial-gradient(circle,rgba(34,211,238,.09),transparent 70%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34,211,238,.075),
+      transparent 70%
+    );
 }
 
 .feature-panel::after{
   content:"";
+
   position:absolute;
+
   width:330px;
   height:330px;
+
   left:-220px;
-  bottom:-220px;
+  bottom:-230px;
+
   border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.10),transparent 70%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.10),
+      transparent 70%
+    );
 }
 
 .feature-label{
   position:relative;
-  color:#676e7b;
+
+  color:#656c79;
+
   font-size:9px;
   font-weight:900;
+
   letter-spacing:.15em;
 }
 
 .feature-panel h3{
   position:relative;
+
   max-width:540px;
+
   margin-top:11px;
-  font-size:clamp(27px,3vw,40px);
+
+  font-size:
+    clamp(
+      26px,
+      3vw,
+      41px
+    );
+
   line-height:1.08;
+
   letter-spacing:-.045em;
 }
 
 .feature-panel > p{
   position:relative;
+
   max-width:540px;
+
   margin-top:12px;
-  color:var(--muted);
+
+  color:var(--text-muted);
+
   font-size:12px;
+
   line-height:1.8;
 }
 
 .feature-points{
   position:relative;
+
   display:grid;
+
   gap:12px;
+
   margin-top:28px;
 }
 
@@ -927,68 +1488,108 @@ img{
 .feature-check{
   width:25px;
   height:25px;
+
   display:grid;
   place-items:center;
+
   flex-shrink:0;
+
+  border:
+    1px solid
+    rgba(139,92,246,.12);
+
   border-radius:8px;
+
   color:#c4b5fd;
-  background:rgba(139,92,246,.09);
-  border:1px solid rgba(139,92,246,.12);
+
+  background:
+    rgba(139,92,246,.09);
+
   font-size:10px;
   font-weight:900;
 }
 
 .feature-point strong{
   display:block;
+
   font-size:11px;
 }
 
 .feature-point span{
   display:block;
+
   margin-top:2px;
-  color:#666d79;
+
+  color:#656c78;
+
   font-size:9px;
 }
 
-/* TERMINAL */
+/* ==========================================================
+   TERMINAL
+   ========================================================== */
 
 .terminal{
   position:relative;
-  margin-top:27px;
+
+  margin-top:28px;
+
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
+
+  border:
+    1px solid
+    rgba(255,255,255,.075);
+
   border-radius:19px;
-  background:#050609;
-  box-shadow:0 28px 65px rgba(0,0,0,.28);
+
+  background:
+    #040508;
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.30);
 }
 
-.terminal-head{
-  height:40px;
+.terminal-header{
+  height:41px;
+
   display:flex;
   align-items:center;
+
   gap:6px;
+
   padding:0 13px;
-  border-bottom:1px solid rgba(255,255,255,.06);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
 }
 
 .terminal-dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
-  background:#343944;
+
+  background:#353a45;
 }
 
 .terminal-title{
   margin-left:8px;
-  color:#595f6c;
+
+  color:#575e6a;
+
   font-size:8px;
-  font-weight:750;
+
+  font-weight:800;
 }
 
 .terminal-body{
   padding:19px;
+
   display:grid;
+
   gap:11px;
+
   font-family:
     ui-monospace,
     SFMono-Regular,
@@ -996,19 +1597,24 @@ img{
     Monaco,
     Consolas,
     monospace;
+
   font-size:9px;
-  line-height:1.65;
+
+  line-height:1.7;
 }
 
 .terminal-line{
   display:grid;
+
   grid-template-columns:13px 1fr;
+
   gap:7px;
-  color:#737987;
+
+  color:#6f7682;
 }
 
 .terminal-line > b{
-  color:#8b5cf6;
+  color:var(--purple);
 }
 
 .terminal-line code{
@@ -1025,424 +1631,701 @@ img{
   font-style:normal;
 }
 
-/* COMMANDS */
-
-.command-section{
-  border-top:1px solid var(--line);
-}
+/* ==========================================================
+   COMMAND CENTER
+   ========================================================== */
 
 .command-toolbar{
   display:flex;
-  gap:10px;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:20px;
+
+  gap:15px;
+
+  margin-bottom:22px;
 }
 
-.search-box{
-  position:relative;
+.search{
   width:min(100%,460px);
 }
 
-.search-box input{
+.search input{
   width:100%;
-  height:46px;
-  padding:0 15px;
+  height:47px;
+
   outline:none;
+
+  padding:0 15px;
+
   color:white;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:13px;
-  background:rgba(255,255,255,.025);
-  transition:border-color .2s ease,background .2s ease;
+
+  background:
+    rgba(255,255,255,.025);
+
+  transition:
+    border-color .2s ease,
+    background .2s ease;
 }
 
-.search-box input::placeholder{
-  color:#5d6370;
+.search input::placeholder{
+  color:#585f6c;
 }
 
-.search-box input:focus{
-  border-color:rgba(139,92,246,.38);
-  background:rgba(255,255,255,.04);
+.search input:focus{
+  border-color:
+    rgba(139,92,246,.35);
+
+  background:
+    rgba(255,255,255,.04);
 }
 
 .command-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
   gap:12px;
 }
 
 .command-card{
   padding:19px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:18px;
-  background:rgba(255,255,255,.022);
+
+  background:
+    rgba(255,255,255,.022);
+
   transition:
     transform .25s var(--ease),
-    background .25s ease,
-    border-color .25s ease;
+    border-color .25s ease,
+    background .25s ease;
 }
 
 .command-card:hover{
   transform:translateY(-4px);
-  background:rgba(255,255,255,.038);
-  border-color:var(--line-2);
+
+  border-color:
+    var(--line-strong);
+
+  background:
+    rgba(255,255,255,.04);
+}
+
+.command-top{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
 }
 
 .command-name{
   color:#ddd6fe;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
   font-size:11px;
-  font-weight:800;
+
+  font-weight:850;
+}
+
+.command-badge{
+  padding:5px 7px;
+
+  border-radius:6px;
+
+  color:#717986;
+
+  background:
+    rgba(255,255,255,.035);
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.06em;
 }
 
 .command-description{
-  margin-top:7px;
-  color:#686f7c;
+  margin-top:8px;
+
+  color:#696f7d;
+
   font-size:10px;
-  line-height:1.65;
+
+  line-height:1.7;
 }
 
-.command-tag{
-  display:inline-flex;
-  margin-top:12px;
-  padding:5px 8px;
-  border-radius:7px;
-  color:#8f96a3;
-  background:rgba(255,255,255,.035);
-  font-size:8px;
-  font-weight:800;
-}
-
-/* DASHBOARD */
+/* ==========================================================
+   DASHBOARD PREVIEW
+   ========================================================== */
 
 .dashboard{
   overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:30px;
-  background:rgba(255,255,255,.023);
-  box-shadow:0 45px 130px rgba(0,0,0,.33);
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:31px;
+
+  background:
+    rgba(255,255,255,.022);
+
+  box-shadow:
+    var(--shadow-lg);
 }
 
-.dashboard-top{
-  height:56px;
+.dashboard-topbar{
+  height:58px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 17px;
-  border-bottom:1px solid var(--line);
+
+  padding:0 18px;
+
+  border-bottom:
+    1px solid
+    var(--line);
 }
 
 .dashboard-brand{
   display:flex;
   align-items:center;
+
   gap:9px;
+
   font-size:10px;
-  font-weight:850;
+  font-weight:900;
 }
 
 .dashboard-brand-icon{
   width:27px;
   height:27px;
+
   display:grid;
   place-items:center;
+
   border-radius:8px;
+
   color:white;
-  background:linear-gradient(135deg,#8b5cf6,#22d3ee);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--cyan)
+    );
+
   font-size:8px;
   font-weight:1000;
 }
 
-.dashboard-user{
+.dashboard-account{
   display:flex;
   align-items:center;
+
   gap:8px;
-  color:#676e7a;
+
+  color:#666d7b;
+
   font-size:8px;
 }
 
 .dashboard-avatar{
-  width:24px;
-  height:24px;
+  width:25px;
+  height:25px;
+
   border-radius:50%;
-  background:linear-gradient(135deg,#8b5cf6,#22d3ee);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--cyan)
+    );
+
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.03);
 }
 
-.dashboard-body{
+.dashboard-layout{
   display:grid;
-  grid-template-columns:190px 1fr;
-  min-height:430px;
+
+  grid-template-columns:
+    205px
+    1fr;
+
+  min-height:470px;
 }
 
-.dashboard-side{
-  padding:18px 13px;
-  border-right:1px solid var(--line);
-  background:rgba(255,255,255,.012);
+.dashboard-sidebar{
+  padding:19px 13px;
+
+  border-right:
+    1px solid
+    var(--line);
+
+  background:
+    rgba(255,255,255,.011);
 }
 
-.side-title{
-  padding:0 9px 6px;
-  color:#4f5560;
+.sidebar-section{
+  margin-bottom:19px;
+}
+
+.sidebar-title{
+  padding:
+    0
+    9px
+    7px;
+
+  color:#4e5562;
+
   font-size:7px;
   font-weight:900;
-  letter-spacing:.13em;
+
+  letter-spacing:.14em;
+
   text-transform:uppercase;
 }
 
-.side-link{
+.sidebar-link{
   display:flex;
   align-items:center;
+
   gap:8px;
+
   padding:9px 10px;
+
   margin-bottom:4px;
+
   border-radius:9px;
-  color:#6b727f;
+
+  color:#69707d;
+
   font-size:9px;
-  font-weight:700;
+  font-weight:750;
+
+  cursor:pointer;
+
+  transition:
+    color .2s ease,
+    background .2s ease;
 }
 
-.side-link.active{
+.sidebar-link:hover{
+  color:#fff;
+  background:rgba(255,255,255,.035);
+}
+
+.sidebar-link.active{
   color:white;
-  background:rgba(139,92,246,.10);
-  border:1px solid rgba(139,92,246,.10);
+
+  background:
+    rgba(139,92,246,.10);
+
+  border:
+    1px solid
+    rgba(139,92,246,.09);
 }
 
-.dashboard-content{
+.dashboard-main{
   padding:22px;
 }
 
 .dashboard-heading{
   display:flex;
+
   align-items:flex-end;
   justify-content:space-between;
+
   gap:20px;
 }
 
 .dashboard-heading h3{
   font-size:18px;
+
   letter-spacing:-.035em;
 }
 
 .dashboard-heading p{
   margin-top:2px;
-  color:#5b626e;
+
+  color:#5e6571;
+
   font-size:8px;
 }
 
-.dashboard-status{
-  display:inline-flex;
+.dashboard-live{
+  display:flex;
   align-items:center;
   gap:6px;
+
   color:#a7f3d0;
+
   font-size:8px;
   font-weight:850;
 }
 
-.dashboard-status i{
+.dashboard-live i{
   width:5px;
   height:5px;
+
   border-radius:50%;
+
   background:var(--green);
 }
 
-.metrics{
+.dashboard-metrics{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
   gap:10px;
+
   margin-top:20px;
 }
 
-.metric{
+.dashboard-metric{
   padding:15px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:15px;
-  background:rgba(255,255,255,.017);
+
+  background:
+    rgba(255,255,255,.017);
 }
 
-.metric small{
-  color:#5f6672;
+.dashboard-metric span{
+  display:block;
+
+  color:#5d6470;
+
   font-size:8px;
 }
 
-.metric strong{
+.dashboard-metric strong{
   display:block;
+
   margin-top:4px;
+
   font-size:19px;
 }
 
-.server-table{
-  margin-top:11px;
+.server-list{
+  margin-top:12px;
+
   overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:16px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:17px;
 }
 
 .server-row{
+  min-height:51px;
+
   display:grid;
-  grid-template-columns:1.55fr .8fr .8fr;
+
+  grid-template-columns:
+    1.55fr
+    .75fr
+    .78fr;
+
   align-items:center;
-  min-height:48px;
+
+  gap:10px;
+
   padding:0 13px;
-  border-top:1px solid var(--line);
-  color:#b0b5bf;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  color:#b2b7c1;
+
   font-size:8px;
 }
 
 .server-row:first-child{
-  color:#5d6471;
   border-top:0;
-  background:rgba(255,255,255,.015);
+
+  color:#5d6470;
+
+  background:
+    rgba(255,255,255,.014);
 }
 
 .server-name{
   display:flex;
   align-items:center;
+
   gap:8px;
 }
 
 .server-avatar{
-  width:23px;
-  height:23px;
+  width:25px;
+  height:25px;
+
   display:grid;
   place-items:center;
+
   flex-shrink:0;
-  border-radius:7px;
+
+  border-radius:8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,.32),
+      rgba(34,211,238,.16)
+    );
+
   color:white;
-  background:linear-gradient(135deg,rgba(139,92,246,.34),rgba(34,211,238,.18));
+
   font-size:7px;
-  font-weight:900;
+  font-weight:950;
 }
 
-.online{
+.server-status{
   color:#86efac;
 }
 
 .dashboard-note{
-  margin-top:13px;
-  color:#565d69;
+  margin-top:12px;
+
+  color:#575e6b;
+
   font-size:8px;
-  line-height:1.6;
+
+  line-height:1.65;
 }
 
-/* STATUS */
+/* ==========================================================
+   STATUS
+   ========================================================== */
 
 .status-grid{
   display:grid;
-  grid-template-columns:1.2fr .8fr;
+
+  grid-template-columns:
+    1.15fr
+    .85fr;
+
   gap:15px;
 }
 
 .status-panel{
-  padding:25px;
-  border:1px solid var(--line);
+  padding:26px;
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:24px;
-  background:rgba(255,255,255,.022);
+
+  background:
+    rgba(255,255,255,.022);
 }
 
 .status-big{
   display:flex;
   align-items:center;
-  gap:11px;
-  color:#c9ffe5;
+
+  gap:9px;
+
+  color:#c7ffe3;
+
   font-size:11px;
   font-weight:850;
 }
 
 .status-big i{
-  width:9px;
-  height:9px;
+  width:8px;
+  height:8px;
+
   border-radius:50%;
+
   background:var(--green);
-  box-shadow:0 0 20px rgba(52,211,153,.38);
+
+  box-shadow:
+    0 0 21px
+    rgba(52,211,153,.4);
 }
 
 .status-list{
-  margin-top:20px;
   display:grid;
-  gap:10px;
+
+  gap:9px;
+
+  margin-top:19px;
 }
 
-.status-item{
+.status-row{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
+  justify-content:space-between;
+
+  gap:20px;
+
   padding:13px 14px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:13px;
-  background:rgba(255,255,255,.017);
+
+  background:
+    rgba(255,255,255,.017);
 }
 
-.status-item span{
-  color:#9ba1ad;
+.status-row span{
+  color:#8e95a2;
+
   font-size:9px;
 }
 
-.status-item strong{
+.status-row strong{
   color:#a7f3d0;
+
   font-size:8px;
+
   font-weight:900;
 }
 
-/* FINAL CTA */
+/* ==========================================================
+   CTA
+   ========================================================== */
 
 .cta{
   position:relative;
+
   overflow:hidden;
-  padding:39px;
-  border:1px solid rgba(139,92,246,.16);
-  border-radius:30px;
+
+  padding:40px;
+
+  border:
+    1px solid
+    rgba(139,92,246,.16);
+
+  border-radius:31px;
+
   background:
-    linear-gradient(135deg,rgba(139,92,246,.105),rgba(34,211,238,.027));
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,.105),
+      rgba(34,211,238,.025)
+    );
 }
 
 .cta::before{
   content:"";
+
   position:absolute;
-  width:480px;
-  height:480px;
-  right:-230px;
-  top:-280px;
+
+  width:500px;
+  height:500px;
+
+  right:-270px;
+  top:-300px;
+
   border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.13),transparent 70%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.13),
+      transparent 70%
+    );
 }
 
 .cta-content{
   position:relative;
+
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
+  justify-content:space-between;
+
   gap:25px;
 }
 
 .cta h2{
-  font-size:clamp(28px,3.4vw,42px);
+  font-size:
+    clamp(
+      28px,
+      3.4vw,
+      43px
+    );
+
   line-height:1;
+
   letter-spacing:-.055em;
 }
 
 .cta p{
-  margin-top:8px;
-  color:#717784;
+  margin-top:9px;
+
+  color:#707784;
+
   font-size:11px;
 }
 
-/* FOOTER */
+/* ==========================================================
+   FOOTER
+   ========================================================== */
 
 .footer{
-  padding:31px 0 48px;
-  border-top:1px solid var(--line);
+  padding:
+    31px
+    0
+    48px;
+
   margin-top:30px;
+
+  border-top:
+    1px solid
+    var(--line);
 }
 
 .footer-row{
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
+  justify-content:space-between;
+
   gap:20px;
 }
 
 .footer-copy{
-  color:#5f6671;
+  color:#5f6673;
+
   font-size:9px;
 }
 
@@ -1452,126 +2335,247 @@ img{
 
 .footer-links{
   display:flex;
+
+  align-items:center;
+
   gap:15px;
+
   flex-wrap:wrap;
 }
 
 .footer-links a{
-  color:#636a77;
+  color:#646b77;
+
   font-size:9px;
+
+  transition:
+    color .2s ease;
 }
 
 .footer-links a:hover{
   color:white;
 }
 
-/* MODAL */
+/* ==========================================================
+   MODAL
+   ========================================================== */
 
 .modal-backdrop{
   position:fixed;
+
   inset:0;
-  display:none;
-  place-items:center;
-  padding:20px;
-  background:rgba(0,0,0,.68);
-  backdrop-filter:blur(12px);
+
   z-index:5000;
+
+  display:none;
+
+  place-items:center;
+
+  padding:20px;
+
+  background:
+    rgba(0,0,0,.70);
+
+  backdrop-filter:blur(13px);
 }
 
 .modal-backdrop.open{
   display:grid;
-  animation:modal-in .25s ease forwards;
+
+  animation:
+    modal-fade .22s ease;
 }
 
-@keyframes modal-in{
+@keyframes modal-fade{
   from{opacity:0}
   to{opacity:1}
 }
 
 .modal{
-  width:min(100%,480px);
-  padding:26px;
-  border:1px solid var(--line-2);
-  border-radius:24px;
+  width:min(
+    100%,
+    510px
+  );
+
+  padding:27px;
+
+  border:
+    1px solid
+    var(--line-strong);
+
+  border-radius:25px;
+
   background:
-    linear-gradient(180deg,#10131b,#0a0c12);
-  box-shadow:0 45px 120px rgba(0,0,0,.48);
-  animation:modal-card .45s var(--ease);
+    linear-gradient(
+      180deg,
+      #10131c,
+      #090b11
+    );
+
+  box-shadow:
+    0 50px 140px rgba(0,0,0,.52);
+
+  animation:
+    modal-card .42s var(--ease);
 }
 
 @keyframes modal-card{
   from{
-    transform:translateY(18px) scale(.97);
     opacity:0;
+    transform:
+      translateY(18px)
+      scale(.97);
   }
+
   to{
-    transform:none;
     opacity:1;
+    transform:none;
   }
 }
 
 .modal-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:15px;
 }
 
 .modal-head h3{
-  font-size:18px;
+  font-size:19px;
+
   letter-spacing:-.035em;
 }
 
 .modal-close{
-  width:34px;
-  height:34px;
+  width:35px;
+  height:35px;
+
   display:grid;
   place-items:center;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:10px;
-  color:#8b919d;
-  background:rgba(255,255,255,.025);
+
+  color:#838a97;
+
+  background:
+    rgba(255,255,255,.025);
+
   cursor:pointer;
+
+  transition:
+    color .2s ease,
+    background .2s ease;
 }
 
 .modal-close:hover{
   color:white;
-  background:rgba(255,255,255,.05);
+
+  background:
+    rgba(255,255,255,.06);
 }
 
-.modal-text{
+.modal-description{
   margin-top:12px;
-  color:#767d8a;
+
+  color:#757c89;
+
   font-size:11px;
-  line-height:1.75;
+
+  line-height:1.8;
 }
 
 .modal-actions{
   display:flex;
+
   gap:9px;
-  margin-top:20px;
+
+  margin-top:21px;
 }
 
-/* TOAST */
+/* ==========================================================
+   SETTINGS CONFIG PREVIEW
+   ========================================================== */
 
-.toast-stack{
+.config-box{
+  margin-top:18px;
+
+  padding:15px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:15px;
+
+  background:
+    #05060a;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+  font-size:9px;
+
+  line-height:1.8;
+}
+
+.config-key{
+  color:#a78bfa;
+}
+
+.config-string{
+  color:#67e8f9;
+}
+
+/* ==========================================================
+   TOAST
+   ========================================================== */
+
+.toast-container{
   position:fixed;
+
   right:18px;
   bottom:18px;
-  z-index:6000;
+
+  width:min(
+    360px,
+    calc(100% - 36px)
+  );
+
   display:grid;
+
   gap:9px;
-  width:min(360px,calc(100% - 36px));
+
+  z-index:7000;
 }
 
 .toast{
-  padding:13px 14px;
-  border:1px solid var(--line-2);
-  border-radius:14px;
-  background:rgba(12,14,21,.92);
+  padding:14px;
+
+  border:
+    1px solid
+    var(--line-strong);
+
+  border-radius:15px;
+
+  background:
+    rgba(10,12,18,.94);
+
   backdrop-filter:blur(18px);
-  box-shadow:var(--shadow);
-  animation:toast-in .4s var(--ease);
+
+  box-shadow:
+    var(--shadow-md);
+
+  animation:
+    toast-in .4s var(--ease);
 }
 
 @keyframes toast-in{
@@ -1579,6 +2583,7 @@ img{
     opacity:0;
     transform:translateY(12px);
   }
+
   to{
     opacity:1;
     transform:none;
@@ -1587,21 +2592,30 @@ img{
 
 .toast strong{
   display:block;
+
   font-size:10px;
 }
 
 .toast span{
   display:block;
-  margin-top:2px;
-  color:#6d7481;
+
+  margin-top:3px;
+
+  color:#707784;
+
   font-size:9px;
 }
 
-/* REVEAL */
+/* ==========================================================
+   REVEAL
+   ========================================================== */
 
 .reveal{
   opacity:0;
-  transform:translateY(25px);
+
+  transform:
+    translateY(27px);
+
   transition:
     opacity .8s var(--ease),
     transform .8s var(--ease);
@@ -1609,12 +2623,15 @@ img{
 
 .reveal.visible{
   opacity:1;
+
   transform:none;
 }
 
-/* RESPONSIVE */
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
 
-@media(max-width:1100px){
+@media(max-width:1120px){
 
   .hero-layout{
     grid-template-columns:1fr;
@@ -1629,20 +2646,20 @@ img{
   }
 
   .bot-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 
-  .feature-grid,
+  .feature-grid{
+    grid-template-columns:1fr;
+  }
+
   .status-grid{
     grid-template-columns:1fr;
   }
 }
 
-@media(max-width:820px){
-
-  .container{
-    width:min(calc(100% - 30px),var(--container));
-  }
+@media(max-width:850px){
 
   .nav-links,
   .nav-actions{
@@ -1654,65 +2671,93 @@ img{
   }
 
   .hero{
-    padding-top:125px;
+    padding-top:126px;
   }
 
   .hero-title{
-    font-size:clamp(50px,12vw,75px);
+    font-size:
+      clamp(
+        49px,
+        12vw,
+        76px
+      );
   }
 
   .hero-description{
     font-size:14px;
   }
 
-  .hero-visual{
-    min-height:430px;
-  }
-
-  .orbit-system{
-    transform:scale(.82);
-  }
-
-  .dashboard-body{
+  .dashboard-layout{
     grid-template-columns:1fr;
   }
 
-  .dashboard-side{
+  .dashboard-sidebar{
     display:none;
   }
 
+  .dashboard-metrics{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+  }
+
   .command-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 }
 
 @media(max-width:620px){
 
+  .container{
+    width:
+      min(
+        calc(100% - 28px),
+        var(--max-width)
+      );
+  }
+
   .section{
-    padding:90px 0;
+    padding:88px 0;
   }
 
   .hero{
-    padding:112px 0 50px;
+    min-height:auto;
+
+    padding:
+      113px
+      0
+      50px;
   }
 
   .hero-layout{
-    gap:10px;
+    gap:5px;
   }
 
   .hero-visual{
-    min-height:355px;
+    min-height:345px;
     order:-1;
   }
 
   .orbit-system{
-    transform:scale(.63);
-    margin-top:-40px;
-    margin-bottom:-45px;
+    transform:scale(.62);
+
+    margin:
+      -55px
+      0
+      -53px;
+  }
+
+  .hero-title{
+    margin-top:18px;
+  }
+
+  .hero-description{
+    margin-top:20px;
   }
 
   .hero-actions{
     display:grid;
+
     grid-template-columns:1fr;
   }
 
@@ -1720,8 +2765,8 @@ img{
     width:100%;
   }
 
-  .hero-trust{
-    gap:11px;
+  .hero-meta{
+    gap:10px;
   }
 
   .bot-grid,
@@ -1729,12 +2774,17 @@ img{
     grid-template-columns:1fr;
   }
 
+  .bot-card{
+    min-height:350px;
+  }
+
   .feature-panel{
+    min-height:auto;
     padding:23px;
   }
 
   .terminal-body{
-    padding:15px;
+    padding:14px;
     font-size:8px;
   }
 
@@ -1742,13 +2792,18 @@ img{
     padding:14px;
   }
 
-  .metrics{
+  .dashboard-metrics{
     grid-template-columns:1fr;
   }
 
   .server-row{
-    grid-template-columns:1.3fr .72fr .65fr;
+    grid-template-columns:
+      1.35fr
+      .65fr
+      .6fr;
+
     padding:0 9px;
+
     font-size:7px;
   }
 
@@ -1775,6 +2830,7 @@ img{
 
   .modal-actions{
     display:grid;
+
     grid-template-columns:1fr;
   }
 }
@@ -1803,14 +2859,287 @@ img{
 <body>
 
 <div class="background-grid"></div>
+<div class="background-vignette"></div>
 <div class="background-orb" id="backgroundOrb"></div>
 <div class="noise"></div>
 
-<header class="navbar" id="navbar">
+
+<!-- ==========================================================
+     CENTRAL ZYNX CONFIG
+     SADECE BURAYI DEĞİŞTİR
+     ========================================================== -->
+
+<script>
+const ZYNX_CONFIG = {
+
+  /*
+    ==========================================================
+    DISCORD CONFIG
+    ==========================================================
+
+    Client ID:
+    Discord Developer Portal'daki Application ID.
+
+    Client Secret:
+    BURAYA KOYMA.
+    Gerçek OAuth2 backend üzerinde tutulacak.
+
+    Backend URL:
+    Gerçek OAuth2 backend hazır olduğunda
+    örneğin:
+
+    https://api.siten.com
+
+    şeklinde yazacağız.
+
+    Şimdilik boş bırakılabilir.
+  */
+
+  discord: {
+
+    backendBaseUrl: "",
+
+    oauth: {
+      loginPath: "/api/auth/discord",
+      callbackPath: "/api/auth/callback"
+    },
+
+    clientIds: {
+
+      security:
+        "1540275059149512778",
+
+      ticket:
+        "1542534820033462382",
+
+      voice:
+        "1542535042641825835",
+
+      ai:
+        "1542535094286295110"
+    }
+
+  },
+
+
+  /*
+    ==========================================================
+    BOT CONFIG
+    ==========================================================
+  */
+
+  bots: {
+
+    security: {
+
+      key: "security",
+
+      name: "ZYNX Security",
+
+      shortName: "Security",
+
+      emoji: "🛡️",
+
+      category: "SECURITY",
+
+      description:
+        "Discord sunucunuz için gelişmiş moderasyon, anti-spam ve güvenlik sistemleri.",
+
+      longDescription:
+        "ZYNX Security, Discord sunucunuzun güvenliğini ve moderasyon akışını merkezi bir sistem üzerinde düzenlemek için tasarlanmış güvenlik botudur.",
+
+      features: [
+        "Anti-Spam",
+        "Anti-Link",
+        "AutoMod",
+        "Moderasyon",
+        "Log sistemi",
+        "Koruma sistemi"
+      ],
+
+      commands: [
+        "/setup",
+        "/mod",
+        "/warn",
+        "/timeout",
+        "/kick",
+        "/ban",
+        "/lock",
+        "/unlock",
+        "/logs"
+      ]
+
+    },
+
+
+    ticket: {
+
+      key: "ticket",
+
+      name: "ZYNX Ticket",
+
+      shortName: "Ticket",
+
+      emoji: "🎫",
+
+      category: "SUPPORT",
+
+      description:
+        "Profesyonel ticket ve destek talepleri için gelişmiş Discord destek sistemi.",
+
+      longDescription:
+        "ZYNX Ticket, kullanıcı destek taleplerini düzenli kanallar ve personel akışları üzerinden yönetebilmeniz için tasarlanmıştır.",
+
+      features: [
+        "Ticket paneli",
+        "Kategori sistemi",
+        "Yetkili yönetimi",
+        "Transkript sistemi",
+        "Otomatik kapatma",
+        "Destek akışı"
+      ],
+
+      commands: [
+        "/ticket-kur",
+        "/ticket-kapat",
+        "/ticket-ekle",
+        "/ticket-çıkar",
+        "/ticket-devret",
+        "/ticket-lock",
+        "/ticket-unlock"
+      ]
+
+    },
+
+
+    voice: {
+
+      key: "voice",
+
+      name: "ZYNX Voice",
+
+      shortName: "Voice",
+
+      emoji: "🎵",
+
+      category: "VOICE",
+
+      description:
+        "Discord ses kanalları ve müzik deneyimi için gelişmiş Voice altyapısı.",
+
+      longDescription:
+        "ZYNX Voice, ses kanallarındaki müzik ve ses deneyimini hızlı komutlar ve temiz bir kullanıcı akışıyla yönetmek için tasarlanmıştır.",
+
+      features: [
+        "Müzik sistemi",
+        "Queue sistemi",
+        "Ses kontrolü",
+        "Oynatma yönetimi",
+        "Voice izinleri",
+        "Hızlı komutlar"
+      ],
+
+      commands: [
+        "/play",
+        "/pause",
+        "/resume",
+        "/skip",
+        "/queue",
+        "/stop",
+        "/volume",
+        "/nowplaying"
+      ]
+
+    },
+
+
+    ai: {
+
+      key: "ai",
+
+      name: "ZYNX AI",
+
+      shortName: "AI",
+
+      emoji: "🤖",
+
+      category: "AI",
+
+      description:
+        "Discord sunucuları için yapay zekâ destekli sohbet ve yardımcı sistem.",
+
+      longDescription:
+        "ZYNX AI, kullanıcı sorularını cevaplamak, DM üzerinden sohbet etmek ve Discord deneyimini yapay zekâ ile güçlendirmek için tasarlanmıştır.",
+
+      features: [
+        "AI sohbet",
+        "DM desteği",
+        "Akıllı yardımcı",
+        "Context sistemi",
+        "Sunucu odaklı kullanım",
+        "AI komutları"
+      ],
+
+      commands: [
+        "/ai",
+        "/ask",
+        "/ai-clear",
+        "/ai-settings",
+        "/ai-status"
+      ]
+
+    }
+
+  },
+
+
+  /*
+    ==========================================================
+    SITE CONFIG
+    ==========================================================
+  */
+
+  site: {
+
+    name: "ZYNX",
+
+    year: "2026",
+
+    tagline:
+      "Discord Bot Ecosystem",
+
+    github:
+      "",
+
+    social: {
+      discord: "",
+      twitter: "",
+      instagram: ""
+    }
+
+  }
+
+};
+</script>
+
+
+<!-- ==========================================================
+     NAVIGATION
+     ========================================================== -->
+
+<header
+  class="navbar"
+  id="navbar"
+>
 
   <div class="container nav-inner">
 
-    <a href="#top" class="brand" aria-label="ZYNX">
+    <a
+      href="#top"
+      class="brand"
+      aria-label="ZYNX Ana Sayfa"
+    >
+
       <span class="brand-mark">
         <span>ZX</span>
       </span>
@@ -1818,38 +3147,56 @@ img{
       <span class="brand-name">
         ZYNX
       </span>
+
     </a>
+
 
     <nav class="nav-links">
 
-      <a class="nav-link" href="#bots">
+      <a
+        class="nav-link"
+        href="#bots"
+      >
         Botlar
       </a>
 
-      <a class="nav-link" href="#systems">
+      <a
+        class="nav-link"
+        href="#systems"
+      >
         Sistemler
       </a>
 
-      <a class="nav-link" href="#commands">
+      <a
+        class="nav-link"
+        href="#commands"
+      >
         Komutlar
       </a>
 
-      <a class="nav-link" href="#dashboard">
+      <a
+        class="nav-link"
+        href="#dashboard"
+      >
         Dashboard
       </a>
 
-      <a class="nav-link" href="#status">
+      <a
+        class="nav-link"
+        href="#status"
+      >
         Durum
       </a>
 
     </nav>
 
+
     <div class="nav-actions">
 
       <button
         class="btn btn-secondary"
-        id="loginButton"
         type="button"
+        data-open-login
       >
         Discord ile giriş
       </button>
@@ -1863,6 +3210,7 @@ img{
 
     </div>
 
+
     <button
       class="menu-button"
       id="menuButton"
@@ -1875,29 +3223,52 @@ img{
 
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
 
-    <a href="#bots">
+  <div
+    class="mobile-menu"
+    id="mobileMenu"
+  >
+
+    <a
+      href="#bots"
+      class="mobile-link"
+    >
       Botlar
     </a>
 
-    <a href="#systems">
+    <a
+      href="#systems"
+      class="mobile-link"
+    >
       Sistemler
     </a>
 
-    <a href="#commands">
+    <a
+      href="#commands"
+      class="mobile-link"
+    >
       Komutlar
     </a>
 
-    <a href="#dashboard">
+    <a
+      href="#dashboard"
+      class="mobile-link"
+    >
       Dashboard
     </a>
 
-    <a href="#status">
+    <a
+      href="#status"
+      class="mobile-link"
+    >
       Durum
     </a>
 
-    <a href="#login">
+    <a
+      href="#login"
+      class="mobile-link"
+      data-open-login
+    >
       Discord ile giriş
     </a>
 
@@ -1906,39 +3277,52 @@ img{
 </header>
 
 
+<!-- ==========================================================
+     MAIN
+     ========================================================== -->
+
 <main id="top">
 
 
-  <!-- HERO -->
+  <!-- ========================================================
+       HERO
+       ======================================================== -->
 
   <section class="hero">
 
     <div class="container hero-layout">
 
+
       <div class="hero-copy reveal">
 
         <div class="hero-badge">
-          <span class="live-dot"></span>
+
+          <span class="hero-badge-dot"></span>
+
           ZYNX ECOSYSTEM ACTIVE
+
         </div>
+
 
         <h1 class="hero-title">
 
           Discord sunucunu
-          <span class="gradient-text">
+          <span class="text-gradient">
             başka seviyeye taşı.
           </span>
 
         </h1>
 
+
         <p class="hero-description">
 
-          ZYNX; güvenlik, destek, ses ve yapay zekâ
-          sistemlerini modern bir Discord ekosisteminde
-          bir araya getirir. Daha temiz yönetim.
-          Daha güçlü otomasyon. Daha profesyonel deneyim.
+          ZYNX; Security, Ticket, Voice ve AI sistemlerini
+          tek bir modern Discord ekosisteminde birleştirir.
+          Sunucunu daha güvenli, düzenli ve güçlü yönetmek
+          için tasarlandı.
 
         </p>
+
 
         <div class="hero-actions">
 
@@ -1952,27 +3336,28 @@ img{
 
           <button
             class="btn btn-secondary"
-            id="heroLoginButton"
             type="button"
+            data-open-login
           >
             Discord ile devam et
           </button>
 
         </div>
 
-        <div class="hero-trust">
 
-          <span>
+        <div class="hero-meta">
+
+          <span class="hero-meta-item">
             <i></i>
             4 uzman bot
           </span>
 
-          <span>
+          <span class="hero-meta-item">
             <i></i>
             Discord odaklı
           </span>
 
-          <span>
+          <span class="hero-meta-item">
             <i></i>
             Modern dashboard
           </span>
@@ -1982,28 +3367,32 @@ img{
       </div>
 
 
-      <!-- HERO VISUAL -->
+      <!-- =====================================================
+           HERO VISUAL
+           ===================================================== -->
 
       <div class="hero-visual reveal">
 
         <div class="orbit-system">
 
-          <div class="orbit one"></div>
-          <div class="orbit two"></div>
-          <div class="orbit three"></div>
+          <div class="orbit orbit-a"></div>
+          <div class="orbit orbit-b"></div>
+          <div class="orbit orbit-c"></div>
 
           <div class="orbit-glow"></div>
 
-          <span class="orbit-node n1"></span>
-          <span class="orbit-node n2"></span>
-          <span class="orbit-node n3"></span>
-          <span class="orbit-node n4"></span>
 
-          <div class="core">
+          <span class="orbit-node node-one"></span>
+          <span class="orbit-node node-two"></span>
+          <span class="orbit-node node-three"></span>
+          <span class="orbit-node node-four"></span>
 
-            <div class="core-logo">
 
-              <div class="core-zx">
+          <div class="hero-core">
+
+            <div class="core-content">
+
+              <div class="core-logo">
                 ZX
               </div>
 
@@ -2016,43 +3405,55 @@ img{
           </div>
 
 
-          <div class="float-card a">
+          <div class="float-card float-one">
+
             <strong>
               🛡️ ZYNX Security
             </strong>
-            <small>
-              Protection & moderation
-            </small>
+
+            <span>
+              Protection & Moderation
+            </span>
+
           </div>
 
 
-          <div class="float-card b">
+          <div class="float-card float-two">
+
             <strong>
               🎫 ZYNX Ticket
             </strong>
-            <small>
-              Support automation
-            </small>
+
+            <span>
+              Support Automation
+            </span>
+
           </div>
 
 
-          <div class="float-card c">
+          <div class="float-card float-three">
+
             <strong>
               🎵 ZYNX Voice
             </strong>
-            <small>
-              Voice experience
-            </small>
+
+            <span>
+              Voice Experience
+            </span>
+
           </div>
 
 
-          <div class="float-card d">
+          <div class="float-card float-four">
+
             <strong>
               🤖 ZYNX AI
             </strong>
-            <small>
-              Intelligent assistant
-            </small>
+
+            <span>
+              Intelligent Assistant
+            </span>
+
           </div>
 
         </div>
@@ -2064,7 +3465,9 @@ img{
   </section>
 
 
-  <!-- BOTS -->
+  <!-- ========================================================
+       BOTS
+       ======================================================== -->
 
   <section
     class="section"
@@ -2073,7 +3476,7 @@ img{
 
     <div class="container">
 
-      <div class="section-head reveal">
+      <div class="section-heading reveal">
 
         <div class="eyebrow">
           ZYNX ECOSYSTEM
@@ -2084,9 +3487,9 @@ img{
         </h2>
 
         <p class="section-description">
-          ZYNX'in dört uzman botu farklı görevleri
-          üstlenirken aynı profesyonel ekosistem
-          mantığı içerisinde çalışır.
+          Her ZYNX botu farklı bir göreve odaklanır.
+          Botu detaylı şekilde incele, ardından Discord
+          sunucuna ekle.
         </p>
 
       </div>
@@ -2099,10 +3502,11 @@ img{
 
         <article
           class="bot-card reveal"
+          data-bot="security"
           data-tilt
         >
 
-          <div class="bot-top">
+          <div class="bot-head">
 
             <div class="bot-icon">
               🛡️
@@ -2115,46 +3519,53 @@ img{
 
           </div>
 
-          <h3>
+
+          <h3 class="bot-name">
             ZYNX Security
           </h3>
 
-          <p>
-            Moderasyon, anti-spam ve sunucu
-            güvenliğini tek bir kontrol sisteminde
-            birleştiren güvenlik botu.
+
+          <p class="bot-summary">
+            Sunucunun güvenliğini, moderasyonunu ve
+            otomasyonunu profesyonel bir sistemle yönet.
           </p>
+
 
           <div class="bot-features">
 
             <div class="bot-feature">
-              <b>✓</b>
-              Anti-spam koruması
+              <span class="bot-feature-icon">✓</span>
+              Anti-Spam
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Moderasyon araçları
+              <span class="bot-feature-icon">✓</span>
+              Anti-Link
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Sunucu güvenlik sistemi
+              <span class="bot-feature-icon">✓</span>
+              Moderasyon
+            </div>
+
+            <div class="bot-feature">
+              <span class="bot-feature-icon">✓</span>
+              Log Sistemi
             </div>
 
           </div>
 
+
           <div class="bot-footer">
 
             <small>
-              Security
+              SECURITY
             </small>
 
             <a
+              href="#"
               class="bot-install"
-              target="_blank"
-              rel="noopener"
-              href="https://discord.com/oauth2/authorize?client_id=1540275059149512778&permissions=8&integration_type=0&scope=bot+applications.commands"
+              data-install="security"
             >
               Sunucuya ekle →
             </a>
@@ -2168,10 +3579,11 @@ img{
 
         <article
           class="bot-card reveal"
+          data-bot="ticket"
           data-tilt
         >
 
-          <div class="bot-top">
+          <div class="bot-head">
 
             <div class="bot-icon">
               🎫
@@ -2184,46 +3596,53 @@ img{
 
           </div>
 
-          <h3>
+
+          <h3 class="bot-name">
             ZYNX Ticket
           </h3>
 
-          <p>
-            Destek taleplerini düzenli ticket
-            akışlarına çeviren profesyonel destek
-            otomasyonu.
+
+          <p class="bot-summary">
+            Kullanıcı destek taleplerini düzenli,
+            hızlı ve profesyonel ticket akışına dönüştür.
           </p>
+
 
           <div class="bot-features">
 
             <div class="bot-feature">
-              <b>✓</b>
-              Ticket panelleri
+              <span class="bot-feature-icon">✓</span>
+              Ticket Paneli
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Yetkili yönetimi
+              <span class="bot-feature-icon">✓</span>
+              Kategori Sistemi
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Otomatik destek akışı
+              <span class="bot-feature-icon">✓</span>
+              Yetkili Yönetimi
+            </div>
+
+            <div class="bot-feature">
+              <span class="bot-feature-icon">✓</span>
+              Transkript
             </div>
 
           </div>
 
+
           <div class="bot-footer">
 
             <small>
-              Ticket
+              SUPPORT
             </small>
 
             <a
+              href="#"
               class="bot-install"
-              target="_blank"
-              rel="noopener"
-              href="https://discord.com/oauth2/authorize?client_id=1542534820033462382&permissions=8&integration_type=0&scope=bot+applications.commands"
+              data-install="ticket"
             >
               Sunucuya ekle →
             </a>
@@ -2237,10 +3656,11 @@ img{
 
         <article
           class="bot-card reveal"
+          data-bot="voice"
           data-tilt
         >
 
-          <div class="bot-top">
+          <div class="bot-head">
 
             <div class="bot-icon">
               🎵
@@ -2253,46 +3673,53 @@ img{
 
           </div>
 
-          <h3>
+
+          <h3 class="bot-name">
             ZYNX Voice
           </h3>
 
-          <p>
-            Ses kanalları, müzik ve voice
-            deneyimi için hızlı ve sade kontrol
-            altyapısı.
+
+          <p class="bot-summary">
+            Ses kanalları ve müzik deneyimi için
+            hızlı, temiz ve güçlü Voice altyapısı.
           </p>
+
 
           <div class="bot-features">
 
             <div class="bot-feature">
-              <b>✓</b>
-              Voice kontrolü
+              <span class="bot-feature-icon">✓</span>
+              Müzik Sistemi
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Müzik sistemi
+              <span class="bot-feature-icon">✓</span>
+              Queue Yönetimi
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Hızlı komutlar
+              <span class="bot-feature-icon">✓</span>
+              Voice Kontrolü
+            </div>
+
+            <div class="bot-feature">
+              <span class="bot-feature-icon">✓</span>
+              Hızlı Komutlar
             </div>
 
           </div>
 
+
           <div class="bot-footer">
 
             <small>
-              Voice
+              VOICE
             </small>
 
             <a
+              href="#"
               class="bot-install"
-              target="_blank"
-              rel="noopener"
-              href="https://discord.com/oauth2/authorize?client_id=1542535042641825835&permissions=8&integration_type=0&scope=bot+applications.commands"
+              data-install="voice"
             >
               Sunucuya ekle →
             </a>
@@ -2306,10 +3733,11 @@ img{
 
         <article
           class="bot-card reveal"
+          data-bot="ai"
           data-tilt
         >
 
-          <div class="bot-top">
+          <div class="bot-head">
 
             <div class="bot-icon">
               🤖
@@ -2322,46 +3750,53 @@ img{
 
           </div>
 
-          <h3>
+
+          <h3 class="bot-name">
             ZYNX AI
           </h3>
 
-          <p>
-            Kullanıcı sorularına cevap veren,
-            DM üzerinden konuşabilen ve Discord
-            deneyimini akıllandıran AI sistemi.
+
+          <p class="bot-summary">
+            Discord üzerinde yapay zekâ destekli
+            sohbet ve akıllı yardımcı deneyimi.
           </p>
+
 
           <div class="bot-features">
 
             <div class="bot-feature">
-              <b>✓</b>
-              AI sohbet
+              <span class="bot-feature-icon">✓</span>
+              AI Sohbet
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              DM desteği
+              <span class="bot-feature-icon">✓</span>
+              DM Desteği
             </div>
 
             <div class="bot-feature">
-              <b>✓</b>
-              Akıllı yardımcı
+              <span class="bot-feature-icon">✓</span>
+              Akıllı Yardımcı
+            </div>
+
+            <div class="bot-feature">
+              <span class="bot-feature-icon">✓</span>
+              Context Sistemi
             </div>
 
           </div>
 
+
           <div class="bot-footer">
 
             <small>
-              AI
+              ARTIFICIAL INTELLIGENCE
             </small>
 
             <a
+              href="#"
               class="bot-install"
-              target="_blank"
-              rel="noopener"
-              href="https://discord.com/oauth2/authorize?client_id=1542535094286295110&permissions=8&integration_type=0&scope=bot+applications.commands"
+              data-install="ai"
             >
               Sunucuya ekle →
             </a>
@@ -2377,7 +3812,9 @@ img{
   </section>
 
 
-  <!-- SYSTEMS -->
+  <!-- ========================================================
+       SYSTEMS
+       ======================================================== -->
 
   <section
     class="section"
@@ -2386,21 +3823,21 @@ img{
 
     <div class="container">
 
-      <div class="section-head reveal">
+      <div class="section-heading reveal">
 
         <div class="eyebrow">
           ENGINEERED FOR DISCORD
         </div>
 
         <h2 class="section-title">
-          Güzel görünür.
-          Mantıklı çalışır.
+          Sadece güzel değil.
+          Sistemli.
         </h2>
 
         <p class="section-description">
-          ZYNX yalnızca görsel bir marka değil;
-          botların arkasındaki sistemleri anlaşılır
-          hale getirmeyi amaçlayan bir ekosistemdir.
+          ZYNX botları farklı görevleri birbirinden
+          ayırırken ortak bir ekosistem mantığında
+          çalışacak şekilde tasarlanır.
         </p>
 
       </div>
@@ -2409,21 +3846,23 @@ img{
       <div class="feature-grid">
 
 
-        <article class="feature-panel reveal">
+        <article
+          class="feature-panel reveal"
+        >
 
           <div class="feature-label">
-            CONTROL SYSTEM
+            ZYNX ARCHITECTURE
           </div>
 
           <h3>
-            Karmaşık yönetimi
+            Discord yönetimini
             sadeleştir.
           </h3>
 
           <p>
-            Sunucundaki tekrar eden görevleri,
-            destek akışlarını ve yönetim işlemlerini
-            daha kontrollü bir yapıya taşı.
+            Güvenlikten desteğe, sesten yapay zekâya
+            kadar sunucunun ihtiyaç duyduğu sistemleri
+            ayrı botlarla yönet.
           </p>
 
 
@@ -2436,15 +3875,13 @@ img{
               </div>
 
               <div>
-
                 <strong>
-                  Merkezi yönetim
+                  Uzmanlaşmış botlar
                 </strong>
 
                 <span>
-                  Sistemleri tek ekosistem mantığıyla yönet.
+                  Her bot kendi görevine odaklanır.
                 </span>
-
               </div>
 
             </div>
@@ -2457,15 +3894,13 @@ img{
               </div>
 
               <div>
-
                 <strong>
-                  Otomasyon
+                  Merkezi marka deneyimi
                 </strong>
 
                 <span>
-                  Tekrar eden işlemleri botlara bırak.
+                  Tüm ZYNX botları ortak bir platform hissi taşır.
                 </span>
-
               </div>
 
             </div>
@@ -2478,15 +3913,13 @@ img{
               </div>
 
               <div>
-
                 <strong>
-                  Net komut yapısı
+                  Dashboard hazır altyapısı
                 </strong>
 
                 <span>
-                  Komutları anlaşılır ve hızlı kullan.
+                  Discord bağlantısı eklendiğinde kullanıcıya özel alan hazır.
                 </span>
-
               </div>
 
             </div>
@@ -2496,27 +3929,29 @@ img{
         </article>
 
 
-        <article class="feature-panel reveal">
+        <article
+          class="feature-panel reveal"
+        >
 
           <div class="feature-label">
             COMMAND ENGINE
           </div>
 
           <h3>
-            ZYNX komutları
-            böyle çalışır.
+            Komutlar karmaşık
+            olmak zorunda değil.
           </h3>
 
           <p>
-            Aşağıdaki alan örnek komut mimarisini
-            gösterir. Gerçek komutlar botların
-            geliştirme durumuna göre yayınlanacaktır.
+            ZYNX komutlarını tek yerde keşfet,
+            hangi botun ne yaptığını anlay ve hızlıca
+            ilgili sistemi kullan.
           </p>
 
 
           <div class="terminal">
 
-            <div class="terminal-head">
+            <div class="terminal-header">
 
               <span class="terminal-dot"></span>
               <span class="terminal-dot"></span>
@@ -2545,7 +3980,7 @@ img{
                 <span>
                   <code>/ticket-kur</code>
                   <strong>→</strong>
-                  <em>destek paneli oluştur</em>
+                  <em>ticket paneli oluştur</em>
                 </span>
               </div>
 
@@ -2572,7 +4007,7 @@ img{
                 <span>
                   <code>/mod</code>
                   <strong>→</strong>
-                  <em>moderasyon sistemini kullan</em>
+                  <em>moderasyon işlemleri</em>
                 </span>
               </div>
 
@@ -2589,28 +4024,30 @@ img{
   </section>
 
 
-  <!-- COMMANDS -->
+  <!-- ========================================================
+       COMMANDS
+       ======================================================== -->
 
   <section
-    class="section command-section"
+    class="section"
     id="commands"
   >
 
     <div class="container">
 
-      <div class="section-head reveal">
+      <div class="section-heading reveal">
 
         <div class="eyebrow">
           COMMAND CENTER
         </div>
 
         <h2 class="section-title">
-          Komutları hızlıca bul.
+          Aradığın komutu anında bul.
         </h2>
 
         <p class="section-description">
-          Aşağıdaki komut kataloğu arayüz önizlemesidir.
-          Arama sistemi gerçek zamanlı çalışır.
+          Komutlar filtrelenebilir ve bot bazında
+          ayrıştırılabilir şekilde hazırlanmıştır.
         </p>
 
       </div>
@@ -2618,13 +4055,13 @@ img{
 
       <div class="command-toolbar reveal">
 
-        <div class="search-box">
+        <div class="search">
 
           <input
             id="commandSearch"
             type="search"
             autocomplete="off"
-            placeholder="Komut ara... örn. ticket"
+            placeholder="Komut veya bot ara..."
             aria-label="Komut ara"
           >
 
@@ -2633,122 +4070,280 @@ img{
       </div>
 
 
-      <div class="command-grid" id="commandGrid">
+      <div
+        class="command-grid"
+        id="commandGrid"
+      >
 
-        <article class="command-card" data-command="/setup">
-          <div class="command-name">
-            /setup
+        <!-- SECURITY -->
+
+        <article
+          class="command-card"
+          data-command="/setup security"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /setup
+            </div>
+
+            <span class="command-badge">
+              SECURITY
+            </span>
           </div>
-          <div class="command-description">
-            Sunucu kurulum ve yapılandırma akışı.
-          </div>
-          <span class="command-tag">
-            SECURITY
-          </span>
+
+          <p class="command-description">
+            Security sisteminin temel sunucu yapılandırmasını başlatır.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/ticket-kur">
-          <div class="command-name">
-            /ticket-kur
+        <article
+          class="command-card"
+          data-command="/mod security"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /mod
+            </div>
+
+            <span class="command-badge">
+              SECURITY
+            </span>
           </div>
-          <div class="command-description">
-            Profesyonel ticket paneli oluştur.
-          </div>
-          <span class="command-tag">
-            TICKET
-          </span>
+
+          <p class="command-description">
+            Moderasyon işlemlerine erişim sağlar.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/ticket-kapat">
-          <div class="command-name">
-            /ticket-kapat
+        <article
+          class="command-card"
+          data-command="/warn security"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /warn
+            </div>
+
+            <span class="command-badge">
+              SECURITY
+            </span>
           </div>
-          <div class="command-description">
-            Aktif ticket kanalını kapat.
-          </div>
-          <span class="command-tag">
-            TICKET
-          </span>
+
+          <p class="command-description">
+            Bir kullanıcıya moderasyon uyarısı uygular.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/ai">
-          <div class="command-name">
-            /ai
+        <!-- TICKET -->
+
+        <article
+          class="command-card"
+          data-command="/ticket-kur ticket"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ticket-kur
+            </div>
+
+            <span class="command-badge">
+              TICKET
+            </span>
           </div>
-          <div class="command-description">
-            AI sistemi üzerinden soru sor.
-          </div>
-          <span class="command-tag">
-            AI
-          </span>
+
+          <p class="command-description">
+            Ticket panelinin kurulumunu başlatır.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/play">
-          <div class="command-name">
-            /play
+        <article
+          class="command-card"
+          data-command="/ticket-kapat ticket"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ticket-kapat
+            </div>
+
+            <span class="command-badge">
+              TICKET
+            </span>
           </div>
-          <div class="command-description">
-            Voice kanalında müzik başlat.
-          </div>
-          <span class="command-tag">
-            VOICE
-          </span>
+
+          <p class="command-description">
+            Mevcut ticket kanalını kapatır.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/skip">
-          <div class="command-name">
-            /skip
+        <article
+          class="command-card"
+          data-command="/ticket-devret ticket"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ticket-devret
+            </div>
+
+            <span class="command-badge">
+              TICKET
+            </span>
           </div>
-          <div class="command-description">
-            Mevcut parçayı atla.
-          </div>
-          <span class="command-tag">
-            VOICE
-          </span>
+
+          <p class="command-description">
+            Ticket sorumluluğunu başka bir yetkiliye devreder.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/mod">
-          <div class="command-name">
-            /mod
+        <!-- VOICE -->
+
+        <article
+          class="command-card"
+          data-command="/play voice"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /play
+            </div>
+
+            <span class="command-badge">
+              VOICE
+            </span>
           </div>
-          <div class="command-description">
-            Moderasyon araçlarına eriş.
-          </div>
-          <span class="command-tag">
-            SECURITY
-          </span>
+
+          <p class="command-description">
+            Voice kanalında medya oynatmayı başlatır.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/warn">
-          <div class="command-name">
-            /warn
+        <article
+          class="command-card"
+          data-command="/queue voice"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /queue
+            </div>
+
+            <span class="command-badge">
+              VOICE
+            </span>
           </div>
-          <div class="command-description">
-            Kullanıcıya moderasyon uyarısı uygula.
-          </div>
-          <span class="command-tag">
-            SECURITY
-          </span>
+
+          <p class="command-description">
+            Oynatma kuyruğunu görüntüler.
+          </p>
+
         </article>
 
 
-        <article class="command-card" data-command="/status">
-          <div class="command-name">
-            /status
+        <article
+          class="command-card"
+          data-command="/skip voice"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /skip
+            </div>
+
+            <span class="command-badge">
+              VOICE
+            </span>
           </div>
-          <div class="command-description">
-            ZYNX sistem durumunu görüntüle.
+
+          <p class="command-description">
+            Mevcut parçayı atlar.
+          </p>
+
+        </article>
+
+
+        <!-- AI -->
+
+        <article
+          class="command-card"
+          data-command="/ai ai"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ai
+            </div>
+
+            <span class="command-badge">
+              AI
+            </span>
           </div>
-          <span class="command-tag">
-            SYSTEM
-          </span>
+
+          <p class="command-description">
+            ZYNX AI üzerinden yapay zekâya soru sorar.
+          </p>
+
+        </article>
+
+
+        <article
+          class="command-card"
+          data-command="/ask ai"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ask
+            </div>
+
+            <span class="command-badge">
+              AI
+            </span>
+          </div>
+
+          <p class="command-description">
+            AI yardımcısından bilgi veya açıklama ister.
+          </p>
+
+        </article>
+
+
+        <article
+          class="command-card"
+          data-command="/ai-settings ai"
+        >
+
+          <div class="command-top">
+            <div class="command-name">
+              /ai-settings
+            </div>
+
+            <span class="command-badge">
+              AI
+            </span>
+          </div>
+
+          <p class="command-description">
+            AI sistemine ait sunucu ayarlarını yönetir.
+          </p>
+
         </article>
 
       </div>
@@ -2758,7 +4353,9 @@ img{
   </section>
 
 
-  <!-- DASHBOARD -->
+  <!-- ========================================================
+       DASHBOARD
+       ======================================================== -->
 
   <section
     class="section"
@@ -2767,21 +4364,22 @@ img{
 
     <div class="container">
 
-      <div class="section-head reveal">
+      <div class="section-heading reveal">
 
         <div class="eyebrow">
           ZYNX CONTROL CENTER
         </div>
 
         <h2 class="section-title">
-          Sunucularını tek panelden yönet.
+          Discord hesabınla
+          kendi alanını aç.
         </h2>
 
         <p class="section-description">
-          Tasarım gerçek dashboard akışına göre
-          hazırlanmıştır. Discord OAuth2 backend
-          bağlantısı tamamlandığında gerçek hesap
-          ve sunucu bilgileri burada gösterilecek.
+          Gerçek OAuth2 backend bağlantısı tamamlandığında
+          buradaki demo alanı kullanıcının gerçek Discord
+          hesabı, sunucuları ve ZYNX bot durumlarıyla
+          doldurulacak.
         </p>
 
       </div>
@@ -2789,7 +4387,10 @@ img{
 
       <div class="dashboard reveal">
 
-        <div class="dashboard-top">
+
+        <!-- DASHBOARD TOP -->
+
+        <div class="dashboard-topbar">
 
           <div class="dashboard-brand">
 
@@ -2802,7 +4403,7 @@ img{
           </div>
 
 
-          <div class="dashboard-user">
+          <div class="dashboard-account">
 
             <span>
               Discord hesabı
@@ -2815,53 +4416,80 @@ img{
         </div>
 
 
-        <div class="dashboard-body">
+        <!-- DASHBOARD BODY -->
+
+        <div class="dashboard-layout">
 
 
-          <aside class="dashboard-side">
+          <!-- SIDEBAR -->
 
-            <div class="side-title">
-              Overview
+          <aside class="dashboard-sidebar">
+
+            <div class="sidebar-section">
+
+              <div class="sidebar-title">
+                Overview
+              </div>
+
+              <div class="sidebar-link active">
+                ◈ Genel Bakış
+              </div>
+
+              <div class="sidebar-link">
+                ◇ Sunucularım
+              </div>
+
+              <div class="sidebar-link">
+                ◇ Botlar
+              </div>
+
             </div>
 
-            <div class="side-link active">
-              ◈ Genel bakış
+
+            <div class="sidebar-section">
+
+              <div class="sidebar-title">
+                Systems
+              </div>
+
+              <div class="sidebar-link">
+                🛡️ Security
+              </div>
+
+              <div class="sidebar-link">
+                🎫 Ticket
+              </div>
+
+              <div class="sidebar-link">
+                🎵 Voice
+              </div>
+
+              <div class="sidebar-link">
+                🤖 AI
+              </div>
+
             </div>
 
-            <div class="side-link">
-              ◇ Sunucularım
-            </div>
 
-            <div class="side-link">
-              ◇ Botlar
-            </div>
+            <div class="sidebar-section">
 
-            <div style="height:14px"></div>
+              <div class="sidebar-title">
+                Account
+              </div>
 
-            <div class="side-title">
-              Systems
-            </div>
+              <div class="sidebar-link">
+                ◇ Ayarlar
+              </div>
 
-            <div class="side-link">
-              ◇ Security
-            </div>
-
-            <div class="side-link">
-              ◇ Ticket
-            </div>
-
-            <div class="side-link">
-              ◇ Voice
-            </div>
-
-            <div class="side-link">
-              ◇ AI
             </div>
 
           </aside>
 
 
-          <div class="dashboard-content">
+          <!-- MAIN -->
+
+          <div class="dashboard-main">
+
 
             <div class="dashboard-heading">
 
@@ -2877,7 +4505,8 @@ img{
 
               </div>
 
-              <div class="dashboard-status">
+
+              <div class="dashboard-live">
 
                 <i></i>
 
@@ -2888,42 +4517,56 @@ img{
             </div>
 
 
-            <div class="metrics">
+            <!-- METRICS -->
 
-              <div class="metric">
-                <small>
+            <div class="dashboard-metrics">
+
+
+              <div class="dashboard-metric">
+
+                <span>
                   Yönetilebilir sunucular
-                </small>
+                </span>
 
                 <strong>
                   —
                 </strong>
+
               </div>
 
-              <div class="metric">
-                <small>
+
+              <div class="dashboard-metric">
+
+                <span>
                   ZYNX botları
-                </small>
+                </span>
 
                 <strong>
                   4
                 </strong>
+
               </div>
 
-              <div class="metric">
-                <small>
-                  Sistem
-                </small>
+
+              <div class="dashboard-metric">
+
+                <span>
+                  Sistem durumu
+                </span>
 
                 <strong>
                   READY
                 </strong>
+
               </div>
 
             </div>
 
 
-            <div class="server-table">
+            <!-- SERVER LIST -->
+
+            <div class="server-list">
+
 
               <div class="server-row">
 
@@ -2950,7 +4593,8 @@ img{
                     ?
                   </span>
 
-                  Discord ile giriş yaptığında sunucuların burada görünecek.
+                  Discord ile giriş yapınca
+                  sunucuların burada görünecek.
 
                 </span>
 
@@ -2958,7 +4602,7 @@ img{
                   —
                 </span>
 
-                <span class="online">
+                <span class="server-status">
                   Waiting
                 </span>
 
@@ -2973,7 +4617,7 @@ img{
                     ZX
                   </span>
 
-                  Botunun bulunduğu sunucular
+                  Yönetebildiğin sunucular
 
                 </span>
 
@@ -2981,7 +4625,7 @@ img{
                   ZYNX
                 </span>
 
-                <span class="online">
+                <span class="server-status">
                   Ready
                 </span>
 
@@ -2991,9 +4635,11 @@ img{
 
 
             <div class="dashboard-note">
-              Gerçek sunucu listesi OAuth2 bağlantısı
-              tamamlandığında Discord API üzerinden
-              güvenli şekilde alınacaktır.
+
+              Discord OAuth2 bağlantısı aktif olduğunda
+              bu bölüm gerçek kullanıcı ve sunucu verileriyle
+              dinamik hale getirilecektir.
+
             </div>
 
           </div>
@@ -3007,7 +4653,9 @@ img{
   </section>
 
 
-  <!-- STATUS -->
+  <!-- ========================================================
+       STATUS
+       ======================================================== -->
 
   <section
     class="section"
@@ -3015,6 +4663,24 @@ img{
   >
 
     <div class="container">
+
+      <div class="section-heading reveal">
+
+        <div class="eyebrow">
+          SERVICE STATUS
+        </div>
+
+        <h2 class="section-title">
+          ZYNX durum merkezi.
+        </h2>
+
+        <p class="section-description">
+          Sistem durumlarını kullanıcıya tek ekranda
+          gösterecek yapı.
+        </p>
+
+      </div>
+
 
       <div class="status-grid">
 
@@ -3025,14 +4691,14 @@ img{
 
             <i></i>
 
-            Tüm ZYNX sistemleri operasyonel
+            Sistemler operasyonel
 
           </div>
 
 
           <div class="status-list">
 
-            <div class="status-item">
+            <div class="status-row">
 
               <span>
                 ZYNX Security
@@ -3044,7 +4710,8 @@ img{
 
             </div>
 
-            <div class="status-item">
+
+            <div class="status-row">
 
               <span>
                 ZYNX Ticket
@@ -3056,7 +4723,8 @@ img{
 
             </div>
 
-            <div class="status-item">
+
+            <div class="status-row">
 
               <span>
                 ZYNX Voice
@@ -3068,7 +4736,8 @@ img{
 
             </div>
 
-            <div class="status-item">
+
+            <div class="status-row">
 
               <span>
                 ZYNX AI
@@ -3088,27 +4757,77 @@ img{
         <article class="status-panel reveal">
 
           <div class="feature-label">
-            SYSTEM STATUS
+            CENTRAL CONFIGURATION
           </div>
 
-          <h3 style="
-            margin-top:9px;
-            font-size:28px;
-            letter-spacing:-.045em;
-          ">
-            Kontrol sende.
+          <h3
+            style="
+              margin-top:10px;
+              font-size:28px;
+              letter-spacing:-.045em;
+            "
+          >
+            Sistem tek yerden yönetilir.
           </h3>
 
-          <p style="
-            margin-top:11px;
-            color:#6d7480;
-            font-size:11px;
-            line-height:1.8;
-          ">
-            ZYNX dashboard'u gerçek OAuth2 bağlantısıyla
-            kullanıcıya özel sunucu yönetimi için
-            genişletilecek şekilde tasarlandı.
+
+          <p
+            style="
+              margin-top:11px;
+              color:#6d7480;
+              font-size:10px;
+              line-height:1.8;
+            "
+          >
+            Bot Client ID'leri, isimleri, komut listeleri
+            ve temel site ayarları HTML'in en üstündeki
+            ZYNX_CONFIG alanında merkezi olarak tutuluyor.
           </p>
+
+
+          <div class="config-box">
+
+            <div>
+              <span class="config-key">
+                security:
+              </span>
+
+              <span class="config-string">
+                "CLIENT_ID"
+              </span>
+            </div>
+
+            <div>
+              <span class="config-key">
+                ticket:
+              </span>
+
+              <span class="config-string">
+                "CLIENT_ID"
+              </span>
+            </div>
+
+            <div>
+              <span class="config-key">
+                voice:
+              </span>
+
+              <span class="config-string">
+                "CLIENT_ID"
+              </span>
+            </div>
+
+            <div>
+              <span class="config-key">
+                ai:
+              </span>
+
+              <span class="config-string">
+                "CLIENT_ID"
+              </span>
+            </div>
+
+          </div>
 
         </article>
 
@@ -3119,7 +4838,9 @@ img{
   </section>
 
 
-  <!-- CTA -->
+  <!-- ========================================================
+       FINAL CTA
+       ======================================================== -->
 
   <section class="section">
 
@@ -3136,16 +4857,19 @@ img{
             </h2>
 
             <p>
-              Discord sunucunu daha güçlü bir ekosisteme taşı.
+              Discord sunucunun ihtiyaç duyduğu
+              sistemleri tek ekosistemde keşfet.
             </p>
 
           </div>
 
+
           <a
-            class="btn btn-primary"
             href="#bots"
+            class="btn btn-primary"
           >
-            Botları incele →
+            Botları incele
+            →
           </a>
 
         </div>
@@ -3158,6 +4882,10 @@ img{
 
 </main>
 
+
+<!-- ==========================================================
+     FOOTER
+     ========================================================== -->
 
 <footer class="footer">
 
@@ -3192,8 +4920,8 @@ img{
         Dashboard
       </a>
 
-      <a href="#top">
-        Yukarı ↑
+      <a href="#status">
+        Durum
       </a>
 
     </div>
@@ -3203,21 +4931,21 @@ img{
 </footer>
 
 
-<!-- LOGIN MODAL -->
+<!-- ==========================================================
+     LOGIN MODAL
+     ========================================================== -->
 
 <div
   class="modal-backdrop"
   id="loginModal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="loginTitle"
+  aria-hidden="true"
 >
 
   <div class="modal">
 
     <div class="modal-head">
 
-      <h3 id="loginTitle">
+      <h3>
         ZYNX Dashboard
       </h3>
 
@@ -3233,16 +4961,14 @@ img{
     </div>
 
 
-    <p class="modal-text">
+    <p class="modal-description">
 
-      Gerçek Discord hesabı girişi için OAuth2 backend
-      bağlantısı gerekiyor. Bu frontend'e Discord
-      <strong>client secret</strong> koyulmaz.
+      Discord ile giriş yapmak için güvenli OAuth2
+      backend bağlantısı gerekiyor.
 
-      Backend bağlantısı hazır olduğunda bu buton
-      kullanıcıyı gerçek Discord yetkilendirme ekranına
-      gönderecek ve ardından “Sunucularım” bölümünü
-      gerçek Discord verileriyle dolduracak.
+      Client ID bu frontend'de kullanılabilir;
+      fakat Discord Client Secret kesinlikle
+      buraya yazılmamalıdır.
 
     </p>
 
@@ -3251,19 +4977,21 @@ img{
 
       <button
         class="btn btn-secondary"
-        id="closeLoginButton"
+        id="cancelLogin"
         type="button"
       >
         Kapat
       </button>
 
-      <a
+
+      <button
         class="btn btn-primary"
-        href="#dashboard"
-        id="openDashboardButton"
+        id="startDiscordLogin"
+        type="button"
       >
-        Dashboard'u görüntüle →
-      </a>
+        Discord ile devam et
+        →
+      </button>
 
     </div>
 
@@ -3272,18 +5000,26 @@ img{
 </div>
 
 
+<!-- ==========================================================
+     TOAST
+     ========================================================== -->
+
 <div
-  class="toast-stack"
-  id="toastStack"
+  class="toast-container"
+  id="toastContainer"
 ></div>
 
+
+<!-- ==========================================================
+     JAVASCRIPT
+     ========================================================== -->
 
 <script>
 "use strict";
 
-/* =========================================================
-   CORE ELEMENTS
-========================================================= */
+/* ==========================================================
+   GLOBAL ELEMENTS
+   ========================================================== */
 
 const navbar =
   document.getElementById("navbar");
@@ -3297,27 +5033,6 @@ const menuButton =
 const mobileMenu =
   document.getElementById("mobileMenu");
 
-const loginButton =
-  document.getElementById("loginButton");
-
-const heroLoginButton =
-  document.getElementById("heroLoginButton");
-
-const loginModal =
-  document.getElementById("loginModal");
-
-const closeLogin =
-  document.getElementById("closeLogin");
-
-const closeLoginButton =
-  document.getElementById("closeLoginButton");
-
-const openDashboardButton =
-  document.getElementById("openDashboardButton");
-
-const toastStack =
-  document.getElementById("toastStack");
-
 const commandSearch =
   document.getElementById("commandSearch");
 
@@ -3326,22 +5041,193 @@ const commandCards =
     document.querySelectorAll(".command-card")
   );
 
-const revealItems =
-  document.querySelectorAll(".reveal");
+const loginModal =
+  document.getElementById("loginModal");
 
-const tiltCards =
-  document.querySelectorAll("[data-tilt]");
+const closeLogin =
+  document.getElementById("closeLogin");
+
+const cancelLogin =
+  document.getElementById("cancelLogin");
+
+const startDiscordLogin =
+  document.getElementById("startDiscordLogin");
+
+const toastContainer =
+  document.getElementById("toastContainer");
 
 
-/* =========================================================
+/* ==========================================================
+   CONFIG HELPERS
+   ========================================================== */
+
+function getBot(botKey){
+
+  const bot =
+    ZYNX_CONFIG.bots[botKey];
+
+  if(!bot){
+
+    console.error(
+      "[ZYNX] Bot config bulunamadı:",
+      botKey
+    );
+
+    return null;
+
+  }
+
+  return bot;
+}
+
+
+function getClientId(botKey){
+
+  const ids =
+    ZYNX_CONFIG.discord.clientIds;
+
+  if(!ids){
+
+    console.error(
+      "[ZYNX] Client ID yapılandırması bulunamadı."
+    );
+
+    return "";
+
+  }
+
+  return (
+    ids[botKey] || ""
+  ).trim();
+
+}
+
+
+/* ==========================================================
+   DISCORD BOT INVITE
+   ========================================================== */
+
+function createDiscordInvite(botKey){
+
+  const clientId =
+    getClientId(botKey);
+
+  if(!clientId){
+
+    return "";
+
+  }
+
+
+  const params =
+    new URLSearchParams({
+
+      client_id:
+        clientId,
+
+      permissions:
+        "8",
+
+      integration_type:
+        "0",
+
+      scope:
+        "bot applications.commands"
+
+    });
+
+
+  return (
+    "https://discord.com/oauth2/authorize?" +
+    params.toString()
+  );
+
+}
+
+
+/* ==========================================================
+   INSTALL BUTTONS
+   ========================================================== */
+
+document
+  .querySelectorAll("[data-install]")
+  .forEach(
+    (link) => {
+
+      link.addEventListener(
+        "click",
+        (event) => {
+
+          event.preventDefault();
+
+          const botKey =
+            link.dataset.install;
+
+          const bot =
+            getBot(botKey);
+
+          if(!bot){
+
+            showToast(
+              "Hata",
+              "Bot yapılandırması bulunamadı."
+            );
+
+            return;
+
+          }
+
+
+          const inviteUrl =
+            createDiscordInvite(
+              botKey
+            );
+
+
+          if(!inviteUrl){
+
+            showToast(
+              "Client ID eksik",
+              bot.name +
+              " için ZYNX_CONFIG içindeki Client ID alanını doldur."
+            );
+
+            return;
+
+          }
+
+
+          showToast(
+            "Discord",
+            bot.name +
+            " için sunucu ekleme ekranı açılıyor."
+          );
+
+
+          window.open(
+            inviteUrl,
+            "_blank",
+            "noopener,noreferrer"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* ==========================================================
    NAVBAR
-========================================================= */
+   ========================================================== */
 
 function updateNavbar(){
+
   navbar.classList.toggle(
     "scrolled",
     window.scrollY > 18
   );
+
 }
 
 updateNavbar();
@@ -3349,79 +5235,87 @@ updateNavbar();
 window.addEventListener(
   "scroll",
   updateNavbar,
-  { passive:true }
+  {
+    passive:true
+  }
 );
 
 
-/* =========================================================
-   BACKGROUND MOUSE GLOW
-========================================================= */
+/* ==========================================================
+   BACKGROUND GLOW
+   ========================================================== */
 
-let pointerTargetX =
+let targetX =
   window.innerWidth / 2;
 
-let pointerTargetY =
+let targetY =
   window.innerHeight / 2;
 
-let pointerX =
-  pointerTargetX;
+let currentX =
+  targetX;
 
-let pointerY =
-  pointerTargetY;
+let currentY =
+  targetY;
 
 
 window.addEventListener(
   "pointermove",
   (event) => {
 
-    pointerTargetX =
+    targetX =
       event.clientX;
 
-    pointerTargetY =
+    targetY =
       event.clientY;
 
   },
-  { passive:true }
+  {
+    passive:true
+  }
 );
 
 
-function animateBackground(){
-  pointerX +=
-    (pointerTargetX - pointerX) * .07;
+function animateGlow(){
 
-  pointerY +=
-    (pointerTargetY - pointerY) * .07;
+  currentX +=
+    (targetX - currentX) * .065;
+
+  currentY +=
+    (targetY - currentY) * .065;
+
 
   backgroundOrb.style.left =
-    pointerX + "px";
+    currentX + "px";
 
   backgroundOrb.style.top =
-    pointerY + "px";
+    currentY + "px";
 
-  requestAnimationFrame(
-    animateBackground
+
+  window.requestAnimationFrame(
+    animateGlow
   );
+
 }
 
-animateBackground();
+animateGlow();
 
 
-/* =========================================================
+/* ==========================================================
    MOBILE MENU
-========================================================= */
+   ========================================================== */
 
 menuButton.addEventListener(
   "click",
   () => {
 
-    const isOpen =
+    const opened =
       mobileMenu.classList.toggle(
         "open"
       );
 
     menuButton.setAttribute(
       "aria-expanded",
-      String(isOpen)
+      String(opened)
     );
 
   }
@@ -3453,12 +5347,14 @@ mobileMenu
   );
 
 
-/* =========================================================
-   SMOOTH INTERNAL LINKS
-========================================================= */
+/* ==========================================================
+   SMOOTH SCROLL
+   ========================================================== */
 
 document
-  .querySelectorAll('a[href^="#"]')
+  .querySelectorAll(
+    'a[href^="#"]'
+  )
   .forEach(
     (link) => {
 
@@ -3467,28 +5363,49 @@ document
         (event) => {
 
           const id =
-            link.getAttribute("href");
+            link.getAttribute(
+              "href"
+            );
 
-          if (
+          if(
             !id ||
             id === "#"
-          ) {
+          ){
+
             return;
+
           }
+
 
           const target =
-            document.querySelector(id);
+            document.querySelector(
+              id
+            );
 
-          if (!target) {
+          if(!target){
+
             return;
+
           }
 
+
           event.preventDefault();
+
 
           target.scrollIntoView({
             behavior:"smooth",
             block:"start"
           });
+
+
+          mobileMenu.classList.remove(
+            "open"
+          );
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+          );
 
         }
       );
@@ -3497,13 +5414,18 @@ document
   );
 
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
+/* ==========================================================
+   REVEAL ANIMATIONS
+   ========================================================== */
 
-if (
-  "IntersectionObserver"
-  in window
+const revealItems =
+  document.querySelectorAll(
+    ".reveal"
+  );
+
+
+if(
+  "IntersectionObserver" in window
 ){
 
   const revealObserver =
@@ -3513,15 +5435,19 @@ if (
         entries.forEach(
           (entry) => {
 
-            if (
+            if(
               !entry.isIntersecting
-            ) {
+            ){
+
               return;
+
             }
+
 
             entry.target.classList.add(
               "visible"
             );
+
 
             revealObserver.unobserve(
               entry.target
@@ -3545,8 +5471,9 @@ if (
       element.style.transitionDelay =
         Math.min(
           index * 35,
-          260
+          250
         ) + "ms";
+
 
       revealObserver.observe(
         element
@@ -3555,22 +5482,56 @@ if (
     }
   );
 
-} else {
+}else{
 
   revealItems.forEach(
     (element) => {
+
       element.classList.add(
         "visible"
       );
+
     }
   );
 
 }
 
 
-/* =========================================================
+/* ==========================================================
+   HERO INITIALIZATION
+   ========================================================== */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    document
+      .querySelectorAll(
+        ".hero-copy,.hero-visual"
+      )
+      .forEach(
+        (element) => {
+
+          element.classList.add(
+            "visible"
+          );
+
+        }
+      );
+
+  }
+);
+
+
+/* ==========================================================
    CARD TILT
-========================================================= */
+   ========================================================== */
+
+const tiltCards =
+  document.querySelectorAll(
+    "[data-tilt]"
+  );
+
 
 tiltCards.forEach(
   (card) => {
@@ -3579,20 +5540,27 @@ tiltCards.forEach(
       "pointermove",
       (event) => {
 
-        if (
+        if(
           window.innerWidth <= 820
-        ) {
+        ){
+
           return;
+
         }
+
 
         const rect =
           card.getBoundingClientRect();
 
+
         const x =
-          event.clientX - rect.left;
+          event.clientX -
+          rect.left;
 
         const y =
-          event.clientY - rect.top;
+          event.clientY -
+          rect.top;
+
 
         const centerX =
           rect.width / 2;
@@ -3600,13 +5568,15 @@ tiltCards.forEach(
         const centerY =
           rect.height / 2;
 
+
         const rotateX =
           ((centerY - y) /
-            centerY) * 3.2;
+            centerY) * 3.1;
 
         const rotateY =
           ((x - centerX) /
-            centerX) * 3.2;
+            centerX) * 3.1;
+
 
         card.style.transform =
           `
@@ -3634,108 +5604,20 @@ tiltCards.forEach(
 );
 
 
-/* =========================================================
-   LOGIN MODAL
-========================================================= */
-
-function openLoginModal(){
-
-  loginModal.classList.add(
-    "open"
-  );
-
-  document.body.classList.add(
-    "locked"
-  );
-
-}
-
-
-function closeLoginModal(){
-
-  loginModal.classList.remove(
-    "open"
-  );
-
-  document.body.classList.remove(
-    "locked"
-  );
-
-}
-
-
-loginButton.addEventListener(
-  "click",
-  openLoginModal
-);
-
-heroLoginButton.addEventListener(
-  "click",
-  openLoginModal
-);
-
-closeLogin.addEventListener(
-  "click",
-  closeLoginModal
-);
-
-closeLoginButton.addEventListener(
-  "click",
-  closeLoginModal
-);
-
-
-loginModal.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      event.target === loginModal
-    ) {
-      closeLoginModal();
-    }
-
-  }
-);
-
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (
-      event.key === "Escape" &&
-      loginModal.classList.contains(
-        "open"
-      )
-    ){
-
-      closeLoginModal();
-
-    }
-
-  }
-);
-
-
-openDashboardButton.addEventListener(
-  "click",
-  () => {
-
-    closeLoginModal();
-
-  }
-);
-
-
-/* =========================================================
+/* ==========================================================
    COMMAND SEARCH
-========================================================= */
+   ========================================================== */
 
-function normalize(value){
+function normalizeText(
+  value
+){
 
-  return value
-    .toLocaleLowerCase("tr-TR")
+  return String(
+    value || ""
+  )
+    .toLocaleLowerCase(
+      "tr-TR"
+    )
     .trim();
 
 }
@@ -3744,7 +5626,7 @@ function normalize(value){
 function filterCommands(){
 
   const query =
-    normalize(
+    normalizeText(
       commandSearch.value
     );
 
@@ -3752,20 +5634,23 @@ function filterCommands(){
   commandCards.forEach(
     (card) => {
 
-      const command =
-        normalize(
-          card.dataset.command || ""
+      const searchable =
+        normalizeText(
+          (
+            card.dataset.command ||
+            ""
+          ) +
+          " " +
+          card.textContent
         );
 
-      const content =
-        normalize(
-          card.textContent || ""
-        );
 
       const visible =
         !query ||
-        command.includes(query) ||
-        content.includes(query);
+        searchable.includes(
+          query
+        );
+
 
       card.style.display =
         visible
@@ -3784,9 +5669,194 @@ commandSearch.addEventListener(
 );
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+/* ==========================================================
+   LOGIN MODAL
+   ========================================================== */
+
+function openLogin(){
+
+  loginModal.classList.add(
+    "open"
+  );
+
+  loginModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "modal-open"
+  );
+
+}
+
+
+function closeLoginModal(){
+
+  loginModal.classList.remove(
+    "open"
+  );
+
+  loginModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+
+}
+
+
+document
+  .querySelectorAll(
+    "[data-open-login]"
+  )
+  .forEach(
+    (button) => {
+
+      button.addEventListener(
+        "click",
+        (event) => {
+
+          event.preventDefault();
+
+          openLogin();
+
+        }
+      );
+
+    }
+  );
+
+
+closeLogin.addEventListener(
+  "click",
+  closeLoginModal
+);
+
+
+cancelLogin.addEventListener(
+  "click",
+  closeLoginModal
+);
+
+
+loginModal.addEventListener(
+  "click",
+  (event) => {
+
+    if(
+      event.target ===
+      loginModal
+    ){
+
+      closeLoginModal();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if(
+      event.key === "Escape" &&
+      loginModal.classList.contains(
+        "open"
+      )
+    ){
+
+      closeLoginModal();
+
+    }
+
+  }
+);
+
+
+/* ==========================================================
+   REAL DISCORD LOGIN ROUTER
+   ========================================================== */
+
+startDiscordLogin.addEventListener(
+  "click",
+  () => {
+
+    const backend =
+      String(
+        ZYNX_CONFIG.discord.backendBaseUrl ||
+        ""
+      ).trim();
+
+
+    if(!backend){
+
+      showToast(
+        "OAuth2 henüz bağlanmadı",
+        "ZYNX_CONFIG.discord.backendBaseUrl alanına gerçek backend adresi geldiğinde Discord girişi çalışacak."
+      );
+
+      return;
+
+    }
+
+
+    const path =
+      ZYNX_CONFIG.discord.oauth.loginPath;
+
+
+    const finalUrl =
+      backend.replace(
+        /\/$/,
+        ""
+      ) +
+      path;
+
+
+    window.location.href =
+      finalUrl;
+
+  }
+);
+
+
+/* ==========================================================
+   TOAST SYSTEM
+   ========================================================== */
+
+function escapeHtml(
+  value
+){
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
 
 function showToast(
   title,
@@ -3798,8 +5868,10 @@ function showToast(
       "div"
     );
 
+
   toast.className =
     "toast";
+
 
   toast.innerHTML =
     `
@@ -3812,7 +5884,8 @@ function showToast(
       </span>
     `;
 
-  toastStack.appendChild(
+
+  toastContainer.appendChild(
     toast
   );
 
@@ -3825,6 +5898,7 @@ function showToast(
 
       toast.style.transform =
         "translateY(10px)";
+
 
       window.setTimeout(
         () => {
@@ -3842,53 +5916,16 @@ function showToast(
 }
 
 
-function escapeHtml(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   BOT INSTALL FEEDBACK
-========================================================= */
-
-document
-  .querySelectorAll(".bot-install")
-  .forEach(
-    (link) => {
-
-      link.addEventListener(
-        "click",
-        () => {
-
-          showToast(
-            "Discord",
-            "Bot ekleme ekranı yeni sekmede açılıyor."
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   RESIZE HANDLING
-========================================================= */
+/* ==========================================================
+   WINDOW RESIZE
+   ========================================================== */
 
 window.addEventListener(
   "resize",
   () => {
 
-    if (
-      window.innerWidth > 820
+    if(
+      window.innerWidth > 850
     ){
 
       mobileMenu.classList.remove(
@@ -3906,29 +5943,71 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   INITIAL STATE
-========================================================= */
+/* ==========================================================
+   CONFIG VALIDATION
+   ========================================================== */
 
-window.addEventListener(
-  "load",
-  () => {
+function validateConfig(){
 
-    document
-      .querySelectorAll(
-        ".hero-copy,.hero-visual"
-      )
-      .forEach(
-        (element) => {
+  const requiredBots =
+    [
+      "security",
+      "ticket",
+      "voice",
+      "ai"
+    ];
 
-          element.classList.add(
-            "visible"
-          );
 
-        }
-      );
+  requiredBots.forEach(
+    (key) => {
+
+      const id =
+        getClientId(key);
+
+
+      if(
+        !id ||
+        id.startsWith(
+          "BURAYA_"
+        )
+      ){
+
+        console.warn(
+          "[ZYNX] " +
+          key +
+          " Client ID henüz yapılandırılmadı."
+        );
+
+      }
+
+    }
+  );
+
+
+  if(
+    !ZYNX_CONFIG.discord.backendBaseUrl
+  ){
+
+    console.info(
+      "[ZYNX] OAuth2 backend adresi henüz yapılandırılmadı."
+    );
 
   }
+
+}
+
+
+validateConfig();
+
+
+/* ==========================================================
+   INITIAL CONSOLE
+   ========================================================== */
+
+console.info(
+  "%cZYNX%c Frontend initialized.",
+  "color:#a78bfa;font-weight:900",
+  "color:inherit"
 );
 </script>
 
