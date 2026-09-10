@@ -10,70 +10,30 @@
 
     <meta
         name="theme-color"
-        content="#06080d"
+        content="#080a0f"
     >
 
     <meta
         name="description"
-        content="ZYNX — Discord bot ekosistemi."
+        content="QRDrive — Araçlarınızı güvenli ve modern şekilde tanımlayın, QR kodunuzla kolayca paylaşın."
     >
 
-    <title>ZYNX — Discord Ecosystem</title>
+    <title>QRDrive — Dijital Araç Kimliği</title>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
+    <!-- =========================================================
+         QRDRIVE
+         Ana Sayfa
+         ========================================================= -->
 
     <style>
-        :root {
-            --bg: #06080d;
-            --bg-soft: #090c13;
-            --panel: rgba(14, 18, 27, .82);
-            --panel-solid: #0d1119;
-            --panel-hover: #121824;
 
-            --text: #f7f8fb;
-            --muted: #8f99aa;
-            --muted-2: #667183;
+        /* =========================================================
+           RESET
+           ========================================================= */
 
-            --accent: #765cff;
-            --accent-2: #9d8cff;
-            --accent-soft: rgba(118, 92, 255, .14);
-
-            --success: #53df87;
-            --warning: #f5cc55;
-            --danger: #ff6f8c;
-
-            --border: rgba(255, 255, 255, .075);
-            --border-strong: rgba(255, 255, 255, .14);
-
-            --shadow:
-                0 30px 90px rgba(0, 0, 0, .42);
-
-            --container: 1280px;
-
-            --radius-xl: 28px;
-            --radius-lg: 22px;
-            --radius-md: 16px;
-            --radius-sm: 12px;
-
-            --ease:
-                cubic-bezier(.2, .8, .2, 1);
-        }
-
-        * {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -85,46 +45,48 @@
 
         body {
             min-height: 100vh;
-
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(62, 91, 255, 0.12),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(0, 210, 255, 0.08),
+                    transparent 30%
+                ),
+                #080a0f;
+            color: #f5f7fb;
             font-family:
-                "Inter",
+                Inter,
                 system-ui,
                 -apple-system,
                 BlinkMacSystemFont,
                 "Segoe UI",
                 sans-serif;
-
-            color: var(--text);
-
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    rgba(118, 92, 255, .18),
-                    transparent 34%
-                ),
-                radial-gradient(
-                    circle at 100% 40%,
-                    rgba(57, 110, 255, .08),
-                    transparent 26%
-                ),
-                var(--bg);
-
+            line-height: 1.5;
             overflow-x: hidden;
         }
 
-        body.modal-open {
-            overflow: hidden;
+        body.light {
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(62, 91, 255, 0.08),
+                    transparent 32%
+                ),
+                #f5f7fb;
+            color: #10131a;
         }
 
         button,
-        input,
-        select {
+        input {
             font: inherit;
         }
 
         button {
             cursor: pointer;
-            border: 0;
         }
 
         a {
@@ -133,92 +95,374 @@
         }
 
         img {
-            display: block;
             max-width: 100%;
+            display: block;
         }
 
-        ::selection {
-            background: rgba(118, 92, 255, .3);
+        /* =========================================================
+           VARIABLES
+           ========================================================= */
+
+        :root {
+            --primary: #5865f2;
+            --primary-hover: #4752c4;
+
+            --cyan: #19cfff;
+
+            --bg: #080a0f;
+            --panel: rgba(17, 20, 28, 0.76);
+            --panel-solid: #11141c;
+
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+
+            --text: #f5f7fb;
+            --muted: #9ba3b4;
+
+            --success: #35d07f;
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 26px;
+
+            --shadow:
+                0 25px 80px rgba(0, 0, 0, 0.35);
+
+            --container: 1180px;
         }
 
-        /* =====================================================
-           BACKGROUND
-        ====================================================== */
+        body.light {
+            --bg: #f5f7fb;
+            --panel: rgba(255, 255, 255, 0.82);
+            --panel-solid: #ffffff;
 
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -5;
+            --border: rgba(15, 20, 30, 0.08);
+            --border-hover: rgba(15, 20, 30, 0.16);
 
-            pointer-events: none;
+            --text: #10131a;
+            --muted: #626b7c;
 
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,.018) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,.018) 1px,
-                    transparent 1px
-                );
-
-            background-size: 46px 46px;
-
-            mask-image:
-                linear-gradient(
-                    to bottom,
-                    black 0%,
-                    transparent 75%
-                );
+            --shadow:
+                0 25px 70px rgba(20, 30, 50, 0.12);
         }
 
-        .glow {
-            position: fixed;
-            z-index: -4;
-
-            width: 450px;
-            height: 450px;
-
-            border-radius: 50%;
-
-            filter: blur(120px);
-
-            opacity: .11;
-
-            pointer-events: none;
-        }
-
-        .glow-a {
-            top: -200px;
-            left: 15%;
-
-            background: #765cff;
-        }
-
-        .glow-b {
-            right: -250px;
-            top: 38%;
-
-            background: #3578ff;
-        }
-
-        /* =====================================================
-           LAYOUT
-        ====================================================== */
+        /* =========================================================
+           UTILITIES
+           ========================================================= */
 
         .container {
-            width:
-                min(
-                    calc(100% - 40px),
-                    var(--container)
-                );
+            width: min(
+                calc(100% - 40px),
+                var(--container)
+            );
 
             margin-inline: auto;
         }
 
-        .section {
-            padding: 115px 0;
+        .hidden {
+            display: none !important;
+        }
+
+        .glass {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        .header {
+            position: fixed;
+            z-index: 1000;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                rgba(8, 10, 15, 0.72);
+
+            border-bottom:
+                1px solid var(--border);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+        body.light .header {
+            background:
+                rgba(245, 247, 251, 0.78);
+        }
+
+        .header-inner {
+            width: min(
+                calc(100% - 40px),
+                var(--container)
+            );
+
+            margin-inline: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 24px;
+        }
+
+        /* =========================================================
+           BRAND
+           ========================================================= */
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+
+            font-weight: 850;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 13px;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--cyan)
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(88, 101, 242, 0.3);
+        }
+
+        .brand-icon::before {
+            content: "⌁";
+            font-size: 27px;
+            font-weight: 900;
+            color: white;
+            transform: rotate(-45deg);
+        }
+
+        .brand-text span {
+            color: var(--primary);
+        }
+
+        /* =========================================================
+           NAVIGATION
+           ========================================================= */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav a {
+            color: var(--muted);
+
+            padding: 10px 13px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 650;
+
+            transition:
+                color .2s ease,
+                background .2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--text);
+            background:
+                rgba(255, 255, 255, 0.05);
+        }
+
+        /* =========================================================
+           HEADER ACTIONS
+           ========================================================= */
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+            background: var(--panel);
+
+            color: var(--text);
+
+            display: grid;
+            place-items: center;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+        .icon-button:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        /* =========================================================
+           BUTTONS
+           ========================================================= */
+
+        .btn {
+            min-height: 44px;
+
+            padding:
+                0 18px;
+
+            border-radius: 12px;
+
+            border: 1px solid transparent;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 9px;
+
+            font-size: 14px;
+            font-weight: 750;
+
+            transition:
+                transform .2s ease,
+                background .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    #6975ff
+                );
+
+            box-shadow:
+                0 12px 30px
+                rgba(88, 101, 242, 0.22);
+        }
+
+        .btn-primary:hover {
+            box-shadow:
+                0 15px 35px
+                rgba(88, 101, 242, 0.32);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+
+            background:
+                var(--panel);
+
+            border-color:
+                var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color:
+                var(--border-hover);
+        }
+
+        .btn-large {
+            min-height: 54px;
+            padding-inline: 24px;
+            border-radius: 15px;
+            font-size: 15px;
+        }
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            position: relative;
+
+            min-height: 850px;
+
+            padding-top: 160px;
+            padding-bottom: 100px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            left: -250px;
+            top: 100px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(88, 101, 242, 0.16),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+
+            grid-template-columns:
+                1.05fr
+                .95fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .eyebrow {
@@ -228,715 +472,270 @@
 
             padding: 8px 12px;
 
+            margin-bottom: 24px;
+
             border:
-                1px solid var(--border);
+                1px solid
+                rgba(88, 101, 242, 0.24);
 
             border-radius: 999px;
 
             background:
-                rgba(255,255,255,.03);
+                rgba(88, 101, 242, 0.08);
 
-            color: #adb6c5;
+            color: #aeb5ff;
 
-            font-size: 10px;
-            font-weight: 800;
+            font-size: 12px;
+            font-weight: 750;
 
-            letter-spacing: .12em;
-            text-transform: uppercase;
+            letter-spacing: .3px;
         }
 
-        .eyebrow::before {
-            content: "";
-
+        .eyebrow-dot {
             width: 7px;
             height: 7px;
 
             border-radius: 50%;
 
-            background: var(--success);
+            background:
+                var(--success);
 
             box-shadow:
-                0 0 14px
-                rgba(83,223,135,.65);
+                0 0 12px
+                rgba(53, 208, 127, 0.7);
         }
 
-        .section-title {
-            max-width: 820px;
-
-            margin-top: 18px;
-
-            font-size:
-                clamp(36px, 5vw, 62px);
-
-            line-height: 1.01;
-
-            letter-spacing: -.055em;
-        }
-
-        .section-description {
+        .hero h1 {
             max-width: 700px;
 
-            margin-top: 18px;
-
-            color: var(--muted);
-
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        /* =====================================================
-           NAV
-        ====================================================== */
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 200;
-
-            border-bottom:
-                1px solid var(--border);
-
-            background:
-                rgba(6,8,13,.76);
-
-            backdrop-filter:
-                blur(22px);
-        }
-
-        .nav {
-            min-height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 25px;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-
-            gap: 11px;
-
-            min-width: max-content;
-        }
-
-        .brand-logo {
-            width: 40px;
-            height: 40px;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 12px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(118,92,255,.28),
-                    rgba(118,92,255,.08)
-                );
-
-            border:
-                1px solid
-                rgba(118,92,255,.3);
-
-            box-shadow:
-                inset 0 1px 0
-                rgba(255,255,255,.09);
-        }
-
-        .brand-logo span {
-            font-size: 13px;
-            font-weight: 900;
-            letter-spacing: -.06em;
-        }
-
-        .brand-info strong {
-            display: block;
-
-            font-size: 14px;
-            font-weight: 900;
-
-            letter-spacing: -.025em;
-        }
-
-        .brand-info span {
-            display: block;
-
-            margin-top: 2px;
-
-            color: var(--muted-2);
-
-            font-size: 8px;
-            font-weight: 700;
-
-            letter-spacing: .12em;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .nav-link {
-            padding: 10px 12px;
-
-            border-radius: 10px;
-
-            color: #8c96a8;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            transition:
-                color .18s var(--ease),
-                background .18s var(--ease);
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #fff;
-
-            background:
-                rgba(255,255,255,.045);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        /* =====================================================
-           BUTTONS
-        ====================================================== */
-
-        .btn {
-            min-height: 44px;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 9px;
-
-            padding:
-                0 16px;
-
-            border-radius: 12px;
-
-            font-size: 12px;
-            font-weight: 800;
-
-            transition:
-                transform .18s var(--ease),
-                box-shadow .18s var(--ease),
-                border-color .18s var(--ease),
-                background .18s var(--ease);
-        }
-
-        .btn:hover {
-            transform:
-                translateY(-2px);
-        }
-
-        .btn-primary {
-            color: #fff;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #8068ff,
-                    #6146ec
-                );
-
-            box-shadow:
-                0 14px 36px
-                rgba(118,92,255,.21);
-        }
-
-        .btn-primary:hover {
-            box-shadow:
-                0 20px 45px
-                rgba(118,92,255,.30);
-        }
-
-        .btn-secondary {
-            color: #fff;
-
-            background:
-                rgba(255,255,255,.04);
-
-            border:
-                1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background:
-                rgba(255,255,255,.07);
-
-            border-color:
-                var(--border-strong);
-        }
-
-        .btn-danger {
-            color: #ff9bb0;
-
-            background:
-                rgba(255,111,140,.08);
-
-            border:
-                1px solid
-                rgba(255,111,140,.15);
-        }
-
-        /* =====================================================
-           USER
-        ====================================================== */
-
-        .user-area {
-            position: relative;
-        }
-
-        .user-trigger {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-
-            min-height: 44px;
-
-            padding:
-                5px 10px 5px 6px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 13px;
-
-            background:
-                rgba(255,255,255,.035);
-
-            color: #fff;
-        }
-
-        .user-trigger-avatar {
-            width: 32px;
-            height: 32px;
-
-            border-radius: 10px;
-
-            object-fit: cover;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #8068ff,
-                    #4d39c4
-                );
-        }
-
-        .user-trigger-text strong {
-            display: block;
-
-            max-width: 120px;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-            font-size: 10px;
-            font-weight: 800;
-        }
-
-        .user-trigger-text span {
-            display: block;
-
-            margin-top: 2px;
-
-            color: #7e899b;
-
-            font-size: 8px;
-            font-weight: 700;
-        }
-
-        .user-menu {
-            position: absolute;
-
-            right: 0;
-            top: calc(100% + 9px);
-
-            width: 255px;
-
-            padding: 8px;
-
-            border:
-                1px solid var(--border-strong);
-
-            border-radius: 17px;
-
-            background:
-                rgba(10,13,20,.97);
-
-            backdrop-filter:
-                blur(26px);
-
-            box-shadow:
-                0 28px 80px
-                rgba(0,0,0,.45);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transform:
-                translateY(-6px)
-                scale(.985);
-
-            transition:
-                opacity .18s var(--ease),
-                visibility .18s var(--ease),
-                transform .18s var(--ease);
-        }
-
-        .user-area.open .user-menu {
-            opacity: 1;
-            visibility: visible;
-
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-        .user-menu-top {
-            padding: 12px;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .user-menu-top strong {
-            display: block;
-            font-size: 12px;
-        }
-
-        .user-menu-top span {
-            display: inline-block;
-
-            margin-top: 7px;
-
-            padding: 5px 7px;
-
-            border-radius: 7px;
-
-            color: #bfb4ff;
-
-            background:
-                rgba(118,92,255,.10);
-
-            font-size: 8px;
-            font-weight: 900;
-        }
-
-        .menu-button {
-            width: 100%;
-
-            display: flex;
-            align-items: center;
-
-            gap: 9px;
-
-            padding: 11px 12px;
-
-            border-radius: 10px;
-
-            color: #8791a2;
-
-            background: transparent;
-
-            font-size: 10px;
-            font-weight: 700;
-
-            text-align: left;
-        }
-
-        .menu-button:hover {
-            color: #fff;
-
-            background:
-                rgba(255,255,255,.045);
-        }
-
-        /* =====================================================
-           HERO
-        ====================================================== */
-
-        .hero {
-            padding:
-                95px 0
-                85px;
-        }
-
-        .hero-layout {
-            display: grid;
-
-            grid-template-columns:
-                1.05fr .95fr;
-
-            gap: 70px;
-
-            align-items: center;
-        }
-
-        .hero-title {
-            margin-top: 22px;
-
-            max-width: 820px;
-
             font-size:
-                clamp(48px, 7vw, 88px);
+                clamp(
+                    48px,
+                    6vw,
+                    78px
+                );
 
-            line-height: .93;
+            line-height: .98;
 
-            letter-spacing: -.07em;
+            letter-spacing:
+                -4px;
+
+            margin-bottom: 26px;
         }
 
-        .hero-title .gradient {
-            display: block;
-
-            color: transparent;
-
+        .hero h1 .gradient {
             background:
                 linear-gradient(
-                    135deg,
-                    #fff 15%,
-                    #aa9dff 85%
+                    110deg,
+                    #ffffff 0%,
+                    #9ca6ff 48%,
+                    #19cfff 100%
                 );
 
             -webkit-background-clip: text;
             background-clip: text;
+
+            color: transparent;
+        }
+
+        body.light .hero h1 .gradient {
+            background:
+                linear-gradient(
+                    110deg,
+                    #11131a,
+                    #5865f2,
+                    #0797bd
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
         }
 
         .hero-description {
-            max-width: 680px;
+            max-width: 600px;
 
-            margin-top: 28px;
-
-            color: #a0aaba;
-
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-
-            gap: 11px;
-
-            margin-top: 30px;
-        }
-
-        .hero-stats {
-            display: flex;
-            flex-wrap: wrap;
-
-            gap: 22px;
-
-            margin-top: 28px;
-        }
-
-        .hero-stat {
             color: var(--muted);
 
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 17px;
+
+            line-height: 1.75;
+
+            margin-bottom: 34px;
         }
 
-        .hero-stat strong {
-            margin-right: 4px;
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
 
-            color: #fff;
+            gap: 12px;
 
-            font-size: 12px;
+            margin-bottom: 36px;
         }
 
-        /* =====================================================
-           HERO PANEL
-        ====================================================== */
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 14px;
 
-        .hero-panel {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        .trust-icon {
+            width: 30px;
+            height: 30px;
+
+            border-radius: 9px;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                rgba(53, 208, 127, 0.1);
+
+            color:
+                var(--success);
+        }
+
+        /* =========================================================
+           QR PREVIEW
+           ========================================================= */
+
+        .hero-visual {
             position: relative;
 
-            padding: 12px;
+            min-height: 570px;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .glow {
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(88, 101, 242, 0.25),
+                    transparent 68%
+                );
+
+            filter: blur(15px);
+        }
+
+        .vehicle-card {
+            position: relative;
+            z-index: 2;
+
+            width: min(
+                100%,
+                410px
+            );
+
+            padding: 20px;
 
             border:
-                1px solid var(--border-strong);
+                1px solid
+                rgba(255, 255, 255, 0.12);
 
             border-radius: 28px;
 
             background:
-                rgba(15,19,29,.70);
+                linear-gradient(
+                    145deg,
+                    rgba(28, 32, 43, 0.96),
+                    rgba(12, 15, 21, 0.96)
+                );
 
             box-shadow:
-                var(--shadow);
+                0 40px 100px
+                rgba(0, 0, 0, .55);
 
-            overflow: hidden;
+            transform:
+                perspective(1200px)
+                rotateY(-7deg)
+                rotateX(3deg);
+
+            transition:
+                transform .5s ease;
         }
 
-        .hero-panel::before {
-            content: "";
-
-            position: absolute;
-
-            top: -150px;
-            right: -80px;
-
-            width: 300px;
-            height: 300px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(118,92,255,.17);
-
-            filter: blur(70px);
+        .vehicle-card:hover {
+            transform:
+                perspective(1200px)
+                rotateY(0)
+                rotateX(0)
+                translateY(-8px);
         }
 
-        .panel-topbar {
-            position: relative;
+        .vehicle-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-            height: 43px;
+            margin-bottom: 20px;
+        }
 
+        .mini-brand {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 8px;
 
-            padding: 0 12px;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .panel-dots {
-            display: flex;
-            gap: 5px;
-        }
-
-        .panel-dot {
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: #485263;
-        }
-
-        .panel-caption {
-            color: #6d7789;
-
-            font-size: 8px;
+            font-size: 13px;
             font-weight: 800;
-
-            letter-spacing: .14em;
-            text-transform: uppercase;
         }
 
-        .hero-panel-body {
-            position: relative;
-
-            display: grid;
-
-            grid-template-columns:
-                155px 1fr;
-
-            min-height: 410px;
-        }
-
-        .fake-sidebar {
-            padding: 16px 11px;
-
-            border-right:
-                1px solid var(--border);
-        }
-
-        .fake-logo {
-            padding: 7px 8px 17px;
-
-            color: #fff;
-
-            font-size: 11px;
-            font-weight: 900;
-        }
-
-        .fake-sidebar-group {
-            display: grid;
-            gap: 4px;
-        }
-
-        .fake-side-item {
-            padding: 9px;
+        .mini-logo {
+            width: 27px;
+            height: 27px;
 
             border-radius: 8px;
 
-            color: #697486;
-
-            font-size: 9px;
-            font-weight: 700;
-        }
-
-        .fake-side-item.active {
-            color: #fff;
+            display: grid;
+            place-items: center;
 
             background:
-                rgba(118,92,255,.12);
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--cyan)
+                );
 
-            border:
-                1px solid
-                rgba(118,92,255,.15);
-        }
-
-        .fake-content {
-            padding: 22px;
-        }
-
-        .fake-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-
-        .fake-header strong {
             font-size: 13px;
         }
 
-        .live {
+        .status {
             display: inline-flex;
             align-items: center;
-
             gap: 6px;
 
-            padding: 6px 8px;
+            padding: 6px 9px;
 
             border-radius: 999px;
 
-            color: #8cf1ad;
-
             background:
-                rgba(83,223,135,.07);
+                rgba(53, 208, 127, .09);
 
-            font-size: 8px;
-            font-weight: 900;
+            color:
+                var(--success);
+
+            font-size: 10px;
+            font-weight: 800;
         }
 
-        .live::before {
+        .status::before {
             content: "";
 
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
 
             border-radius: 50%;
 
@@ -944,397 +743,198 @@
                 var(--success);
         }
 
-        .fake-metrics {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
-
-            margin-top: 19px;
-        }
-
-        .fake-card {
-            padding: 13px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.025);
-        }
-
-        .fake-card small {
-            display: block;
-
-            color: #667083;
-
-            font-size: 7px;
-            font-weight: 800;
-
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        .fake-card strong {
-            display: block;
-
-            margin-top: 7px;
-
-            font-size: 17px;
-        }
-
-        .fake-large-card {
-            margin-top: 8px;
-
-            padding: 14px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 13px;
-
-            background:
-                rgba(255,255,255,.022);
-        }
-
-        .fake-large-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .fake-server {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-
-            font-size: 9px;
-            font-weight: 800;
-        }
-
-        .fake-server-icon {
-            width: 23px;
-            height: 23px;
+        .qr-area {
+            padding: 26px;
 
             display: grid;
             place-items: center;
 
-            border-radius: 7px;
+            border-radius: 22px;
 
             background:
-                rgba(118,92,255,.10);
+                #ffffff;
+
+            margin-bottom: 20px;
         }
 
-        .fake-server-state {
-            color: var(--success);
+        .fake-qr {
+            width: 210px;
+            height: 210px;
 
-            font-size: 7px;
-            font-weight: 900;
-        }
-
-        .fake-bar {
-            height: 5px;
-
-            margin-top: 13px;
-
-            overflow: hidden;
-
-            border-radius: 999px;
-
-            background:
-                rgba(255,255,255,.05);
-        }
-
-        .fake-bar span {
-            display: block;
-
-            width: 78%;
-            height: 100%;
-
-            border-radius: inherit;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #6549ec,
-                    #a190ff
-                );
-        }
-
-        /* =====================================================
-           SYSTEM CARDS
-        ====================================================== */
-
-        .system-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(4, 1fr);
+                repeat(21, 1fr);
 
-            gap: 14px;
+            grid-template-rows:
+                repeat(21, 1fr);
 
-            margin-top: 48px;
+            gap: 2px;
+
+            background: white;
         }
 
-        .system-card {
-            padding: 23px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                var(--radius-lg);
-
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(255,255,255,.036),
-                    rgba(255,255,255,.016)
-                );
-
-            transition:
-                transform .22s var(--ease),
-                border-color .22s var(--ease),
-                background .22s var(--ease);
+        .fake-qr span {
+            background: #111;
         }
 
-        .system-card:hover {
-            transform:
-                translateY(-5px);
-
-            border-color:
-                var(--border-strong);
-
-            background:
-                rgba(255,255,255,.045);
+        .fake-qr span:nth-child(3n) {
+            background: white;
         }
 
-        .system-icon {
-            width: 44px;
-            height: 44px;
+        .fake-qr span:nth-child(7n) {
+            background: #111;
+        }
 
+        .vehicle-info {
             display: grid;
-            place-items: center;
 
-            border-radius: 13px;
+            grid-template-columns:
+                1fr
+                auto;
 
-            background:
-                rgba(118,92,255,.09);
+            gap: 15px;
+        }
+
+        .vehicle-name {
+            font-size: 21px;
+            font-weight: 850;
+        }
+
+        .vehicle-meta {
+            color: #929aaa;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .scan-text {
+            text-align: right;
+
+            color: #9ba3b4;
+
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           FLOATING INFO
+           ========================================================= */
+
+        .floating-card {
+            position: absolute;
+            z-index: 3;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 12px 15px;
 
             border:
                 1px solid
-                rgba(118,92,255,.15);
+                rgba(255,255,255,.1);
 
-            font-size: 20px;
-        }
-
-        .system-card h3 {
-            margin-top: 20px;
-
-            font-size: 17px;
-            letter-spacing: -.035em;
-        }
-
-        .system-card p {
-            min-height: 62px;
-
-            margin-top: 8px;
-
-            color: var(--muted);
-
-            font-size: 11px;
-            line-height: 1.65;
-        }
-
-        .system-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            margin-top: 18px;
-
-            color: #757f91;
-
-            font-size: 8px;
-            font-weight: 900;
-
-            text-transform: uppercase;
-            letter-spacing: .08em;
-        }
-
-        .system-bottom a:hover {
-            color: #fff;
-        }
-
-        /* =====================================================
-           COMMAND CENTER
-        ====================================================== */
-
-        .command-box {
-            margin-top: 45px;
-
-            overflow: hidden;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                var(--radius-xl);
+            border-radius: 15px;
 
             background:
-                rgba(255,255,255,.02);
+                rgba(17,20,28,.82);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.35);
+
+            backdrop-filter: blur(18px);
         }
 
-        .command-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 14px;
-
-            padding: 18px;
-
-            border-bottom:
-                1px solid var(--border);
+        .floating-card.one {
+            top: 80px;
+            right: 0;
         }
 
-        .search-wrapper {
-            position: relative;
-            flex: 1;
+        .floating-card.two {
+            left: 0;
+            bottom: 80px;
         }
 
-        .search-wrapper input {
-            width: 100%;
-            height: 44px;
+        .floating-icon {
+            width: 36px;
+            height: 36px;
 
-            padding:
-                0 14px 0 39px;
-
-            outline: none;
+            display: grid;
+            place-items: center;
 
             border-radius: 11px;
 
-            color: #fff;
-
             background:
-                rgba(255,255,255,.033);
+                rgba(88,101,242,.13);
 
-            border:
-                1px solid var(--border);
+            color:
+                #aab1ff;
         }
 
-        .search-wrapper input:focus {
-            border-color:
-                rgba(118,92,255,.35);
+        .floating-title {
+            font-size: 12px;
+            font-weight: 800;
         }
 
-        .search-symbol {
-            position: absolute;
-
-            top: 50%;
-            left: 14px;
-
-            transform:
-                translateY(-50%);
-
-            color: #677184;
-
-            font-size: 15px;
-        }
-
-        .filters {
-            display: flex;
-            gap: 4px;
-
-            overflow-x: auto;
-        }
-
-        .filter {
-            height: 37px;
-
-            padding: 0 11px;
-
-            border-radius: 9px;
-
-            color: #6e798b;
-
-            background: transparent;
-
-            font-size: 9px;
-            font-weight: 900;
-        }
-
-        .filter:hover,
-        .filter.active {
-            color: white;
-
-            background:
-                rgba(255,255,255,.045);
-        }
-
-        .command-row {
-            display: grid;
-
-            grid-template-columns:
-                145px 1fr 90px;
-
-            gap: 20px;
-
-            align-items: center;
-
-            padding: 16px 19px;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .command-row:last-child {
-            border-bottom: 0;
-        }
-
-        .command-name {
-            color: #fff;
-
-            font-size: 11px;
-            font-weight: 900;
-        }
-
-        .command-description {
-            color: #818b9d;
-
+        .floating-subtitle {
+            color: #7f8798;
             font-size: 10px;
-            line-height: 1.5;
         }
 
-        .command-category {
-            justify-self: end;
+        /* =========================================================
+           SECTION
+           ========================================================= */
 
-            padding: 5px 7px;
-
-            border-radius: 7px;
-
-            color: #b8abff;
-
-            background:
-                rgba(118,92,255,.08);
-
-            font-size: 7px;
-            font-weight: 900;
+        .section {
+            padding: 110px 0;
         }
 
-        /* =====================================================
-           PREMIUM
-        ====================================================== */
+        .section-heading {
+            max-width: 650px;
 
-        .premium-wrap {
-            margin-top: 48px;
+            margin-bottom: 50px;
         }
 
-        .plans {
+        .section-label {
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 850;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 13px;
+        }
+
+        .section-heading h2 {
+            font-size:
+                clamp(
+                    34px,
+                    4vw,
+                    52px
+                );
+
+            letter-spacing:
+                -2px;
+
+            line-height: 1.05;
+
+            margin-bottom: 15px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        /* =========================================================
+           FEATURE CARDS
+           ========================================================= */
+
+        .feature-grid {
             display: grid;
 
             grid-template-columns:
@@ -1343,910 +943,304 @@
             gap: 16px;
         }
 
-        .plan {
-            position: relative;
-
+        .feature-card {
             padding: 28px;
 
             border:
-                1px solid var(--border);
+                1px solid
+                var(--border);
 
             border-radius:
-                24px;
+                var(--radius-md);
+
+            background:
+                var(--panel);
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .feature-card:hover {
+            transform:
+                translateY(-6px);
+
+            border-color:
+                var(--border-hover);
+
+            box-shadow:
+                var(--shadow);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+
+            background:
+                rgba(88,101,242,.1);
+
+            color:
+                #a9b0ff;
+
+            font-size: 20px;
+
+            margin-bottom: 23px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           HOW IT WORKS
+           ========================================================= */
+
+        .steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .step {
+            position: relative;
+
+            padding: 30px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius-md);
 
             background:
                 linear-gradient(
-                    180deg,
+                    145deg,
                     rgba(255,255,255,.035),
                     rgba(255,255,255,.015)
                 );
         }
 
-        .plan.featured {
-            border-color:
-                rgba(118,92,255,.36);
+        .step-number {
+            display: inline-flex;
 
-            box-shadow:
-                0 25px 80px
-                rgba(118,92,255,.09);
-        }
+            width: 38px;
+            height: 38px;
 
-        .plan-ribbon {
-            position: absolute;
+            align-items: center;
+            justify-content: center;
 
-            top: 15px;
-            right: 15px;
-
-            padding: 6px 8px;
-
-            border-radius: 8px;
-
-            color: #c0b6ff;
+            border-radius: 11px;
 
             background:
-                rgba(118,92,255,.10);
-
-            font-size: 7px;
-            font-weight: 900;
-
-            letter-spacing: .09em;
-            text-transform: uppercase;
-        }
-
-        .plan-head {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-
-        .plan-name {
-            font-size: 19px;
-            font-weight: 900;
-
-            letter-spacing: -.04em;
-        }
-
-        .plan-label {
-            margin-top: 9px;
-
-            color: #687285;
-
-            font-size: 9px;
-            line-height: 1.6;
-        }
-
-        .plan-price {
-            margin-top: 26px;
-        }
-
-        .plan-price strong {
-            font-size: 38px;
-
-            letter-spacing: -.06em;
-        }
-
-        .plan-price span {
-            color: #687285;
-
-            font-size: 10px;
-        }
-
-        .plan-features {
-            display: grid;
-            gap: 10px;
-
-            margin-top: 25px;
-        }
-
-        .plan-feature {
-            display: flex;
-            align-items: flex-start;
-
-            gap: 8px;
-
-            color: #9ca5b5;
-
-            font-size: 10px;
-            line-height: 1.5;
-        }
-
-        .plan-feature::before {
-            content: "✓";
+                rgba(88,101,242,.13);
 
             color:
-                var(--success);
+                #aeb4ff;
 
-            font-weight: 900;
+            font-weight: 850;
+
+            margin-bottom: 22px;
         }
 
-        .plan-action {
-            width: 100%;
-
-            margin-top: 26px;
+        .step h3 {
+            margin-bottom: 9px;
         }
 
-        .plan-small {
-            margin-top: 9px;
+        .step p {
+            color: var(--muted);
 
-            color: #596274;
-
-            text-align: center;
-
-            font-size: 8px;
+            font-size: 14px;
+            line-height: 1.7;
         }
 
-        /* =====================================================
-           COMPARISON
-        ====================================================== */
+        /* =========================================================
+           PRIVACY SECTION
+           ========================================================= */
 
-        .comparison {
-            margin-top: 20px;
-
-            overflow-x: auto;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                22px;
-
-            background:
-                rgba(255,255,255,.018);
-        }
-
-        .comparison table {
-            width: 100%;
-
-            min-width: 760px;
-
-            border-collapse: collapse;
-        }
-
-        .comparison th,
-        .comparison td {
-            padding: 14px 17px;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .comparison th {
-            color: #fff;
-
-            font-size: 9px;
-            font-weight: 900;
-
-            text-align: left;
-        }
-
-        .comparison td {
-            color: #818b9d;
-
-            font-size: 9px;
-        }
-
-        .comparison td:not(:first-child),
-        .comparison th:not(:first-child) {
-            text-align: center;
-        }
-
-        .check {
-            color: var(--success);
-
-            font-weight: 900;
-        }
-
-        .minus {
-            color: #4d5666;
-        }
-
-        /* =====================================================
-           DASHBOARD
-        ====================================================== */
-
-        .dashboard {
-            margin-top: 48px;
-
+        .privacy-box {
             display: grid;
 
             grid-template-columns:
-                220px 1fr;
+                .9fr
+                1.1fr;
 
-            min-height: 610px;
+            gap: 60px;
 
-            overflow: hidden;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                26px;
-
-            background:
-                rgba(255,255,255,.018);
-        }
-
-        .dashboard-sidebar {
-            padding: 17px;
-
-            border-right:
-                1px solid var(--border);
-        }
-
-        .dashboard-logo {
-            padding:
-                11px 10px 24px;
-
-            font-size: 11px;
-            font-weight: 900;
-        }
-
-        .dash-section-label {
-            margin:
-                15px 10px 7px;
-
-            color: #505a6b;
-
-            font-size: 7px;
-            font-weight: 900;
-
-            letter-spacing: .14em;
-            text-transform: uppercase;
-        }
-
-        .dash-button {
-            width: 100%;
-
-            display: flex;
             align-items: center;
 
-            gap: 9px;
+            padding: 45px;
 
-            padding: 10px;
+            border:
+                1px solid
+                var(--border);
 
-            border-radius: 10px;
-
-            color: #707b8e;
-
-            background: transparent;
-
-            font-size: 9px;
-            font-weight: 700;
-
-            text-align: left;
-        }
-
-        .dash-button:hover,
-        .dash-button.active {
-            color: #fff;
+            border-radius:
+                30px;
 
             background:
-                rgba(255,255,255,.045);
+                linear-gradient(
+                    145deg,
+                    rgba(88,101,242,.09),
+                    rgba(25,207,255,.025)
+                );
         }
 
-        .dashboard-main {
-            padding: 28px;
+        .privacy-copy h2 {
+            font-size: 38px;
+            line-height: 1.1;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 15px;
         }
 
-        .dashboard-top {
+        .privacy-copy p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .privacy-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .privacy-option {
             display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-
+            align-items: center;
             gap: 15px;
-        }
 
-        .dashboard-top h3 {
-            font-size: 23px;
-
-            letter-spacing: -.045em;
-        }
-
-        .dashboard-top p {
-            margin-top: 6px;
-
-            color: #687386;
-
-            font-size: 9px;
-        }
-
-        .dashboard-user {
-            display: inline-flex;
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 6px 9px 6px 6px;
+            padding: 15px 17px;
 
             border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.025);
-        }
-
-        .dashboard-user img {
-            width: 29px;
-            height: 29px;
-
-            border-radius: 9px;
-
-            object-fit: cover;
-        }
-
-        .dashboard-user-text strong {
-            display: block;
-
-            font-size: 9px;
-        }
-
-        .dashboard-user-text span {
-            display: block;
-
-            margin-top: 2px;
-
-            color: #596374;
-
-            font-size: 7px;
-        }
-
-        .dash-metrics {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 9px;
-
-            margin-top: 24px;
-        }
-
-        .dash-metric {
-            padding: 15px;
-
-            border:
-                1px solid var(--border);
+                1px solid
+                var(--border);
 
             border-radius: 14px;
 
             background:
-                rgba(255,255,255,.022);
+                rgba(0,0,0,.12);
         }
 
-        .dash-metric span {
-            color: #636e80;
-
-            font-size: 7px;
-            font-weight: 800;
-
-            text-transform: uppercase;
-        }
-
-        .dash-metric strong {
-            display: block;
-
-            margin-top: 7px;
-
-            color: #fff;
-
-            font-size: 20px;
-        }
-
-        .dash-grid {
-            display: grid;
-
-            grid-template-columns:
-                1.2fr .8fr;
-
-            gap: 9px;
-
-            margin-top: 9px;
-        }
-
-        .dash-panel {
-            padding: 17px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 14px;
-
-            background:
-                rgba(255,255,255,.022);
-        }
-
-        .dash-panel-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            margin-bottom: 11px;
-        }
-
-        .dash-panel-head strong {
-            font-size: 10px;
-        }
-
-        .dash-panel-head span {
-            color: #566073;
-
-            font-size: 7px;
-        }
-
-        .dash-server {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 11px 0;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .dash-server:last-child {
-            border-bottom: 0;
-        }
-
-        .dash-server-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dash-server-icon {
-            width: 27px;
-            height: 27px;
+        .privacy-option-icon {
+            width: 40px;
+            height: 40px;
 
             display: grid;
             place-items: center;
 
-            border-radius: 8px;
+            border-radius: 11px;
 
             background:
-                rgba(118,92,255,.08);
-
-            font-size: 8px;
+                rgba(255,255,255,.05);
         }
 
-        .dash-server-name strong {
+        .privacy-option strong {
             display: block;
-            font-size: 8px;
-        }
-
-        .dash-server-name span {
-            display: block;
-
-            margin-top: 2px;
-
-            color: #566173;
-
-            font-size: 6px;
-        }
-
-        .dash-online {
-            color: var(--success);
-
-            font-size: 7px;
-            font-weight: 900;
-        }
-
-        /* =====================================================
-           PROFILE
-        ====================================================== */
-
-        .profile-card {
-            margin-top: 32px;
-
-            padding: 22px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                19px;
-
-            background:
-                rgba(255,255,255,.022);
-        }
-
-        .profile-head {
-            display: flex;
-            align-items: center;
-
-            gap: 15px;
-        }
-
-        .profile-avatar {
-            width: 64px;
-            height: 64px;
-
-            border-radius: 17px;
-
-            object-fit: cover;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #8068ff,
-                    #4b37c2
-                );
-        }
-
-        .profile-head strong {
-            display: block;
-
-            font-size: 15px;
-        }
-
-        .profile-head span {
-            display: block;
-
-            margin-top: 4px;
-
-            color: #657083;
-
-            font-size: 9px;
-        }
-
-        .profile-plan {
-            display: inline-flex;
-
-            margin-top: 8px;
-
-            padding: 6px 8px;
-
-            border-radius: 8px;
-
-            color: #bdb3ff;
-
-            background:
-                rgba(118,92,255,.10);
-
-            font-size: 8px;
-            font-weight: 900;
-        }
-
-        /* =====================================================
-           MODALS
-        ====================================================== */
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 700;
-
-            display: grid;
-            place-items: center;
-
-            padding: 20px;
-
-            background:
-                rgba(2,4,9,.78);
-
-            backdrop-filter:
-                blur(13px);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transition:
-                opacity .18s var(--ease),
-                visibility .18s var(--ease);
-        }
-
-        .overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            width:
-                min(
-                    100%,
-                    540px
-                );
-
-            max-height:
-                calc(100vh - 40px);
-
-            overflow-y: auto;
-
-            padding: 27px;
-
-            border:
-                1px solid var(--border-strong);
-
-            border-radius:
-                24px;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(17,21,32,.98),
-                    rgba(9,12,19,.98)
-                );
-
-            box-shadow:
-                0 35px 100px
-                rgba(0,0,0,.52);
-
-            transform:
-                translateY(10px)
-                scale(.985);
-
-            transition:
-                transform .18s var(--ease);
-        }
-
-        .overlay.open .modal {
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-
-            gap: 15px;
-        }
-
-        .modal-header h3 {
-            font-size: 24px;
-
-            letter-spacing: -.045em;
-        }
-
-        .modal-header p {
-            margin-top: 6px;
-
-            color: #768194;
-
-            font-size: 10px;
-            line-height: 1.6;
-        }
-
-        .close-modal {
-            width: 34px;
-            height: 34px;
-
-            border-radius: 9px;
-
-            color: #788295;
-
-            background:
-                rgba(255,255,255,.04);
-        }
-
-        .close-modal:hover {
-            color: white;
-        }
-
-        /* =====================================================
-           LOGIN MODAL
-        ====================================================== */
-
-        .login-box {
-            margin-top: 25px;
-
-            padding: 19px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,.023);
-        }
-
-        .login-point {
-            display: flex;
-            align-items: flex-start;
-
-            gap: 9px;
-
-            margin-top: 11px;
-
-            color: #9da6b6;
-
-            font-size: 10px;
-            line-height: 1.5;
-        }
-
-        .login-point:first-child {
-            margin-top: 0;
-        }
-
-        .login-point-icon {
-            width: 25px;
-            height: 25px;
-
-            flex: 0 0 auto;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 8px;
-
-            background:
-                rgba(118,92,255,.09);
-
-            color: #b2a7ff;
-        }
-
-        .wide-button {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        /* =====================================================
-           CHECKOUT
-        ====================================================== */
-
-        .checkout-summary {
-            margin-top: 24px;
-
-            padding: 17px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 15px;
-
-            background:
-                rgba(255,255,255,.024);
-        }
-
-        .checkout-summary-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .checkout-summary strong {
             font-size: 13px;
         }
 
-        .checkout-summary span {
-            color: #687284;
+        .privacy-option span {
+            display: block;
 
-            font-size: 9px;
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 2px;
         }
 
-        .checkout-option {
-            margin-top: 11px;
+        /* =========================================================
+           CTA
+           ========================================================= */
 
-            padding: 13px;
+        .cta {
+            padding: 100px 0;
+        }
+
+        .cta-box {
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                70px 40px;
+
+            text-align: center;
 
             border:
-                1px solid var(--border);
+                1px solid
+                rgba(88,101,242,.2);
 
-            border-radius: 12px;
-
-            color: #a0a9b8;
-
-            font-size: 10px;
-            line-height: 1.6;
-        }
-
-        .checkout-note {
-            margin-top: 12px;
-
-            color: #616c7f;
-
-            font-size: 8px;
-            line-height: 1.6;
-        }
-
-        /* =====================================================
-           TOAST
-        ====================================================== */
-
-        .toasts {
-            position: fixed;
-
-            right: 18px;
-            bottom: 18px;
-
-            z-index: 1000;
-
-            display: grid;
-            gap: 9px;
-        }
-
-        .toast {
-            width: 300px;
-
-            padding: 13px 15px;
-
-            border:
-                1px solid var(--border-strong);
-
-            border-radius: 13px;
+            border-radius: 30px;
 
             background:
-                rgba(11,15,23,.96);
-
-            box-shadow:
-                0 20px 60px
-                rgba(0,0,0,.38);
-
-            animation:
-                toastIn .22s var(--ease);
+                radial-gradient(
+                    circle at center,
+                    rgba(88,101,242,.16),
+                    transparent 65%
+                ),
+                rgba(17,20,28,.65);
         }
 
-        .toast strong {
-            display: block;
-            font-size: 10px;
+        .cta-box h2 {
+            font-size:
+                clamp(
+                    34px,
+                    4vw,
+                    52px
+                );
+
+            letter-spacing: -2px;
+
+            margin-bottom: 15px;
         }
 
-        .toast span {
-            display: block;
+        .cta-box p {
+            max-width: 580px;
 
-            margin-top: 4px;
+            margin:
+                0 auto 28px;
 
-            color: #707b8d;
+            color: var(--muted);
 
-            font-size: 9px;
-            line-height: 1.5;
+            line-height: 1.7;
         }
 
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform:
-                    translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0);
-            }
-        }
-
-        /* =====================================================
-           REVEAL
-        ====================================================== */
-
-        .reveal {
-            opacity: 0;
-
-            transform:
-                translateY(18px);
-
-            transition:
-                opacity .65s ease,
-                transform .65s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-
-            transform:
-                translateY(0);
-        }
-
-        /* =====================================================
+        /* =========================================================
            FOOTER
-        ====================================================== */
+           ========================================================= */
 
         footer {
-            padding:
-                42px 0
-                60px;
-
             border-top:
-                1px solid var(--border);
+                1px solid
+                var(--border);
+
+            padding:
+                35px 0;
         }
 
-        .footer-row {
+        .footer-inner {
             display: flex;
+
             align-items: center;
             justify-content: space-between;
 
@@ -2254,1975 +1248,890 @@
         }
 
         .footer-copy {
-            color: #505b6c;
-
-            font-size: 9px;
+            color: var(--muted);
+            font-size: 12px;
         }
 
-        .footer-version {
-            color: #505b6c;
-
-            font-size: 8px;
+        .footer-links {
+            display: flex;
+            gap: 18px;
         }
 
-        /* =====================================================
+        .footer-links a {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* =========================================================
            MOBILE
-        ====================================================== */
+           ========================================================= */
 
-        .mobile-button {
-            display: none;
+        @media (max-width: 1000px) {
 
-            width: 42px;
-            height: 42px;
-
-            border-radius: 11px;
-
-            color: #fff;
-
-            background:
-                rgba(255,255,255,.04);
-
-            border:
-                1px solid var(--border);
-        }
-
-        @media (max-width: 1100px) {
-            .nav-links {
+            .nav {
                 display: none;
             }
 
-            .mobile-button {
+            .mobile-menu {
                 display: grid;
-                place-items: center;
             }
 
-            .hero-layout {
+            .hero-grid {
                 grid-template-columns: 1fr;
             }
 
-            .hero-panel {
-                max-width: 760px;
+            .hero {
+                padding-top: 130px;
             }
 
-            .system-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+            .hero-content {
+                text-align: center;
             }
 
-            .plans {
-                grid-template-columns:
-                    1fr;
+            .hero-description {
+                margin-inline: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-trust {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 520px;
+            }
+
+            .feature-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .privacy-box {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 620px) {
+
             .container {
                 width:
                     min(
-                        calc(100% - 26px),
+                        calc(100% - 28px),
                         var(--container)
                     );
+            }
+
+            .header {
+                height: 68px;
+            }
+
+            .header-inner {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .header-actions .btn-secondary {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+                padding-bottom: 70px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: -2.8px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-visual {
+                min-height: 440px;
+            }
+
+            .vehicle-card {
+                transform: none;
+            }
+
+            .vehicle-card:hover {
+                transform:
+                    translateY(-5px);
+            }
+
+            .fake-qr {
+                width: 165px;
+                height: 165px;
+            }
+
+            .qr-area {
+                padding: 20px;
+            }
+
+            .floating-card {
+                transform:
+                    scale(.82);
+            }
+
+            .floating-card.one {
+                right: -25px;
+                top: 20px;
+            }
+
+            .floating-card.two {
+                left: -25px;
+                bottom: 30px;
             }
 
             .section {
                 padding: 75px 0;
             }
 
-            .hero {
+            .privacy-box {
+                padding: 28px 22px;
+                gap: 30px;
+            }
+
+            .privacy-copy h2 {
+                font-size: 32px;
+            }
+
+            .cta-box {
                 padding:
-                    65px 0
-                    70px;
+                    55px 22px;
             }
 
-            .hero-title {
-                font-size:
-                    clamp(43px, 13vw, 70px);
-            }
-
-            .hero-description {
-                font-size: 14px;
-            }
-
-            .hero-panel-body {
-                grid-template-columns: 1fr;
-            }
-
-            .fake-sidebar {
-                display: none;
-            }
-
-            .command-header {
+            .footer-inner {
                 flex-direction: column;
-                align-items: stretch;
-            }
-
-            .command-row {
-                grid-template-columns: 1fr;
-                gap: 7px;
-            }
-
-            .command-category {
-                justify-self: start;
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-sidebar {
-                display: none;
-            }
-
-            .dash-metrics {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .dash-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-row {
-                flex-direction: column;
-                align-items: flex-start;
+                text-align: center;
             }
         }
 
-        @media (max-width: 560px) {
-            .nav-right > .btn {
-                display: none;
-            }
-
-            .system-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dash-metrics {
-                grid-template-columns: 1fr;
-            }
-
-            .user-trigger-text {
-                display: none;
-            }
-
-            .fake-metrics {
-                grid-template-columns: 1fr;
-            }
-
-            .modal {
-                padding: 20px;
-            }
-
-            .toast {
-                width:
-                    calc(100vw - 36px);
-            }
-        }
-
-        [hidden] {
-            display: none !important;
-        }
     </style>
 </head>
 
 <body>
 
-<div class="grid-bg"></div>
-<div class="glow glow-a"></div>
-<div class="glow glow-b"></div>
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
 
-<!-- =========================================================
-     🩶 SEN BURAYA YAZACAKSIN — TEK CONFIG ALANI
-     =========================================================
+    <header class="header">
 
-     BURADA SADECE KENDİ BİLGİLERİNİ DEĞİŞTİR.
-
-     API_URL:
-     Backend'in internette yayınlandıktan sonraki adresi.
-
-     ÖRNEK:
-     https://zynx-api.onrender.com
-
-     ŞİMDİLİK:
-     http://localhost:3000
-
-     DISCORD_CLIENT_ID:
-     Discord Developer Portal
-     > ZYNX Web
-     > General Information
-     > Application ID
-
-     BOT_INVITES:
-     Her botun KENDİ invite URL'si.
-
-     Client Secret BURAYA YAZILMAZ.
-     Bot Token BURAYA YAZILMAZ.
-========================================================= -->
-
-<script>
-const ZYNX_CONFIG = {
-
-    API_URL:
-        "http://localhost:3000",
-
-    DISCORD_CLIENT_ID:
-        "1546521995980705883",
-
-    BOT_INVITES: {
-
-        security:
-            "https://discord.com/oauth2/authorize?client_id=1540275059149512778&permissions=8&integration_type=0&scope=bot+applications.commands",
-
-        ticket:
-            "https://discord.com/oauth2/authorize?client_id=1542534820033462382&permissions=8&integration_type=0&scope=bot+applications.commands",
-
-        voice:
-            "https://discord.com/oauth2/authorize?client_id=1542535042641825835&permissions=8&integration_type=0&scope=bot+applications.commands",
-
-        ai:
-            "https://discord.com/oauth2/authorize?client_id=1542535094286295110&permissions=8&integration_type=0&scope=bot+applications.commands"
-    },
-
-    VERSION:
-        "3.0.0"
-};
-</script>
-
-<!-- =========================================================
-     NAVBAR
-========================================================= -->
-
-<header class="navbar">
-
-    <div class="container nav">
-
-        <a
-            href="#home"
-            class="brand"
-        >
-
-            <div class="brand-logo">
-                <span>ZX</span>
-            </div>
-
-            <div class="brand-info">
-
-                <strong>
-                    ZYNX
-                </strong>
-
-                <span>
-                    Discord Ecosystem
-                </span>
-
-            </div>
-
-        </a>
-
-        <nav class="nav-links">
+        <div class="header-inner">
 
             <a
-                href="#systems"
-                class="nav-link active"
+                href="index.html"
+                class="brand"
+                aria-label="QRDrive Ana Sayfa"
             >
-                Botlar
+
+                <div class="brand-icon"></div>
+
+                <div class="brand-text">
+                    QR<span>Drive</span>
+                </div>
+
             </a>
 
-            <a
-                href="#commands"
-                class="nav-link"
+            <nav
+                class="nav"
+                aria-label="Ana navigasyon"
             >
-                Komutlar
-            </a>
 
-            <a
-                href="#dashboard"
-                class="nav-link"
-            >
-                Dashboard
-            </a>
+                <a href="#ozellikler">
+                    Özellikler
+                </a>
 
-            <a
-                href="#premium"
-                class="nav-link"
-            >
-                Premium
-            </a>
+                <a href="#nasil-calisir">
+                    Nasıl Çalışır?
+                </a>
 
-            <a
-                href="#status"
-                class="nav-link"
-            >
-                Durum
-            </a>
+                <a href="#gizlilik">
+                    Gizlilik
+                </a>
 
-        </nav>
+                <a href="search.html">
+                    Kullanıcıyı Ara
+                </a>
 
-        <div class="nav-right">
+            </nav>
 
-            <button
-                class="btn btn-primary"
-                id="loginButton"
-                type="button"
-            >
-                Discord ile Giriş
-            </button>
-
-            <div
-                class="user-area"
-                id="userArea"
-                hidden
-            >
+            <div class="header-actions">
 
                 <button
-                    class="user-trigger"
-                    id="userTrigger"
+                    class="icon-button"
+                    id="themeButton"
                     type="button"
+                    aria-label="Temayı değiştir"
                 >
-
-                    <img
-                        class="user-trigger-avatar"
-                        id="userTriggerAvatar"
-                        alt="Discord Avatar"
-                    >
-
-                    <div
-                        class="user-trigger-text"
-                    >
-
-                        <strong
-                            id="userTriggerName"
-                        >
-                            ZYNX User
-                        </strong>
-
-                        <span
-                            id="userTriggerPlan"
-                        >
-                            FREE PLAN
-                        </span>
-
-                    </div>
-
-                    <span>
-                        ▾
-                    </span>
-
+                    ◐
                 </button>
 
-                <div class="user-menu">
+                <a
+                    href="login.html"
+                    class="btn btn-secondary"
+                >
+                    Giriş Yap
+                </a>
 
-                    <div class="user-menu-top">
+                <a
+                    href="register.html"
+                    class="btn btn-primary"
+                >
+                    Profil Oluştur
+                </a>
 
-                        <strong
-                            id="userMenuName"
-                        >
-                            ZYNX User
-                        </strong>
-
-                        <span
-                            id="userMenuPlan"
-                        >
-                            FREE
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="menu-button"
-                        data-open-dashboard
-                        type="button"
-                    >
-                        ◈ Dashboard
-                    </button>
-
-                    <button
-                        class="menu-button"
-                        data-open-profile
-                        type="button"
-                    >
-                        ◇ Profilim
-                    </button>
-
-                    <button
-                        class="menu-button"
-                        data-open-premium
-                        type="button"
-                    >
-                        ◆ Premium
-                    </button>
-
-                    <button
-                        class="menu-button"
-                        id="logoutButton"
-                        type="button"
-                    >
-                        ↪ Çıkış Yap
-                    </button>
-
-                </div>
+                <button
+                    class="icon-button mobile-menu"
+                    id="mobileMenuButton"
+                    type="button"
+                    aria-label="Menüyü aç"
+                >
+                    ☰
+                </button>
 
             </div>
 
-            <button
-                class="mobile-button"
-                id="mobileButton"
-                type="button"
-            >
-                ☰
-            </button>
-
         </div>
 
-    </div>
+    </header>
 
-</header>
 
-<!-- =========================================================
-     MOBILE NAV
-========================================================= -->
-
-<div
-    id="mobileNav"
-    hidden
-    style="
-        position: fixed;
-        top: 76px;
-        left: 13px;
-        right: 13px;
-        z-index: 150;
-        padding: 9px;
-        border: 1px solid var(--border-strong);
-        border-radius: 16px;
-        background: rgba(10,13,20,.97);
-        backdrop-filter: blur(20px);
-        box-shadow: 0 25px 70px rgba(0,0,0,.4);
-    "
->
-
-    <a
-        class="menu-button"
-        href="#systems"
-    >
-        Botlar
-    </a>
-
-    <a
-        class="menu-button"
-        href="#commands"
-    >
-        Komutlar
-    </a>
-
-    <a
-        class="menu-button"
-        href="#dashboard"
-    >
-        Dashboard
-    </a>
-
-    <a
-        class="menu-button"
-        href="#premium"
-    >
-        Premium
-    </a>
-
-    <a
-        class="menu-button"
-        href="#status"
-    >
-        Durum
-    </a>
-
-</div>
-
-<main id="home">
-
-    <!-- =====================================================
+    <!-- =========================================================
          HERO
-    ====================================================== -->
+         ========================================================= -->
 
-    <section class="hero">
+    <main>
 
-        <div class="container hero-layout">
+        <section class="hero">
 
-            <div class="reveal">
+            <div class="container">
 
-                <div class="eyebrow">
-                    ZYNX SYSTEMS ONLINE
-                </div>
+                <div class="hero-grid">
 
-                <h1 class="hero-title">
+                    <div class="hero-content">
 
-                    Discord sunucunu
-
-                    <span class="gradient">
-                        yeniden tasarla.
-                    </span>
-
-                </h1>
-
-                <p class="hero-description">
-                    ZYNX; Security, Ticket, Voice ve AI
-                    sistemlerini tek bir modern Discord
-                    ekosisteminde birleştirir.
-                    İhtiyacın olan sistemi seç, hesabını
-                    bağla ve yönetimini merkezileştir.
-                </p>
-
-                <div class="hero-buttons">
-
-                    <button
-                        class="btn btn-primary"
-                        data-scroll="#systems"
-                        type="button"
-                    >
-                        ZYNX'i Keşfet →
-                    </button>
-
-                    <button
-                        class="btn btn-secondary"
-                        id="heroLogin"
-                        type="button"
-                    >
-                        Discord ile Devam Et
-                    </button>
-
-                </div>
-
-                <div class="hero-stats">
-
-                    <div class="hero-stat">
-                        <strong>04</strong>
-                        Uzman bot
-                    </div>
-
-                    <div class="hero-stat">
-                        <strong>PRO</strong>
-                        Gelişmiş sistem
-                    </div>
-
-                    <div class="hero-stat">
-                        <strong>PLUS</strong>
-                        AI yönetimi
-                    </div>
-
-                    <div class="hero-stat">
-                        <strong>24/7</strong>
-                        Ekosistem
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="hero-panel reveal">
-
-                <div class="panel-topbar">
-
-                    <div class="panel-dots">
-
-                        <span class="panel-dot"></span>
-                        <span class="panel-dot"></span>
-                        <span class="panel-dot"></span>
-
-                    </div>
-
-                    <div class="panel-caption">
-                        ZYNX CONTROL CENTER
-                    </div>
-
-                    <div style="width:30px;"></div>
-
-                </div>
-
-                <div class="hero-panel-body">
-
-                    <aside class="fake-sidebar">
-
-                        <div class="fake-logo">
-                            ZX ZYNX
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            Yeni nesil dijital araç kimliği
                         </div>
 
-                        <div class="fake-sidebar-group">
+                        <h1>
+                            Aracını
+                            <span class="gradient">
+                                QRDrive
+                            </span>
+                            ile tanıt.
+                        </h1>
 
-                            <div class="fake-side-item active">
-                                Genel Bakış
-                            </div>
+                        <p class="hero-description">
+                            Aracına özel QR kod oluştur,
+                            istediğin bilgileri paylaş ve
+                            QR kodunu tarayan kişilerin
+                            aracını güvenli şekilde
+                            tanımasını sağla.
+                        </p>
 
-                            <div class="fake-side-item">
-                                Sunucularım
-                            </div>
+                        <div class="hero-actions">
 
-                            <div class="fake-side-item">
-                                Botlar
-                            </div>
+                            <a
+                                href="register.html"
+                                class="btn btn-primary btn-large"
+                            >
+                                Profil Oluştur
+                                <span>→</span>
+                            </a>
 
-                            <div class="fake-side-item">
-                                Security
-                            </div>
+                            <a
+                                href="scanner.html"
+                                class="btn btn-secondary btn-large"
+                            >
+                                QR Tara
+                                <span>⌁</span>
+                            </a>
 
-                            <div class="fake-side-item">
-                                Ticket
-                            </div>
-
-                            <div class="fake-side-item">
-                                Voice
-                            </div>
-
-                            <div class="fake-side-item">
-                                AI
-                            </div>
+                            <a
+                                href="search.html"
+                                class="btn btn-secondary btn-large"
+                            >
+                                Kullanıcıyı Ara
+                            </a>
 
                         </div>
 
-                    </aside>
+                        <div class="hero-trust">
 
-                    <div class="fake-content">
+                            <div class="trust-icon">
+                                ✓
+                            </div>
 
-                        <div class="fake-header">
-
-                            <strong>
-                                Dashboard
-                            </strong>
-
-                            <span class="live">
-                                SYSTEMS READY
+                            <span>
+                                Bilgilerin üzerinde kontrol sende.
                             </span>
 
                         </div>
 
-                        <div class="fake-metrics">
+                    </div>
 
-                            <div class="fake-card">
 
-                                <small>
-                                    Sunucular
-                                </small>
+                    <!-- =================================================
+                         QR CARD
+                         ================================================= -->
 
-                                <strong>
-                                    12
-                                </strong>
+                    <div class="hero-visual">
 
+                        <div class="glow"></div>
+
+                        <div class="floating-card one">
+
+                            <div class="floating-icon">
+                                ✓
                             </div>
 
-                            <div class="fake-card">
+                            <div>
+                                <div class="floating-title">
+                                    Gizlilik kontrolü
+                                </div>
 
-                                <small>
-                                    Botlar
-                                </small>
-
-                                <strong>
-                                    04
-                                </strong>
-
-                            </div>
-
-                            <div class="fake-card">
-
-                                <small>
-                                    Durum
-                                </small>
-
-                                <strong>
-                                    99.9%
-                                </strong>
-
+                                <div class="floating-subtitle">
+                                    Her alanı sen belirlersin
+                                </div>
                             </div>
 
                         </div>
 
-                        <div class="fake-large-card">
 
-                            <div class="fake-large-header">
+                        <div class="vehicle-card">
 
-                                <div class="fake-server">
+                            <div class="vehicle-card-top">
 
-                                    <div class="fake-server-icon">
-                                        ZX
+                                <div class="mini-brand">
+
+                                    <div class="mini-logo">
+                                        Q
                                     </div>
 
-                                    ZYNX Community
+                                    QRDrive
 
                                 </div>
+
+                                <div class="status">
+                                    AKTİF
+                                </div>
+
+                            </div>
+
+
+                            <div class="qr-area">
 
                                 <div
-                                    class="fake-server-state"
+                                    class="fake-qr"
+                                    aria-label="QR kod önizlemesi"
                                 >
-                                    ONLINE
+
+                                    <!-- Görsel QR önizlemesi -->
+                                    <script>
+
+                                        /*
+                                         * Gerçek QR kodu burada
+                                         * göstermiyoruz.
+                                         *
+                                         * Gerçek QR sistemi araç
+                                         * oluşturulduğunda:
+                                         *
+                                         * QR URL =
+                                         * profile.html?qr=GÜVENLİ_TOKEN
+                                         *
+                                         * şeklinde oluşturulacak.
+                                         */
+
+                                        const qr =
+                                            document.currentScript
+                                                .parentElement;
+
+                                        for (
+                                            let i = 0;
+                                            i < 441;
+                                            i++
+                                        ) {
+
+                                            const cell =
+                                                document.createElement(
+                                                    "span"
+                                                );
+
+                                            /*
+                                             * Görsel önizleme için
+                                             * deterministik desen.
+                                             */
+
+                                            const x =
+                                                i % 21;
+
+                                            const y =
+                                                Math.floor(i / 21);
+
+                                            const finder =
+                                                (
+                                                    (x < 7 && y < 7) ||
+                                                    (x > 13 && y < 7) ||
+                                                    (x < 7 && y > 13)
+                                                );
+
+                                            const border =
+                                                finder &&
+                                                (
+                                                    x === 0 ||
+                                                    x === 6 ||
+                                                    y === 0 ||
+                                                    y === 6 ||
+                                                    (
+                                                        x >= 2 &&
+                                                        x <= 4 &&
+                                                        y >= 2 &&
+                                                        y <= 4
+                                                    )
+                                                );
+
+                                            const pattern =
+                                                (
+                                                    (
+                                                        x * 17 +
+                                                        y * 31 +
+                                                        x * y
+                                                    ) % 5
+                                                ) < 2;
+
+                                            if (
+                                                border ||
+                                                pattern
+                                            ) {
+                                                cell.style.background =
+                                                    "#111";
+                                            } else {
+                                                cell.style.background =
+                                                    "#fff";
+                                            }
+
+                                            qr.appendChild(cell);
+                                        }
+
+                                    </script>
+
                                 </div>
 
                             </div>
 
-                            <div class="fake-bar">
-                                <span></span>
+
+                            <div class="vehicle-info">
+
+                                <div>
+
+                                    <div class="vehicle-name">
+                                        QRDrive Vehicle
+                                    </div>
+
+                                    <div class="vehicle-meta">
+                                        Dijital Araç Profili
+                                    </div>
+
+                                </div>
+
+                                <div class="scan-text">
+                                    QR'ı tarayın<br>
+                                    detayları görüntüleyin
+                                </div>
+
                             </div>
 
                         </div>
 
-                    </div>
 
-                </div>
+                        <div class="floating-card two">
 
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- =====================================================
-         SYSTEMS
-    ====================================================== -->
-
-    <section
-        class="section"
-        id="systems"
-    >
-
-        <div class="container">
-
-            <div class="reveal">
-
-                <div class="eyebrow">
-                    ZYNX ECOSYSTEM
-                </div>
-
-                <h2 class="section-title">
-                    Her sistem.
-                    <br>
-                    Tek ekosistem.
-                </h2>
-
-                <p class="section-description">
-                    ZYNX botlarını ayrı ayrı kullanabilir,
-                    Premium planlar ile gelişmiş özelliklerin
-                    kilidini açabilir ve tüm yapıyı merkezi
-                    Dashboard üzerinden yönetebilirsin.
-                </p>
-
-            </div>
-
-            <div class="system-grid">
-
-                <article class="system-card reveal">
-
-                    <div class="system-icon">
-                        🛡️
-                    </div>
-
-                    <h3>
-                        ZYNX Security
-                    </h3>
-
-                    <p>
-                        Moderasyon, güvenlik, otomasyon
-                        ve sunucu koruması için gelişmiş
-                        Security altyapısı.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            SECURITY
-                        </span>
-
-                        <a
-                            href="#"
-                            data-bot="security"
-                        >
-                            Sunucuya Ekle →
-                        </a>
-
-                    </div>
-
-                </article>
-
-                <article class="system-card reveal">
-
-                    <div class="system-icon">
-                        🎫
-                    </div>
-
-                    <h3>
-                        ZYNX Ticket
-                    </h3>
-
-                    <p>
-                        Destek taleplerini profesyonel
-                        ticket sistemi ile düzenle,
-                        staff sürecini kolaylaştır.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            SUPPORT
-                        </span>
-
-                        <a
-                            href="#"
-                            data-bot="ticket"
-                        >
-                            Sunucuya Ekle →
-                        </a>
-
-                    </div>
-
-                </article>
-
-                <article class="system-card reveal">
-
-                    <div class="system-icon">
-                        🎵
-                    </div>
-
-                    <h3>
-                        ZYNX Voice
-                    </h3>
-
-                    <p>
-                        Ses kanalları ve medya deneyimini
-                        hızlı, temiz ve güçlü bir Voice
-                        sistemi ile yönet.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            VOICE
-                        </span>
-
-                        <a
-                            href="#"
-                            data-bot="voice"
-                        >
-                            Sunucuya Ekle →
-                        </a>
-
-                    </div>
-
-                </article>
-
-                <article class="system-card reveal">
-
-                    <div class="system-icon">
-                        🤖
-                    </div>
-
-                    <h3>
-                        ZYNX AI
-                    </h3>
-
-                    <p>
-                        Discord sunucuna yapay zekâ
-                        destekli sohbet, yardımcı sistemler
-                        ve AI tabanlı deneyim kazandır.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            AI
-                        </span>
-
-                        <a
-                            href="#"
-                            data-bot="ai"
-                        >
-                            Sunucuya Ekle →
-                        </a>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- =====================================================
-         COMMANDS
-    ====================================================== -->
-
-    <section
-        class="section"
-        id="commands"
-    >
-
-        <div class="container">
-
-            <div class="reveal">
-
-                <div class="eyebrow">
-                    COMMAND CENTER
-                </div>
-
-                <h2 class="section-title">
-                    Komutlarını
-                    <br>
-                    tek merkezde keşfet.
-                </h2>
-
-                <p class="section-description">
-                    ZYNX sistemlerinin komutlarını ara,
-                    filtrele ve hangi botun ne yaptığını
-                    hızlıca görüntüle.
-                </p>
-
-            </div>
-
-            <div class="command-box reveal">
-
-                <div class="command-header">
-
-                    <div class="search-wrapper">
-
-                        <span class="search-symbol">
-                            ⌕
-                        </span>
-
-                        <input
-                            type="search"
-                            id="commandSearch"
-                            placeholder="Komut veya sistem ara..."
-                            autocomplete="off"
-                        >
-
-                    </div>
-
-                    <div class="filters">
-
-                        <button
-                            class="filter active"
-                            data-filter="ALL"
-                            type="button"
-                        >
-                            TÜMÜ
-                        </button>
-
-                        <button
-                            class="filter"
-                            data-filter="SECURITY"
-                            type="button"
-                        >
-                            SECURITY
-                        </button>
-
-                        <button
-                            class="filter"
-                            data-filter="TICKET"
-                            type="button"
-                        >
-                            TICKET
-                        </button>
-
-                        <button
-                            class="filter"
-                            data-filter="VOICE"
-                            type="button"
-                        >
-                            VOICE
-                        </button>
-
-                        <button
-                            class="filter"
-                            data-filter="AI"
-                            type="button"
-                        >
-                            AI
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div id="commandList">
-
-                    <div
-                        class="command-row"
-                        data-category="SECURITY"
-                        data-search="/setup sunucu yapılandırma security"
-                    >
-
-                        <div class="command-name">
-                            /setup
-                        </div>
-
-                        <div class="command-description">
-                            ZYNX Security sisteminin
-                            sunucu yapılandırmasını başlatır.
-                        </div>
-
-                        <div class="command-category">
-                            SECURITY
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="SECURITY"
-                        data-search="/warn kullanıcı uyarı security"
-                    >
-
-                        <div class="command-name">
-                            /warn
-                        </div>
-
-                        <div class="command-description">
-                            Kullanıcıya moderasyon uyarısı
-                            uygular.
-                        </div>
-
-                        <div class="command-category">
-                            SECURITY
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="TICKET"
-                        data-search="/ticket-kur panel destek"
-                    >
-
-                        <div class="command-name">
-                            /ticket-kur
-                        </div>
-
-                        <div class="command-description">
-                            Destek panelini oluşturur ve
-                            ticket akışını başlatır.
-                        </div>
-
-                        <div class="command-category">
-                            TICKET
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="TICKET"
-                        data-search="/ticket-kapat ticket kapat"
-                    >
-
-                        <div class="command-name">
-                            /ticket-kapat
-                        </div>
-
-                        <div class="command-description">
-                            Açık ticket kanalını kapatır.
-                        </div>
-
-                        <div class="command-category">
-                            TICKET
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="VOICE"
-                        data-search="/play müzik voice"
-                    >
-
-                        <div class="command-name">
-                            /play
-                        </div>
-
-                        <div class="command-description">
-                            Voice kanalında medya oynatmayı
-                            başlatır.
-                        </div>
-
-                        <div class="command-category">
-                            VOICE
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="VOICE"
-                        data-search="/queue kuyruk"
-                    >
-
-                        <div class="command-name">
-                            /queue
-                        </div>
-
-                        <div class="command-description">
-                            Mevcut medya kuyruğunu görüntüler.
-                        </div>
-
-                        <div class="command-category">
-                            VOICE
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="AI"
-                        data-search="/ai yapay zeka sohbet"
-                    >
-
-                        <div class="command-name">
-                            /ai
-                        </div>
-
-                        <div class="command-description">
-                            ZYNX AI ile sohbet başlatır veya
-                            bir soru yöneltir.
-                        </div>
-
-                        <div class="command-category">
-                            AI
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="command-row"
-                        data-category="AI"
-                        data-search="/ask yardımcı ai"
-                    >
-
-                        <div class="command-name">
-                            /ask
-                        </div>
-
-                        <div class="command-description">
-                            AI yardımcısından bilgi veya
-                            açıklama ister.
-                        </div>
-
-                        <div class="command-category">
-                            AI
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- =====================================================
-         PREMIUM
-    ====================================================== -->
-
-    <section
-        class="section"
-        id="premium"
-    >
-
-        <div class="container">
-
-            <div class="reveal">
-
-                <div class="eyebrow">
-                    ZYNX PREMIUM
-                </div>
-
-                <h2 class="section-title">
-                    Kullanım seviyeni
-                    <br>
-                    sen belirle.
-                </h2>
-
-                <p class="section-description">
-                    ZYNX FREE temel deneyimi sunar.
-                    ZYNX PRO botların gelişmiş özelliklerini
-                    açar. ZYNX PLUS ise ZYNX yönetimini
-                    AI destekli hale getirir.
-                </p>
-
-            </div>
-
-            <div class="premium-wrap">
-
-                <div class="plans">
-
-                    <!-- FREE -->
-
-                    <article
-                        class="plan reveal"
-                        data-plan="FREE"
-                    >
-
-                        <div class="plan-head">
+                            <div class="floating-icon">
+                                QR
+                            </div>
 
                             <div>
 
-                                <div class="plan-name">
-                                    ZYNX FREE
+                                <div class="floating-title">
+                                    Tek QR
                                 </div>
 
-                                <div class="plan-label">
-                                    Temel ZYNX deneyimi.
+                                <div class="floating-subtitle">
+                                    Aracına özel
                                 </div>
 
                             </div>
 
                         </div>
 
-                        <div class="plan-price">
+                    </div>
 
-                            <strong>
-                                ₺0
-                            </strong>
+                </div>
 
-                            <span>
-                                / sürekli
-                            </span>
+            </div>
 
+        </section>
+
+
+        <!-- =========================================================
+             FEATURES
+             ========================================================= -->
+
+        <section
+            class="section"
+            id="ozellikler"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="section-label">
+                        QRDrive
+                    </div>
+
+                    <h2>
+                        Sadece QR kod değil.
+                    </h2>
+
+                    <p>
+                        Profil, araç, QR, gizlilik ve arama
+                        sistemlerini tek bir dijital platformda
+                        birleştiriyoruz.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            👤
                         </div>
 
-                        <div class="plan-features">
+                        <h3>
+                            Dijital Profil
+                        </h3>
 
-                            <div class="plan-feature">
-                                Temel bot kullanımı
-                            </div>
-
-                            <div class="plan-feature">
-                                Komut merkezi
-                            </div>
-
-                            <div class="plan-feature">
-                                Dashboard erişimi
-                            </div>
-
-                            <div class="plan-feature">
-                                Hesap sistemi
-                            </div>
-
-                            <div class="plan-feature">
-                                ZYNX durum merkezi
-                            </div>
-
-                        </div>
-
-                        <button
-                            class="btn btn-secondary plan-action"
-                            type="button"
-                            data-plan-action="FREE"
-                        >
-                            Mevcut Plan
-                        </button>
+                        <p>
+                            Kendine ait QRDrive profilini oluştur,
+                            profil bilgilerini düzenle ve hangi
+                            bilgilerin paylaşılacağını kontrol et.
+                        </p>
 
                     </article>
 
-                    <!-- PRO -->
 
-                    <article
-                        class="plan featured reveal"
-                        data-plan="PRO"
-                    >
+                    <article class="feature-card">
 
-                        <div class="plan-ribbon">
-                            EN ÇOK TERCİH EDİLEN
+                        <div class="feature-icon">
+                            🚘
                         </div>
 
-                        <div class="plan-head">
+                        <h3>
+                            Araç Profili
+                        </h3>
 
-                            <div>
-
-                                <div class="plan-name">
-                                    ZYNX PRO
-                                </div>
-
-                                <div class="plan-label">
-                                    Botların gelişmiş özelliklerinin
-                                    kilidini aç.
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="plan-price">
-
-                            <strong>
-                                ₺0
-                            </strong>
-
-                            <span>
-                                / ilk ay ücretsiz
-                            </span>
-
-                        </div>
-
-                        <div class="plan-features">
-
-                            <div class="plan-feature">
-                                FREE'deki her şey
-                            </div>
-
-                            <div class="plan-feature">
-                                Security gelişmiş özellikleri
-                            </div>
-
-                            <div class="plan-feature">
-                                Ticket gelişmiş özellikleri
-                            </div>
-
-                            <div class="plan-feature">
-                                Voice gelişmiş özellikleri
-                            </div>
-
-                            <div class="plan-feature">
-                                AI gelişmiş özellikleri
-                            </div>
-
-                            <div class="plan-feature">
-                                PRO özel sistemler
-                            </div>
-
-                        </div>
-
-                        <button
-                            class="btn btn-primary plan-action"
-                            type="button"
-                            data-plan-action="PRO"
-                        >
-                            PRO'yu Başlat →
-                        </button>
-
-                        <div class="plan-small">
-                            1 aylık ücretsiz deneme
-                        </div>
+                        <p>
+                            Marka, model, yıl, versiyon, yakıt,
+                            motor, şanzıman, renk ve daha birçok
+                            araç bilgisini ekle.
+                        </p>
 
                     </article>
 
-                    <!-- PLUS -->
 
-                    <article
-                        class="plan reveal"
-                        data-plan="PLUS"
-                    >
+                    <article class="feature-card">
 
-                        <div class="plan-head">
-
-                            <div>
-
-                                <div class="plan-name">
-                                    ZYNX PLUS
-                                </div>
-
-                                <div class="plan-label">
-                                    ZYNX yönetimini mümkün olduğunca
-                                    AI'a bırak.
-                                </div>
-
-                            </div>
-
+                        <div class="feature-icon">
+                            ▣
                         </div>
 
-                        <div class="plan-price">
+                        <h3>
+                            Benzersiz QR
+                        </h3>
 
-                            <strong>
-                                ₺0
-                            </strong>
+                        <p>
+                            Her araç için benzersiz ve tahmin
+                            edilmesi zor bir QR kimliği oluştur.
+                        </p>
 
-                            <span>
-                                / ilk ay ücretsiz
-                            </span>
+                    </article>
 
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            🔍
                         </div>
 
-                        <div class="plan-features">
+                        <h3>
+                            Kullanıcı Arama
+                        </h3>
 
-                            <div class="plan-feature">
-                                PRO'nun tüm özellikleri
-                            </div>
+                        <p>
+                            Kullanıcı adı, QRDrive ID veya profil
+                            kodu ile QRDrive kullanıcılarını bul.
+                        </p>
 
-                            <div class="plan-feature">
-                                AI destekli yapılandırma
-                            </div>
+                    </article>
 
-                            <div class="plan-feature">
-                                Otomatik sistem kurulumu
-                            </div>
 
-                            <div class="plan-feature">
-                                Akıllı optimizasyon
-                            </div>
+                    <article class="feature-card">
 
-                            <div class="plan-feature">
-                                Merkezi AI yönetimi
-                            </div>
-
-                            <div class="plan-feature">
-                                PLUS özel otomasyonlar
-                            </div>
-
+                        <div class="feature-icon">
+                            🔐
                         </div>
 
-                        <button
-                            class="btn btn-secondary plan-action"
-                            type="button"
-                            data-plan-action="PLUS"
-                        >
-                            PLUS'ı Başlat →
-                        </button>
+                        <h3>
+                            Gizlilik
+                        </h3>
 
-                        <div class="plan-small">
-                            1 aylık ücretsiz deneme
+                        <p>
+                            Her profil ve araç alanını herkese açık,
+                            yalnızca QR veya gizli olarak belirle.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            📱
                         </div>
+
+                        <h3>
+                            Mobil Uyum
+                        </h3>
+
+                        <p>
+                            QR okutulduğunda profil telefon,
+                            tablet ve bilgisayarlarda düzgün
+                            şekilde görüntülensin.
+                        </p>
 
                     </article>
 
                 </div>
 
-                <!-- COMPARISON -->
+            </div>
 
-                <div class="comparison reveal">
+        </section>
 
-                    <table>
 
-                        <thead>
+        <!-- =========================================================
+             HOW IT WORKS
+             ========================================================= -->
 
-                            <tr>
+        <section
+            class="section"
+            id="nasil-calisir"
+        >
 
-                                <th>
-                                    Özellik
-                                </th>
+            <div class="container">
 
-                                <th>
-                                    FREE
-                                </th>
+                <div class="section-heading">
 
-                                <th>
-                                    PRO
-                                </th>
+                    <div class="section-label">
+                        Nasıl Çalışır?
+                    </div>
 
-                                <th>
-                                    PLUS
-                                </th>
+                    <h2>
+                        Üç basit adım.
+                    </h2>
 
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            <tr>
-
-                                <td>
-                                    Temel bot özellikleri
-                                </td>
-
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-                                    Gelişmiş bot özellikleri
-                                </td>
-
-                                <td class="minus">—</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-                                    AI yapılandırma
-                                </td>
-
-                                <td class="minus">—</td>
-                                <td class="minus">—</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-                                    Otomatik sistem kurulumu
-                                </td>
-
-                                <td class="minus">—</td>
-                                <td class="minus">—</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-                                    Merkezi Dashboard
-                                </td>
-
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-                                    PLUS AI otomasyonları
-                                </td>
-
-                                <td class="minus">—</td>
-                                <td class="minus">—</td>
-                                <td class="check">✓</td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+                    <p>
+                        Aracını QRDrive'a bağla,
+                        QR kodunu oluştur ve paylaş.
+                    </p>
 
                 </div>
 
-            </div>
 
-        </div>
+                <div class="steps">
 
-    </section>
+                    <article class="step">
 
-    <!-- =====================================================
-         DASHBOARD
-    ====================================================== -->
-
-    <section
-        class="section"
-        id="dashboard"
-    >
-
-        <div class="container">
-
-            <div class="reveal">
-
-                <div class="eyebrow">
-                    ZYNX CONTROL CENTER
-                </div>
-
-                <h2 class="section-title">
-                    Hesabını tek
-                    <br>
-                    merkezden yönet.
-                </h2>
-
-                <p class="section-description">
-                    Discord hesabınla giriş yaptığında
-                    kullanıcı bilgilerin, planın ve
-                    ZYNX sistemlerin burada kişiselleştirilecek.
-                </p>
-
-            </div>
-
-            <div class="dashboard reveal">
-
-                <aside class="dashboard-sidebar">
-
-                    <div class="dashboard-logo">
-                        ZX ZYNX CONTROL
-                    </div>
-
-                    <div class="dash-section-label">
-                        Overview
-                    </div>
-
-                    <button
-                        class="dash-button active"
-                        type="button"
-                    >
-                        ◈ Genel Bakış
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        ◇ Sunucularım
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        ◇ Botlar
-                    </button>
-
-                    <div class="dash-section-label">
-                        Systems
-                    </div>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        🛡️ Security
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        🎫 Ticket
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        🎵 Voice
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        type="button"
-                    >
-                        🤖 AI
-                    </button>
-
-                    <div class="dash-section-label">
-                        Account
-                    </div>
-
-                    <button
-                        class="dash-button"
-                        data-open-profile
-                        type="button"
-                    >
-                        ◇ Profil
-                    </button>
-
-                    <button
-                        class="dash-button"
-                        data-open-premium
-                        type="button"
-                    >
-                        ◆ Premium
-                    </button>
-
-                </aside>
-
-                <div class="dashboard-main">
-
-                    <div class="dashboard-top">
-
-                        <div>
-
-                            <h3>
-                                Genel Bakış
-                            </h3>
-
-                            <p>
-                                ZYNX hesabının merkezi yönetim alanı.
-                            </p>
-
+                        <div class="step-number">
+                            01
                         </div>
 
-                        <div class="dashboard-user">
+                        <h3>
+                            Profilini oluştur
+                        </h3>
 
-                            <img
-                                id="dashboardAvatar"
-                                alt="Kullanıcı"
-                            >
+                        <p>
+                            QRDrive hesabını oluştur ve
+                            profil bilgilerini ekle.
+                        </p>
 
-                            <div class="dashboard-user-text">
+                    </article>
 
-                                <strong
-                                    id="dashboardName"
-                                >
-                                    Discord hesabı
-                                </strong>
 
-                                <span
-                                    id="dashboardPlan"
-                                >
-                                    FREE PLAN
-                                </span>
+                    <article class="step">
 
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Aracını ekle
+                        </h3>
+
+                        <p>
+                            Aracının özelliklerini gir ve
+                            aracına özel QR kodunu oluştur.
+                        </p>
+
+                    </article>
+
+
+                    <article class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <h3>
+                            QR'ı kullan
+                        </h3>
+
+                        <p>
+                            QR kodunu kart olarak yazdır,
+                            aracında kullan ve tarayan kişilerin
+                            izin verdiğin bilgileri görmesini sağla.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PRIVACY
+             ========================================================= -->
+
+        <section
+            class="section"
+            id="gizlilik"
+        >
+
+            <div class="container">
+
+                <div class="privacy-box">
+
+                    <div class="privacy-copy">
+
+                        <div class="section-label">
+                            Gizlilik Kontrolü
+                        </div>
+
+                        <h2>
+                            Hangi bilgiyi kimin göreceğine
+                            sen karar ver.
+                        </h2>
+
+                        <p>
+                            QRDrive'da profilindeki her bilgi
+                            aynı şekilde paylaşılmaz. Alan bazında
+                            görünürlük belirleyebilirsin.
+                        </p>
+
+                    </div>
+
+
+                    <div class="privacy-options">
+
+                        <div class="privacy-option">
+
+                            <div class="privacy-option-icon">
+                                🌐
                             </div>
 
-                        </div>
-
-                    </div>
-
-                    <div class="dash-metrics">
-
-                        <div class="dash-metric">
-
-                            <span>
-                                Hesap Planı
-                            </span>
-
-                            <strong
-                                id="dashboardPlanMetric"
-                            >
-                                FREE
-                            </strong>
-
-                        </div>
-
-                        <div class="dash-metric">
-
-                            <span>
-                                ZYNX Bot
-                            </span>
-
-                            <strong>
-                                04
-                            </strong>
-
-                        </div>
-
-                        <div class="dash-metric">
-
-                            <span>
-                                Sistem
-                            </span>
-
-                            <strong>
-                                READY
-                            </strong>
-
-                        </div>
-
-                        <div class="dash-metric">
-
-                            <span>
-                                Durum
-                            </span>
-
-                            <strong>
-                                ONLINE
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                    <div class="dash-grid">
-
-                        <div class="dash-panel">
-
-                            <div class="dash-panel-head">
+                            <div>
 
                                 <strong>
-                                    Sunucularım
+                                    Herkese Açık
                                 </strong>
 
                                 <span>
-                                    DISCORD
+                                    Kullanıcı aramasında ve QR profilinde
+                                    görüntülenebilir.
                                 </span>
-
-                            </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        Z
-                                    </div>
-
-                                    <div class="dash-server-name">
-
-                                        <strong>
-                                            Discord hesabını bağla
-                                        </strong>
-
-                                        <span>
-                                            Sunucular burada görünecek.
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    READY
-                                </div>
-
-                            </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        ZX
-                                    </div>
-
-                                    <div class="dash-server-name">
-
-                                        <strong>
-                                            ZYNX Control
-                                        </strong>
-
-                                        <span>
-                                            Hesap bağlantısı aktif.
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    ONLINE
-                                </div>
 
                             </div>
 
                         </div>
 
-                        <div class="dash-panel">
 
-                            <div class="dash-panel-head">
+                        <div class="privacy-option">
 
-                                <strong>
-                                    Sistemler
-                                </strong>
-
-                                <span>
-                                    LIVE
-                                </span>
-
+                            <div class="privacy-option-icon">
+                                ▣
                             </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        S
-                                    </div>
-
-                                    <div class="dash-server-name">
-                                        <strong>
-                                            Security
-                                        </strong>
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    ONLINE
-                                </div>
-
-                            </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        T
-                                    </div>
-
-                                    <div class="dash-server-name">
-                                        <strong>
-                                            Ticket
-                                        </strong>
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    ONLINE
-                                </div>
-
-                            </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        V
-                                    </div>
-
-                                    <div class="dash-server-name">
-                                        <strong>
-                                            Voice
-                                        </strong>
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    ONLINE
-                                </div>
-
-                            </div>
-
-                            <div class="dash-server">
-
-                                <div class="dash-server-left">
-
-                                    <div class="dash-server-icon">
-                                        A
-                                    </div>
-
-                                    <div class="dash-server-name">
-                                        <strong>
-                                            AI
-                                        </strong>
-                                    </div>
-
-                                </div>
-
-                                <div class="dash-online">
-                                    ONLINE
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="profile-card">
-
-                        <div class="profile-head">
-
-                            <img
-                                class="profile-avatar"
-                                id="profileAvatar"
-                                alt="Profil fotoğrafı"
-                            >
 
                             <div>
 
-                                <strong
-                                    id="profileName"
-                                >
-                                    Discord hesabı
+                                <strong>
+                                    Sadece QR
                                 </strong>
 
-                                <span
-                                    id="profileUsername"
-                                >
-                                    Giriş yapıldığında bilgiler burada.
+                                <span>
+                                    Normal kullanıcı aramasında gizlenir,
+                                    aracın QR kodu üzerinden gösterilebilir.
                                 </span>
 
-                                <div
-                                    class="profile-plan"
-                                    id="profilePlan"
-                                >
-                                    FREE
-                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="privacy-option">
+
+                            <div class="privacy-option-icon">
+                                🔒
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Gizli
+                                </strong>
+
+                                <span>
+                                    Yalnızca hesap sahibi tarafından
+                                    görüntülenebilir.
+                                </span>
 
                             </div>
 
@@ -4234,160 +2143,74 @@ const ZYNX_CONFIG = {
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
-    <!-- =====================================================
-         STATUS
-    ====================================================== -->
+        <!-- =========================================================
+             CTA
+             ========================================================= -->
 
-    <section
-        class="section"
-        id="status"
-    >
+        <section class="cta">
+
+            <div class="container">
+
+                <div class="cta-box">
+
+                    <h2>
+                        Aracının dijital kimliğini oluştur.
+                    </h2>
+
+                    <p>
+                        QRDrive ile araç bilgilerini tek bir
+                        QR kod altında düzenle ve paylaşım
+                        kontrolünü elinde tut.
+                    </p>
+
+                    <a
+                        href="register.html"
+                        class="btn btn-primary btn-large"
+                    >
+                        QRDrive'a Katıl
+                        →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer>
 
         <div class="container">
 
-            <div class="reveal">
+            <div class="footer-inner">
 
-                <div class="eyebrow">
-                    SERVICE STATUS
+                <div class="footer-copy">
+                    © <span id="year"></span>
+                    QRDrive. Tüm hakları saklıdır.
                 </div>
 
-                <h2 class="section-title">
-                    ZYNX sistemleri
-                    <br>
-                    hazır.
-                </h2>
+                <div class="footer-links">
 
-                <p class="section-description">
-                    Sistem durumlarını merkezi olarak
-                    takip etmek için tasarlanmış durum
-                    alanı.
-                </p>
+                    <a href="#gizlilik">
+                        Gizlilik
+                    </a>
 
-            </div>
+                    <a href="#nasil-calisir">
+                        Nasıl Çalışır?
+                    </a>
 
-            <div class="system-grid">
-
-                <div class="system-card reveal">
-
-                    <div
-                        class="system-icon"
-                    >
-                        🛡️
-                    </div>
-
-                    <h3>
-                        Security
-                    </h3>
-
-                    <p>
-                        Güvenlik ve moderasyon servisleri.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            OPERATIONAL
-                        </span>
-
-                        <span style="color:var(--success);">
-                            ●
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="system-card reveal">
-
-                    <div
-                        class="system-icon"
-                    >
-                        🎫
-                    </div>
-
-                    <h3>
-                        Ticket
-                    </h3>
-
-                    <p>
-                        Destek ve ticket servisleri.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            OPERATIONAL
-                        </span>
-
-                        <span style="color:var(--success);">
-                            ●
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="system-card reveal">
-
-                    <div
-                        class="system-icon"
-                    >
-                        🎵
-                    </div>
-
-                    <h3>
-                        Voice
-                    </h3>
-
-                    <p>
-                        Voice ve medya servisleri.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            OPERATIONAL
-                        </span>
-
-                        <span style="color:var(--success);">
-                            ●
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="system-card reveal">
-
-                    <div
-                        class="system-icon"
-                    >
-                        🤖
-                    </div>
-
-                    <h3>
-                        AI
-                    </h3>
-
-                    <p>
-                        Yapay zekâ servisleri.
-                    </p>
-
-                    <div class="system-bottom">
-
-                        <span>
-                            OPERATIONAL
-                        </span>
-
-                        <span style="color:var(--success);">
-                            ●
-                        </span>
-
-                    </div>
+                    <a href="search.html">
+                        Kullanıcı Ara
+                    </a>
 
                 </div>
 
@@ -4395,1757 +2218,179 @@ const ZYNX_CONFIG = {
 
         </div>
 
-    </section>
+    </footer>
 
-</main>
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
 
-<footer>
+    <script>
 
-    <div class="container footer-row">
+        "use strict";
 
-        <div class="footer-copy">
-            © 2026 ZYNX — Discord Ecosystem
-        </div>
 
-        <div class="footer-version">
-            ZYNX WEB v<span id="footerVersion">
-                3.0.0
-            </span>
-        </div>
+        /* =========================================================
+           YIL
+           ========================================================= */
 
-    </div>
+        const yearElement =
+            document.getElementById("year");
 
-</footer>
+        if (yearElement) {
+            yearElement.textContent =
+                new Date().getFullYear();
+        }
 
-<!-- =========================================================
-     LOGIN MODAL
-========================================================= -->
 
-<div
-    class="overlay"
-    id="loginModal"
-    aria-hidden="true"
->
+        /* =========================================================
+           THEME
+           ========================================================= */
 
-    <div class="modal">
+        const themeButton =
+            document.getElementById("themeButton");
 
-        <div class="modal-header">
 
-            <div>
+        function applyTheme(theme) {
 
-                <h3>
-                    ZYNX'e giriş yap
-                </h3>
+            if (theme === "light") {
 
-                <p>
-                    Discord hesabını bağlayarak
-                    Dashboard ve hesap özelliklerine
-                    erişebilirsin.
-                </p>
+                document.body.classList.add("light");
 
-            </div>
+                if (themeButton) {
+                    themeButton.textContent = "☾";
+                }
 
-            <button
-                class="close-modal"
-                data-close-modal
-                type="button"
-            >
-                ×
-            </button>
+            } else {
 
-        </div>
+                document.body.classList.remove("light");
 
-        <div class="login-box">
+                if (themeButton) {
+                    themeButton.textContent = "☀";
+                }
 
-            <div class="login-point">
+            }
 
-                <div class="login-point-icon">
-                    ◈
-                </div>
+        }
 
-                <span>
-                    Discord hesabınla güvenli şekilde
-                    giriş yap.
-                </span>
 
-            </div>
+        const savedTheme =
+            localStorage.getItem("qrdrive_theme");
 
-            <div class="login-point">
 
-                <div class="login-point-icon">
-                    ◆
-                </div>
+        if (savedTheme === "light") {
+            applyTheme("light");
+        } else {
+            applyTheme("dark");
+        }
 
-                <span>
-                    ZYNX Dashboard ve kişisel profil
-                    alanını aç.
-                </span>
 
-            </div>
+        if (themeButton) {
 
-            <div class="login-point">
+            themeButton.addEventListener(
+                "click",
+                () => {
 
-                <div class="login-point-icon">
-                    ✦
-                </div>
+                    const isLight =
+                        document.body.classList.contains(
+                            "light"
+                        );
 
-                <span>
-                    FREE, PRO veya PLUS planını hesabına
-                    bağla.
-                </span>
+                    const nextTheme =
+                        isLight
+                            ? "dark"
+                            : "light";
 
-            </div>
+                    localStorage.setItem(
+                        "qrdrive_theme",
+                        nextTheme
+                    );
 
-            <button
-                class="btn btn-primary wide-button"
-                id="modalLogin"
-                type="button"
-            >
-                Discord ile Giriş Yap →
-            </button>
+                    applyTheme(nextTheme);
 
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =========================================================
-     PROFILE MODAL
-========================================================= -->
-
-<div
-    class="overlay"
-    id="profileModal"
-    aria-hidden="true"
->
-
-    <div class="modal">
-
-        <div class="modal-header">
-
-            <div>
-
-                <h3>
-                    Profilim
-                </h3>
-
-                <p>
-                    Discord hesabın ve ZYNX plan
-                    bilgilerin.
-                </p>
-
-            </div>
-
-            <button
-                class="close-modal"
-                data-close-modal
-                type="button"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div class="profile-card">
-
-            <div class="profile-head">
-
-                <img
-                    class="profile-avatar"
-                    id="modalProfileAvatar"
-                    alt="Discord Avatar"
-                >
-
-                <div>
-
-                    <strong
-                        id="modalProfileName"
-                    >
-                        ZYNX User
-                    </strong>
-
-                    <span
-                        id="modalProfileUsername"
-                    >
-                        Discord hesabı
-                    </span>
-
-                    <div
-                        class="profile-plan"
-                        id="modalProfilePlan"
-                    >
-                        FREE
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <button
-            class="btn btn-primary wide-button"
-            data-open-premium
-            type="button"
-        >
-            Premium Planlarını Gör →
-        </button>
-
-    </div>
-
-</div>
-
-<!-- =========================================================
-     CHECKOUT MODAL
-========================================================= -->
-
-<div
-    class="overlay"
-    id="checkoutModal"
-    aria-hidden="true"
->
-
-    <div class="modal">
-
-        <div class="modal-header">
-
-            <div>
-
-                <h3>
-                    Premium'u başlat
-                </h3>
-
-                <p>
-                    Seçtiğin ZYNX planını hesabına bağla.
-                </p>
-
-            </div>
-
-            <button
-                class="close-modal"
-                data-close-modal
-                type="button"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div class="checkout-summary">
-
-            <div class="checkout-summary-top">
-
-                <strong
-                    id="checkoutPlanName"
-                >
-                    ZYNX PRO
-                </strong>
-
-                <span
-                    id="checkoutPlanPrice"
-                >
-                    İlk ay ücretsiz
-                </span>
-
-            </div>
-
-            <div class="checkout-option">
-
-                🎁
-                <strong>
-                    1 Ay Ücretsiz Deneme
-                </strong>
-
-                <br>
-
-                İlk ayı ücretsiz kullan.
-                Deneme şartları ve ödeme zamanı
-                güvenli checkout ekranında gösterilecek.
-
-            </div>
-
-            <div class="checkout-option">
-
-                🔐
-                <strong>
-                    Güvenli Ödeme
-                </strong>
-
-                <br>
-
-                Gerçek kart bilgileri ZYNX
-                GitHub Pages sayfasında tutulmaz.
-                Checkout, güvenli ödeme sağlayıcısına
-                yönlendirilecek şekilde hazırlanır.
-
-            </div>
-
-            <div class="checkout-note">
-                Bu arayüz ödeme sağlayıcısına bağlanmaya
-                hazırdır. Gerçek ücret tahsilatı ve
-                abonelik aktivasyonu backend/webhook
-                tarafında doğrulanmalıdır.
-            </div>
-
-            <button
-                class="btn btn-primary wide-button"
-                id="checkoutContinue"
-                type="button"
-            >
-                Güvenli Ödemeye Devam Et →
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =========================================================
-     TOASTS
-========================================================= -->
-
-<div
-    class="toasts"
-    id="toastContainer"
-></div>
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
-<script>
-"use strict";
-
-/* =========================================================
-   STATE
-========================================================= */
-
-const ZYNX_STATE = {
-
-    authenticated: false,
-
-    user: null,
-
-    filter: "ALL",
-
-    selectedPlan: null
-
-};
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-const $ = (
-    selector,
-    parent = document
-) => parent.querySelector(selector);
-
-const $$ = (
-    selector,
-    parent = document
-) => [
-    ...parent.querySelectorAll(selector)
-];
-
-function escapeHtml(
-    value
-) {
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-/* =========================================================
-   FALLBACK AVATAR
-========================================================= */
-
-function createFallbackAvatar(
-    value = "ZX"
-) {
-    const letters =
-        String(value)
-            .trim()
-            .slice(0, 2)
-            .toUpperCase();
-
-    const svg = `
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="256"
-            height="256"
-            viewBox="0 0 256 256"
-        >
-
-            <defs>
-
-                <linearGradient
-                    id="zynxGradient"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1"
-                >
-
-                    <stop
-                        offset="0%"
-                        stop-color="#8068ff"
-                    />
-
-                    <stop
-                        offset="100%"
-                        stop-color="#4b37c2"
-                    />
-
-                </linearGradient>
-
-            </defs>
-
-            <rect
-                width="256"
-                height="256"
-                rx="64"
-                fill="url(#zynxGradient)"
-            />
-
-            <text
-                x="128"
-                y="145"
-                text-anchor="middle"
-                font-family="Arial, sans-serif"
-                font-size="76"
-                font-weight="800"
-                fill="#ffffff"
-            >
-                ${escapeHtml(letters)}
-            </text>
-
-        </svg>
-    `;
-
-    return (
-        "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(svg)
-    );
-}
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function toast(
-    title,
-    message
-) {
-    const container =
-        $("#toastContainer");
-
-    const element =
-        document.createElement("div");
-
-    element.className =
-        "toast";
-
-    element.innerHTML = `
-        <strong>
-            ${escapeHtml(title)}
-        </strong>
-
-        <span>
-            ${escapeHtml(message)}
-        </span>
-    `;
-
-    container.appendChild(element);
-
-    setTimeout(() => {
-        element.remove();
-    }, 3600);
-}
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function openModal(
-    id
-) {
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-        return;
-    }
-
-    element.classList.add("open");
-
-    element.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.classList.add(
-        "modal-open"
-    );
-}
-
-function closeModal(
-    element
-) {
-    if (!element) {
-        return;
-    }
-
-    element.classList.remove(
-        "open"
-    );
-
-    element.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    if (
-        !$(".overlay.open")
-    ) {
-        document.body.classList.remove(
-            "modal-open"
-        );
-    }
-}
-
-function closeAllModals() {
-    $$(".overlay.open")
-        .forEach(closeModal);
-}
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function startDiscordLogin() {
-
-    const api =
-        String(
-            ZYNX_CONFIG.API_URL || ""
-        )
-        .trim();
-
-    if (
-        !api ||
-        api.includes(
-            "BURAYA_"
-        )
-    ) {
-        toast(
-            "Backend adresi eksik",
-            "ZYNX_CONFIG.API_URL alanını doldur."
-        );
-
-        return;
-    }
-
-    const cleanApi =
-        api.replace(
-            /\/+$/,
-            ""
-        );
-
-    window.location.href =
-        `${cleanApi}/auth/discord`;
-}
-
-/* =========================================================
-   LOAD SESSION
-========================================================= */
-
-async function loadUser() {
-
-    const api =
-        String(
-            ZYNX_CONFIG.API_URL || ""
-        )
-        .trim();
-
-    if (
-        !api ||
-        api.includes(
-            "BURAYA_"
-        )
-    ) {
-        return;
-    }
-
-    try {
-
-        const response =
-            await fetch(
-                `${api.replace(/\/+$/, "")}/api/auth/me`,
-                {
-                    method: "GET",
-
-                    credentials:
-                        "include",
-
-                    headers: {
-                        Accept:
-                            "application/json"
-                    }
                 }
             );
 
-        if (!response.ok) {
-            return;
         }
 
-        const data =
-            await response.json();
 
-        if (
-            data?.success &&
-            data?.authenticated &&
-            data?.user
-        ) {
-            setUser(
-                data.user
-            );
-        }
+        /* =========================================================
+           MOBILE MENU
+           ========================================================= */
 
-    } catch (error) {
-
-        console.warn(
-            "ZYNX kullanıcı kontrolü başarısız:",
-            error
-        );
-
-    }
-
-}
-
-/* =========================================================
-   SET USER
-========================================================= */
-
-function setUser(
-    user
-) {
-
-    ZYNX_STATE.authenticated =
-        true;
-
-    ZYNX_STATE.user =
-        user;
-
-    updateUserInterface();
-
-}
-
-/* =========================================================
-   USER PLAN
-========================================================= */
-
-function getPlan() {
-
-    return String(
-        ZYNX_STATE.user?.plan ||
-        "FREE"
-    ).toUpperCase();
-
-}
-
-/* =========================================================
-   UPDATE USER INTERFACE
-========================================================= */
-
-function updateUserInterface() {
-
-    const logged =
-        ZYNX_STATE.authenticated &&
-        ZYNX_STATE.user;
-
-    const login =
-        $("#loginButton");
-
-    const userArea =
-        $("#userArea");
-
-    if (logged) {
-
-        login.hidden =
-            true;
-
-        userArea.hidden =
-            false;
-
-        const user =
-            ZYNX_STATE.user;
-
-        const username =
-            user.username ||
-            user.globalName ||
-            "ZYNX User";
-
-        const avatar =
-            user.avatarUrl ||
-            createFallbackAvatar(
-                username
+        const mobileMenuButton =
+            document.getElementById(
+                "mobileMenuButton"
             );
 
-        const plan =
-            getPlan();
 
-        $("#userTriggerAvatar").src =
-            avatar;
+        if (mobileMenuButton) {
 
-        $("#userTriggerName")
-            .textContent =
-            username;
+            mobileMenuButton.addEventListener(
+                "click",
+                () => {
 
-        $("#userTriggerPlan")
-            .textContent =
-            `${plan} PLAN`;
+                    alert(
+                        "Mobil menü, kullanıcı hesabı sistemi bağlandığında aktif olacaktır."
+                    );
 
-        $("#userMenuName")
-            .textContent =
-            username;
-
-        $("#userMenuPlan")
-            .textContent =
-            plan;
-
-        $("#dashboardAvatar").src =
-            avatar;
-
-        $("#dashboardName")
-            .textContent =
-            username;
-
-        $("#dashboardPlan")
-            .textContent =
-            `${plan} PLAN`;
-
-        $("#dashboardPlanMetric")
-            .textContent =
-            plan;
-
-        $("#profileAvatar").src =
-            avatar;
-
-        $("#profileName")
-            .textContent =
-            username;
-
-        $("#profileUsername")
-            .textContent =
-            user.discordUsername ||
-            user.globalName ||
-            username;
-
-        $("#profilePlan")
-            .textContent =
-            plan;
-
-        $("#modalProfileAvatar").src =
-            avatar;
-
-        $("#modalProfileName")
-            .textContent =
-            username;
-
-        $("#modalProfileUsername")
-            .textContent =
-            user.discordUsername ||
-            user.globalName ||
-            username;
-
-        $("#modalProfilePlan")
-            .textContent =
-            plan;
-
-    } else {
-
-        login.hidden =
-            false;
-
-        userArea.hidden =
-            true;
-
-        const fallback =
-            createFallbackAvatar();
-
-        $("#dashboardAvatar").src =
-            fallback;
-
-        $("#profileAvatar").src =
-            fallback;
-
-        $("#modalProfileAvatar").src =
-            fallback;
-
-    }
-
-}
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logout() {
-
-    const api =
-        String(
-            ZYNX_CONFIG.API_URL || ""
-        )
-        .trim();
-
-    if (api) {
-
-        try {
-
-            await fetch(
-                `${api.replace(/\/+$/, "")}/api/auth/logout`,
-                {
-                    method: "POST",
-
-                    credentials:
-                        "include",
-
-                    headers: {
-                        Accept:
-                            "application/json"
-                    }
                 }
             );
 
-        } catch (error) {
-
-            console.warn(
-                "Logout request failed:",
-                error
-            );
-
         }
 
-    }
 
-    ZYNX_STATE.authenticated =
-        false;
+        /* =========================================================
+           SMOOTH SCROLL
+           ========================================================= */
 
-    ZYNX_STATE.user =
-        null;
-
-    $("#userArea")
-        .classList
-        .remove("open");
-
-    updateUserInterface();
-
-    toast(
-        "Çıkış yapıldı",
-        "ZYNX hesabından çıkış yapıldı."
-    );
-
-}
-
-/* =========================================================
-   BOT LINKS
-========================================================= */
-
-function initializeBotLinks() {
-
-    $$("[data-bot]")
-        .forEach(
-            (link) => {
-
-                const bot =
-                    link.dataset.bot;
-
-                const url =
-                    ZYNX_CONFIG
-                        .BOT_INVITES?.[bot];
-
-                if (
-                    url &&
-                    !url.includes(
-                        "BURAYA_"
-                    )
-                ) {
-
-                    link.href =
-                        url;
-
-                    link.target =
-                        "_blank";
-
-                    link.rel =
-                        "noopener noreferrer";
-
-                } else {
+        document
+            .querySelectorAll(
+                'a[href^="#"]'
+            )
+            .forEach(
+                (link) => {
 
                     link.addEventListener(
                         "click",
                         (event) => {
 
-                            event.preventDefault();
-
-                            toast(
-                                "Invite link eksik",
-                                `${bot} botunun davet bağlantısını CONFIG alanına ekle.`
-                            );
-
-                        }
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-/* =========================================================
-   COMMAND FILTER
-========================================================= */
-
-function initializeCommands() {
-
-    const search =
-        $("#commandSearch");
-
-    const filters =
-        $$(".filter");
-
-    const rows =
-        $$(".command-row");
-
-    function render() {
-
-        const query =
-            String(
-                search?.value || ""
-            )
-            .toLowerCase()
-            .trim();
-
-        rows.forEach(
-            (row) => {
-
-                const text =
-                    String(
-                        row.dataset.search || ""
-                    ).toLowerCase();
-
-                const category =
-                    String(
-                        row.dataset.category || ""
-                    ).toUpperCase();
-
-                const matchText =
-                    !query ||
-                    text.includes(
-                        query
-                    );
-
-                const matchCategory =
-                    ZYNX_STATE.filter ===
-                        "ALL" ||
-                    category ===
-                        ZYNX_STATE.filter;
-
-                row.style.display =
-                    matchText &&
-                    matchCategory
-                        ? "grid"
-                        : "none";
-
-            }
-        );
-
-    }
-
-    search?.addEventListener(
-        "input",
-        render
-    );
-
-    filters.forEach(
-        (filter) => {
-
-            filter.addEventListener(
-                "click",
-                () => {
-
-                    ZYNX_STATE.filter =
-                        filter.dataset.filter ||
-                        "ALL";
-
-                    filters.forEach(
-                        (item) => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === filter
-                            );
-
-                        }
-                    );
-
-                    render();
-
-                }
-            );
-
-        }
-    );
-
-}
-
-/* =========================================================
-   PLAN ACTION
-========================================================= */
-
-function startPlan(
-    plan
-) {
-
-    plan =
-        String(
-            plan || "FREE"
-        ).toUpperCase();
-
-    if (
-        plan === "FREE"
-    ) {
-
-        toast(
-            "ZYNX FREE",
-            "FREE plan zaten hesabının temel planı."
-        );
-
-        return;
-
-    }
-
-    if (
-        !ZYNX_STATE.authenticated
-    ) {
-
-        openModal(
-            "loginModal"
-        );
-
-        toast(
-            "Önce Discord ile giriş yap",
-            `${plan} planını başlatmak için hesabına giriş yapmalısın.`
-        );
-
-        return;
-
-    }
-
-    ZYNX_STATE.selectedPlan =
-        plan;
-
-    $("#checkoutPlanName")
-        .textContent =
-        `ZYNX ${plan}`;
-
-    $("#checkoutPlanPrice")
-        .textContent =
-        "İlk ay ücretsiz";
-
-    openModal(
-        "checkoutModal"
-    );
-
-}
-
-/* =========================================================
-   CHECKOUT
-========================================================= */
-
-function continueCheckout() {
-
-    const plan =
-        ZYNX_STATE.selectedPlan;
-
-    if (!plan) {
-
-        toast(
-            "Plan seçilmedi",
-            "Önce bir Premium plan seç."
-        );
-
-        return;
-
-    }
-
-    /*
-     * GERÇEK ÖDEME SAĞLAYICISI
-     *
-     * Burada daha sonra backend tarafından
-     * oluşturulan güvenli checkout URL'sine
-     * yönlendirme yapılacak.
-     *
-     * ÖNEMLİ:
-     * Kart bilgilerini bu HTML/JS içinde
-     * kendimiz toplamıyoruz.
-     */
-
-    const api =
-        String(
-            ZYNX_CONFIG.API_URL || ""
-        )
-        .trim();
-
-    if (
-        !api ||
-        api.includes(
-            "BURAYA_"
-        )
-    ) {
-
-        toast(
-            "Checkout backend'i hazır değil",
-            "Ödeme sağlayıcısı backend'e bağlandığında bu buton gerçek ödeme ekranını açacak."
-        );
-
-        return;
-
-    }
-
-    toast(
-        `${plan} checkout`,
-        "Güvenli ödeme sağlayıcısı bağlantısı sonraki entegrasyon adımında açılacak."
-    );
-
-}
-
-/* =========================================================
-   USER MENU
-========================================================= */
-
-function initializeUserMenu() {
-
-    const area =
-        $("#userArea");
-
-    const trigger =
-        $("#userTrigger");
-
-    trigger?.addEventListener(
-        "click",
-        (event) => {
-
-            event.stopPropagation();
-
-            area.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-    document.addEventListener(
-        "click",
-        () => {
-
-            area.classList.remove(
-                "open"
-            );
-
-        }
-    );
-
-}
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function initializeModals() {
-
-    $$("[data-close-modal]")
-        .forEach(
-            (button) => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        closeModal(
-                            button.closest(
-                                ".overlay"
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-    $$(".overlay")
-        .forEach(
-            (overlay) => {
-
-                overlay.addEventListener(
-                    "click",
-                    (event) => {
-
-                        if (
-                            event.target ===
-                            overlay
-                        ) {
-
-                            closeModal(
-                                overlay
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    document.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeAllModals();
-
-            }
-
-        }
-    );
-
-}
-
-/* =========================================================
-   LOGIN BUTTONS
-========================================================= */
-
-$("#loginButton")
-    ?.addEventListener(
-        "click",
-        () => {
-
-            if (
-                ZYNX_STATE.authenticated
-            ) {
-                return;
-            }
-
-            openModal(
-                "loginModal"
-            );
-
-        }
-    );
-
-$("#heroLogin")
-    ?.addEventListener(
-        "click",
-        () => {
-
-            if (
-                ZYNX_STATE.authenticated
-            ) {
-
-                $("#dashboard")
-                    ?.scrollIntoView({
-                        behavior:
-                            "smooth"
-                    });
-
-                return;
-
-            }
-
-            openModal(
-                "loginModal"
-            );
-
-        }
-    );
-
-$("#modalLogin")
-    ?.addEventListener(
-        "click",
-        () => {
-
-            startDiscordLogin();
-
-        }
-    );
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-$("#logoutButton")
-    ?.addEventListener(
-        "click",
-        () => {
-
-            logout();
-
-        }
-    );
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-$$("[data-open-profile]")
-    .forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    $("#userArea")
-                        .classList
-                        .remove(
-                            "open"
-                        );
-
-                    if (
-                        !ZYNX_STATE.authenticated
-                    ) {
-
-                        openModal(
-                            "loginModal"
-                        );
-
-                        return;
-
-                    }
-
-                    openModal(
-                        "profileModal"
-                    );
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   PREMIUM OPEN
-========================================================= */
-
-$$("[data-open-premium]")
-    .forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    closeAllModals();
-
-                    $("#userArea")
-                        .classList
-                        .remove(
-                            "open"
-                        );
-
-                    $("#premium")
-                        ?.scrollIntoView({
-                            behavior:
-                                "smooth"
-                        });
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   DASHBOARD OPEN
-========================================================= */
-
-$$("[data-open-dashboard]")
-    .forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    closeAllModals();
-
-                    $("#userArea")
-                        .classList
-                        .remove(
-                            "open"
-                        );
-
-                    $("#dashboard")
-                        ?.scrollIntoView({
-                            behavior:
-                                "smooth"
-                        });
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   PLAN BUTTONS
-========================================================= */
-
-$$("[data-plan-action]")
-    .forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    startPlan(
-                        button.dataset.planAction
-                    );
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   CHECKOUT BUTTON
-========================================================= */
-
-$("#checkoutContinue")
-    ?.addEventListener(
-        "click",
-        continueCheckout
-    );
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-$$("[data-scroll]")
-    .forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const target =
-                        document.querySelector(
-                            button.dataset.scroll
-                        );
-
-                    target?.scrollIntoView({
-                        behavior:
-                            "smooth"
-                    });
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   NAV ACTIVE
-========================================================= */
-
-function initializeNavigation() {
-
-    const sections =
-        $$("main section[id]");
-
-    const links =
-        $$(".nav-link");
-
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-                        links.forEach(
-                            (link) => {
-
-                                link.classList.toggle(
-                                    "active",
-                                    link.getAttribute(
+                            const targetId =
+                                link
+                                    .getAttribute(
                                         "href"
-                                    ) ===
-                                    `#${entry.target.id}`
+                                    );
+
+                            if (
+                                !targetId ||
+                                targetId === "#"
+                            ) {
+                                return;
+                            }
+
+                            const target =
+                                document.querySelector(
+                                    targetId
                                 );
 
+                            if (!target) {
+                                return;
                             }
-                        );
 
-                    }
-                );
+                            event.preventDefault();
 
-            },
-            {
-                rootMargin:
-                    "-18% 0px -65% 0px"
-            }
-        );
-
-    sections.forEach(
-        (section) =>
-            observer.observe(
-                section
-            )
-    );
-
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-function initializeMobile() {
-
-    const button =
-        $("#mobileButton");
-
-    const nav =
-        $("#mobileNav");
-
-    button?.addEventListener(
-        "click",
-        () => {
-
-            nav.hidden =
-                !nav.hidden;
-
-        }
-    );
-
-    $$("#mobileNav a")
-        .forEach(
-            (link) => {
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        nav.hidden =
-                            true;
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-function initializeReveal() {
-
-    const elements =
-        $$(".reveal");
-
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "visible"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start"
+                            });
 
                         }
+                    );
 
-                    }
-                );
-
-            },
-            {
-                threshold:
-                    .10
-            }
-        );
-
-    elements.forEach(
-        (element) =>
-            observer.observe(
-                element
-            )
-    );
-
-}
-
-/* =========================================================
-   LOGIN RESULT
-========================================================= */
-
-function handleLoginResult() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const result =
-        params.get("login");
-
-    if (!result) {
-        return;
-    }
-
-    switch (result) {
-
-        case "success":
-
-            toast(
-                "Giriş başarılı",
-                "Discord hesabın ZYNX'e başarıyla bağlandı."
+                }
             );
 
-            break;
-
-        case "cancelled":
-
-            toast(
-                "Giriş iptal edildi",
-                "Discord giriş işlemi iptal edildi."
-            );
-
-            break;
-
-        case "security_error":
-
-            toast(
-                "Güvenlik doğrulaması başarısız",
-                "OAuth2 state doğrulaması tamamlanamadı."
-            );
-
-            break;
-
-        case "invalid_request":
-
-            toast(
-                "Geçersiz giriş",
-                "OAuth2 isteği tamamlanamadı."
-            );
-
-            break;
-
-        case "error":
-
-            toast(
-                "Giriş başarısız",
-                "Discord bağlantısı kurulamadı."
-            );
-
-            break;
-
-    }
-
-    const cleanUrl =
-        `${window.location.pathname}${window.location.hash}`;
-
-    history.replaceState(
-        {},
-        document.title,
-        cleanUrl
-    );
-
-}
-
-/* =========================================================
-   VERSION
-========================================================= */
-
-function initializeVersion() {
-
-    $("#footerVersion")
-        .textContent =
-        ZYNX_CONFIG.VERSION;
-
-}
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-async function initializeZYNX() {
-
-    initializeVersion();
-
-    initializeBotLinks();
-
-    initializeCommands();
-
-    initializeUserMenu();
-
-    initializeModals();
-
-    initializeNavigation();
-
-    initializeMobile();
-
-    initializeReveal();
-
-    updateUserInterface();
-
-    handleLoginResult();
-
-    await loadUser();
-
-}
-
-document.addEventListener(
-    "DOMContentLoaded",
-    initializeZYNX
-);
-</script>
+    </script>
 
 </body>
 </html>
