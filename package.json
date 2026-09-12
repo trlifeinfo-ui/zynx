@@ -1,0 +1,21 @@
+{
+  "name": "zynx-web-auth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ZYNX Web Discord OAuth2 Authentication Server",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2"
+  }
+}
